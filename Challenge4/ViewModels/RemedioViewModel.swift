@@ -35,12 +35,13 @@ class RemedioViewModel: ObservableObject {
         }
     }
     
-    func addRemedio(remedioNome: String, dosagem: String, horario: String) {
+    func addRemedio(remedioNome: String, dosagem: String, horario: String, imagem: Data) {
         let newRemedio = RemedioEntity(context: container.viewContext)
         
         newRemedio.nomeRemedio = remedioNome
         newRemedio.dosagem = dosagem
         newRemedio.horario = horario
+        newRemedio.imagem = imagem
         
         print("remedio adicionado")
         
