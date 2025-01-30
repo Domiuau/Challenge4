@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		79318CA12D4C0C4700667196 /* CoreDataContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79318C9F2D4C0C4700667196 /* CoreDataContainer.xcdatamodeld */; };
-		79318CA32D4C0E6E00667196 /* PressaoCoreDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79318CA22D4C0E6E00667196 /* PressaoCoreDataViewModel.swift */; };
+		79318CA32D4C0E6E00667196 /* PressaoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79318CA22D4C0E6E00667196 /* PressaoViewModel.swift */; };
 		79C451A62D4A9D070025CA15 /* Challenge4App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C451A52D4A9D070025CA15 /* Challenge4App.swift */; };
 		79C451A82D4A9D070025CA15 /* PressaoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C451A72D4A9D070025CA15 /* PressaoView.swift */; };
 		79C451AA2D4A9D080025CA15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79C451A92D4A9D080025CA15 /* Assets.xcassets */; };
@@ -23,7 +23,7 @@
 
 /* Begin PBXFileReference section */
 		79318CA02D4C0C4700667196 /* CoreDataContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataContainer.xcdatamodel; sourceTree = "<group>"; };
-		79318CA22D4C0E6E00667196 /* PressaoCoreDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressaoCoreDataViewModel.swift; sourceTree = "<group>"; };
+		79318CA22D4C0E6E00667196 /* PressaoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressaoViewModel.swift; sourceTree = "<group>"; };
 		79C451A22D4A9D070025CA15 /* Challenge4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Challenge4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79C451A52D4A9D070025CA15 /* Challenge4App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge4App.swift; sourceTree = "<group>"; };
 		79C451A72D4A9D070025CA15 /* PressaoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressaoView.swift; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 			children = (
 				D4BBEA872D4BFDAB0087C1E4 /* SaveVM.swift */,
 				7BE0CA112D4C0760007865A4 /* RemedioCoreDataViewModel.swift */,
-				79318CA22D4C0E6E00667196 /* PressaoCoreDataViewModel.swift */,
+				79318CA22D4C0E6E00667196 /* PressaoViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -201,7 +201,7 @@
 				79C451A82D4A9D070025CA15 /* PressaoView.swift in Sources */,
 				79C451A62D4A9D070025CA15 /* Challenge4App.swift in Sources */,
 				D4BBEA8A2D4BFDB70087C1E4 /* SaveM.swift in Sources */,
-				79318CA32D4C0E6E00667196 /* PressaoCoreDataViewModel.swift in Sources */,
+				79318CA32D4C0E6E00667196 /* PressaoViewModel.swift in Sources */,
 				79318CA12D4C0C4700667196 /* CoreDataContainer.xcdatamodeld in Sources */,
 				D4BBEA882D4BFDAB0087C1E4 /* SaveVM.swift in Sources */,
 				D4CC80682D4C0E4D001862F8 /* TabBarComponent.swift in Sources */,
