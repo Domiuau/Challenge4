@@ -36,7 +36,7 @@ class PressaoViewModel: ObservableObject {
     
     
     func fetchPressoes() {
-        let request = NSFetchRequest<PressaoEntity>(entityName: "RemedioEntity")
+        let request = NSFetchRequest<PressaoEntity>(entityName: "PressaoEntity")
         
         do {
            entidadeSalvas = try container.viewContext.fetch(request)
@@ -48,8 +48,11 @@ class PressaoViewModel: ObservableObject {
     }
     
     func addPressao(diastolica: Int, sistolica: Int) {
+        
         let newPressao = PressaoEntity(context: container.viewContext)
-       
+        newPressao.diastolica = Int16(diastolica)
+        newPressao.sistolica = Int16(diastolica)
+        newPressao.data = Date()
         saveData()
     }
     

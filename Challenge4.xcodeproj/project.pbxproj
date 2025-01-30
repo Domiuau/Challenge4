@@ -124,6 +124,7 @@
 				7BE0CA192D4C0AC1007865A4 /* RemediosListView.swift */,
 				7BE0CA1F2D4C15FB007865A4 /* AdicionarRemedio.swift */,
 				D4CC80692D4C1024001862F8 /* SobreView.swift */,
+				79318CA62D4C12A300667196 /* Testepressao.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -132,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				D4CC80672D4C0E4D001862F8 /* TabBarComponent.swift */,
+				79318CA82D4C18B300667196 /* GraficoPressoesComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -211,6 +213,7 @@
 				7BE0CA1A2D4C0AC1007865A4 /* RemediosListView.swift in Sources */,
 				D4CC806A2D4C1024001862F8 /* SobreView.swift in Sources */,
 				79C451A82D4A9D070025CA15 /* PressaoView.swift in Sources */,
+				79318CA72D4C12A300667196 /* Testepressao.swift in Sources */,
 				79C451A62D4A9D070025CA15 /* Challenge4App.swift in Sources */,
 				D4BBEA8A2D4BFDB70087C1E4 /* SaveM.swift in Sources */,
 				79318CA32D4C0E6E00667196 /* PressaoViewModel.swift in Sources */,
