@@ -14,7 +14,7 @@ class RemedioCoreDataViewModel: ObservableObject {
     @Published var savedEntities: [RemedioEntity] = []
     
     init() {
-        container = NSPersistentContainer(name: "RemedioContainer")
+        container = NSPersistentContainer(name: "CoreDataContainer")
         container.loadPersistentStores { description, error in
             if let error = error {
                 print("Error loading core data \(error)")
@@ -35,11 +35,11 @@ class RemedioCoreDataViewModel: ObservableObject {
         }
     }
     
-    func addRemedio(remedioNome: String, miligrama: Int32, horario: String) {
+    func addRemedio(remedioNome: String, dosagem: String, horario: String) {
         let newRemedio = RemedioEntity(context: container.viewContext)
         
         newRemedio.nomeRemedio = remedioNome
-        newRemedio.miligrama = miligrama
+        newRemedio.dosagem = dosagem
         newRemedio.horario = horario
         
         saveRemedios()
