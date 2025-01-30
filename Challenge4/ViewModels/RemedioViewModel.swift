@@ -42,6 +42,8 @@ class RemedioViewModel: ObservableObject {
         newRemedio.dosagem = dosagem
         newRemedio.horario = horario
         
+        print("remedio adicionado")
+        
         saveRemedios()
     }
     
@@ -55,6 +57,7 @@ class RemedioViewModel: ObservableObject {
     func saveRemedios() {
         do {
             try container.viewContext.save()
+            print("salvo")
             fetchRemedios()
         } catch let error {
             print("Error saving. \(error)")

@@ -15,7 +15,17 @@ struct RemediosListView: View {
     
     var body: some View {
         NavigationView {
-            
+            VStack{
+                NavigationLink("Adicionar Remédio", destination: AdicionarRemedio())
+                
+                List {
+                    ForEach(vm.savedEntities) { entity in
+                        Text(entity.nomeRemedio ?? "SEM NOME")
+                        Text(entity.dosagem ?? "SEM DOSAGEM")
+                        Text(entity.H ?? "SEM HORARIO")
+                    }
+                }.navigationTitle("Remédios")
+            }
         }
     }
 }
