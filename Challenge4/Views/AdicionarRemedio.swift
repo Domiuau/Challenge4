@@ -9,7 +9,6 @@ import SwiftUI
 
 struct AdicionarRemedio: View {
     
-    
     @StateObject var vm = RemedioViewModel()
     
     @State var nomeRemedio: String = ""
@@ -17,7 +16,7 @@ struct AdicionarRemedio: View {
     @State var horario: String = ""
     
     var body: some View {
-        VStack {
+        VStack(spacing: 20) {
             TextField("Nome do Remédio", text: $nomeRemedio)
                 .font(.headline)
                 .padding(.leading)
@@ -34,7 +33,7 @@ struct AdicionarRemedio: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .padding(.horizontal)
             
-            TextField("Horário a tomar", text: $horario)
+            TextField("Horário a ser tomado", text: $horario)
                 .font(.headline)
                 .padding(.leading)
                 .frame(height: 55)
@@ -48,8 +47,8 @@ struct AdicionarRemedio: View {
                 guard !dosagem.isEmpty else { return }
                 guard !horario.isEmpty else { return }
                 
-                
                 vm.addRemedio(remedioNome: nomeRemedio, dosagem: dosagem, horario: horario)
+                
                 nomeRemedio = ""
                 dosagem = ""
                 horario = ""
@@ -63,9 +62,12 @@ struct AdicionarRemedio: View {
                     .background(Color.blue)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .padding(.horizontal)
-                    
+                
             })
         }
     }
 }
 
+#Preview {
+    AdicionarRemedio()
+}

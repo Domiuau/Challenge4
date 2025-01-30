@@ -20,7 +20,7 @@ struct RemediosListView: View {
                     ForEach(vm.savedEntities) { entity in
                         Text(entity.nomeRemedio ?? "SEM NOME")
                         Text(entity.dosagem ?? "SEM DOSAGEM")
-                        Text(entity.H ?? "SEM HORARIO")
+                        Text(entity.horario ?? "SEM HORARIO")
                     }
                 }.navigationTitle("Remédios")
             }
