@@ -29,7 +29,6 @@ struct RemediosListView: View {
                         .padding(.horizontal)
                 })
             }
-            .sheet(item: <#T##Binding<Identifiable?>#>, content: <#T##(Identifiable) -> View#>)
         }
     }
 }

@@ -11,7 +11,7 @@ import SwiftUI
 struct Challenge4App: App {
     var body: some Scene {
         WindowGroup {
-            RemediosListView()
+            TabBarComponent()
         }
     }
 }
