@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class RemedioCoreDataViewModel: ObservableObject {
+class RemedioViewModel: ObservableObject {
     let container: NSPersistentContainer
     
     @Published var savedEntities: [RemedioEntity] = []
@@ -42,12 +42,15 @@ class RemedioCoreDataViewModel: ObservableObject {
         newRemedio.dosagem = dosagem
         newRemedio.horario = horario
         
+        print("remedio adicionado")
+        
         saveRemedios()
     }
     
     func saveRemedios() {
         do {
             try container.viewContext.save()
+            print("salvo")
             fetchRemedios()
         } catch let error {
             print("Error ssaving. \(error)")

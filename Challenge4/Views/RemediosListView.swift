@@ -9,27 +9,21 @@ import SwiftUI
 
 struct RemediosListView: View {
     
-    @StateObject var vm = RemedioCoreDataViewModel()
-    @State var isShowing: Bool = false
-    
+    @StateObject var vm = RemedioViewModel()
     
     var body: some View {
         NavigationView {
-            VStack {
-                Button(action: {
-                    isShowing = true
-                }, label: {
-                    Text("Adicionar Remédio")
-                        .font(.title)
-                        .foregroundStyle(Color.white)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.blue)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .padding(.horizontal)
-                })
+            VStack{
+                NavigationLink("Adicionar Remédio", destination: AdicionarRemedio())
+                
+                List {
+                    ForEach(vm.savedEntities) { entity in
+                        Text(entity.nomeRemedio ?? "SEM NOME")
+                        Text(entity.dosagem ?? "SEM DOSAGEM")
+                        Text(entity.H ?? "SEM HORARIO")
+                    }
+                }.navigationTitle("Remédios")
             }
-            .sheet(item: <#T##Binding<Identifiable?>#>, content: <#T##(Identifiable) -> View#>)
         }
     }
 }
