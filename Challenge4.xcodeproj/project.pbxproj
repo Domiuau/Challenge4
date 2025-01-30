@@ -111,6 +111,8 @@
 			children = (
 				D4BBEA872D4BFDAB0087C1E4 /* SaveVM.swift */,
 				7BE0CA112D4C0760007865A4 /* RemedioViewModel.swift */,
+				7BE0CA112D4C0760007865A4 /* RemedioCoreDataViewModel.swift */,
+				79318CA22D4C0E6E00667196 /* PressaoCoreDataViewModel.swift */,
 				79318CA22D4C0E6E00667196 /* PressaoViewModel.swift */,
 			);
 			path = ViewModels;

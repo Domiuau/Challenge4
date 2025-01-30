@@ -10,6 +10,8 @@ import SwiftUI
 struct RemediosListView: View {
     
     @StateObject var vm = RemedioViewModel()
+    @State var isShowing: Bool = false
+    
     
     var body: some View {
         NavigationView {
