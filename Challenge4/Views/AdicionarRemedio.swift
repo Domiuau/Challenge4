@@ -91,7 +91,7 @@ struct AdicionarRemedio: View {
             .padding(.horizontal)
             .frame(maxWidth: .infinity)
         }
-        .navigationTitle("Novo Remédio")
+        .navigationTitle("Cadastro de \nRemédios")
         .onChange(of: photoPicker, { _, _ in
             Task {
                 if let photoPicker, let data = try? await photoPicker.loadTransferable(type: Data.self) {
