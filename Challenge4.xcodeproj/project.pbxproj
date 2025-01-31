@@ -22,6 +22,7 @@
 		D4BBEA8A2D4BFDB70087C1E4 /* SaveM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BBEA892D4BFDB70087C1E4 /* SaveM.swift */; };
 		D4CC80682D4C0E4D001862F8 /* TabBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CC80672D4C0E4D001862F8 /* TabBarComponent.swift */; };
 		D4CC806A2D4C1024001862F8 /* SobreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CC80692D4C1024001862F8 /* SobreView.swift */; };
+		D4D14C4C2D4D4D5800EBEFC6 /* HistoricoPressaoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D14C4B2D4D4D5800EBEFC6 /* HistoricoPressaoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		D4BBEA892D4BFDB70087C1E4 /* SaveM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveM.swift; sourceTree = "<group>"; };
 		D4CC80672D4C0E4D001862F8 /* TabBarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarComponent.swift; sourceTree = "<group>"; };
 		D4CC80692D4C1024001862F8 /* SobreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SobreView.swift; sourceTree = "<group>"; };
+		D4D14C4B2D4D4D5800EBEFC6 /* HistoricoPressaoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricoPressaoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 				7BE0CA192D4C0AC1007865A4 /* RemediosListView.swift */,
 				7BE0CA1F2D4C15FB007865A4 /* AdicionarRemedio.swift */,
 				D4CC80692D4C1024001862F8 /* SobreView.swift */,
+				D4D14C4B2D4D4D5800EBEFC6 /* HistoricoPressaoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 				D4CC806A2D4C1024001862F8 /* SobreView.swift in Sources */,
 				D402FDA22D4D498000A1D88C /* BotaoAcaoComponent.swift in Sources */,
 				79C451A82D4A9D070025CA15 /* PressaoView.swift in Sources */,
+				D4D14C4C2D4D4D5800EBEFC6 /* HistoricoPressaoView.swift in Sources */,
 				79C451A62D4A9D070025CA15 /* Challenge4App.swift in Sources */,
 				D4BBEA8A2D4BFDB70087C1E4 /* SaveM.swift in Sources */,
 				79318CA32D4C0E6E00667196 /* PressaoViewModel.swift in Sources */,
@@ -354,6 +358,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Challenge4/Preview Content\"";
+				DEVELOPMENT_TEAM = H9743QX4SQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
@@ -393,6 +398,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Challenge4/Preview Content\"";
+				DEVELOPMENT_TEAM = H9743QX4SQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";

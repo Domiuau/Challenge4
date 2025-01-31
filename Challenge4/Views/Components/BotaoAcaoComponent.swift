@@ -9,20 +9,31 @@ import SwiftUI
 
 struct BotaoAcaoComponent: View {
     let texto: String
-    let action: () -> Void
+    var action: (() -> Void)?  // Permitir ação opcional
 
     var body: some View {
-        Button(action: action) {
+        if let action = action {
+            Button(action: action) {
+                Text(texto)
+                    .frame(maxWidth: .infinity)
+            }
+            .padding()
+            .frame(width: 300, height: 40)
+            .background(Color.outroVinho)
+            .foregroundColor(.white)
+            .cornerRadius(50)
+        } else {
             Text(texto)
                 .frame(maxWidth: .infinity)
+                .padding()
+                .frame(width: 300, height: 40)
+                .background(Color.outroVinho)
+                .foregroundColor(.white)
+                .cornerRadius(50)
         }
-        .padding()
-        .frame(width: 300, height: 40)
-        .background(Color.vinhoBotoes)
-        .foregroundColor(.white)
-        .cornerRadius(50)
     }
 }
+
 
 
 //#Preview {
