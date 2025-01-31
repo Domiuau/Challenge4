@@ -31,8 +31,14 @@ struct PressaoView: View {
                             .onChange(of: inputTextS) { newValue in
                                 sistolica = Int(newValue)
                             }
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 30)
+                                    .frame(height: 3)
+                                    .opacity(0.44)
+                                    .foregroundColor(.gray), alignment: .bottom
+                            )
                         
-                        Spacer().frame(height: 10)
+                        Spacer().frame(height: 16)
                         
                         TextField("Diastólico", text: $inputTextD)
                             .keyboardType(.numberPad)
@@ -40,6 +46,12 @@ struct PressaoView: View {
                             .onChange(of: inputTextD) { newValue in
                                 diastolica = Int(newValue)
                             }
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 30)
+                                    .frame(height: 3)
+                                    .opacity(0.44)
+                                    .foregroundColor(.gray), alignment: .bottom
+                            )
                     }
                     .padding()
                     
