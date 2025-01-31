@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct Challenge4App: App {
+    let persistenceController =  PersistenceController.persistencia
     var body: some Scene {
         WindowGroup {
             TabBarComponent()
