@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct TabBarComponent: View {
+    
+    let pressaoViewModel: PressaoViewModel
+    
     var body: some View {
         TabView {
             NavigationStack {
-                PressaoView()
+                PressaoView(vm: pressaoViewModel)
             }
             .tabItem {
                 Image(systemName: "heart.fill")
@@ -38,5 +41,5 @@ struct TabBarComponent: View {
 }
 
 #Preview {
-    TabBarComponent()
+    TabBarComponent(pressaoViewModel: PressaoViewModel())
 }

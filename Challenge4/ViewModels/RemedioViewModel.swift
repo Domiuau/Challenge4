@@ -29,10 +29,11 @@ class RemedioViewModel: ObservableObject {
         saveRemedios()
     }
     
-    func updateRemedio(remedioNome: String, dosagem: String, horario: String, entidade: RemedioEntity) {
+    func updateRemedio(remedioNome: String, dosagem: String, horario: String, imagem: Data, entidade: RemedioEntity) {
         entidade.nomeRemedio = remedioNome
         entidade.dosagem = dosagem
         entidade.horario = horario
+        entidade.imagem = imagem
         saveRemedios()
     }
     

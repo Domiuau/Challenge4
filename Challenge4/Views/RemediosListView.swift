@@ -23,7 +23,11 @@ struct RemediosListView: View {
                 else {
                     List {
                         ForEach(vm.entidadeSalvasRemedio) { entidade in
-                            HStack {
+                            NavigationLink {
+                                
+                                EditarRemedioView(entidade: entidade, vm: vm)
+                                
+                            } label: {
                                 if let data = entidade.imagem {
                                     Image(uiImage: UIImage(data: data)!.resized(to:200)!)
                                         .resizable()
