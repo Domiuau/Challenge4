@@ -13,13 +13,12 @@ struct PressaoView: View {
     @State private var inputTextS: String = ""
     @State private var inputTextD: String = ""
     @StateObject var vm = PressaoViewModel()
-    
+
     var body: some View {
-        
         ScrollView {
             VStack {
                 Text("Como está a sua pressão hoje?")
-                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                    .font(.title)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
@@ -38,7 +37,7 @@ struct PressaoView: View {
                         .keyboardType(.numberPad)
                         .font(.system(size: 50))
                         .onChange(of: inputTextD) { newValue in
-                            sistolica = Int(newValue)
+                            diastolica = Int(newValue)
                         }
                 }
                 .padding()
@@ -55,12 +54,38 @@ struct PressaoView: View {
                 .background(.vinhoBotoes)
                 .foregroundColor(.white)
                 .cornerRadius(50)
+
+                Divider()
+                    .padding()
+
+                Text("Histórico de Pressões")
+                    .font(.headline)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
+
+                List {
+                    ForEach(vm.entidadeSalvas, id: \.self) { pressao in
+                        VStack(alignment: .leading) {
+                            Text("Sistólica: \(pressao.sistolica)")
+                            Text("Diastólica: \(pressao.diastolica)")
+                            Text("Data: \(pressao.data?.formatted(date: .abbreviated, time: .shortened) ?? "Sem data")")
+                                .font(.caption)
+                                .foregroundColor(.gray)
+                        }
+                    }
+                    .onDelete(perform: vm.deletePressao)
+                }
+                .frame(height: 300)
             }
             .padding()
         }
         .navigationTitle("Pressão")
+        .onAppear {
+            vm.fetchPressoes()  // Buscar registros ao abrir a tela
+        }
     }
 }
+
 
 #Preview {
     PressaoView()
