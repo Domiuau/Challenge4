@@ -23,7 +23,7 @@ struct AdicionarRemedio: View {
         VStack(alignment: .leading, spacing: 20) {
             HStack{
                 PhotosPicker(selection: $photoPicker, matching: .images) {
-                    Image(uiImage: imagem ?? UIImage(named: "remedios")!.resized(to:200)!)
+                    Image(uiImage: imagem ?? UIImage(named: "remedios")!.resized(to:50)!)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 100, height: 100)

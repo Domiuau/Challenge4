@@ -12,43 +12,56 @@ struct RemediosListView: View {
     @StateObject var vm = RemedioViewModel()
     
     var body: some View {
-        ScrollView {
-            NavigationView {
-                VStack{
-                    NavigationLink("Adicionar Remédio", destination: AdicionarRemedio(vm: vm))
-                    
+
+        NavigationView {
+                if vm.entidadeSalvasRemedio.isEmpty {
+                    Text("Nenhum\nremédio\ncadastrado.")
+                        .multilineTextAlignment(.center)
+                        .font(.title)
+                        .foregroundColor(.cinzaClaro)
+                }
+                else {
                     List {
-                        HStack {
-                            ForEach(vm.entidadeSalvasRemedio) { entidade in
+                        ForEach(vm.entidadeSalvasRemedio) { entidade in
+                            HStack {
                                 if let data = entidade.imagem {
                                     Image(uiImage: UIImage(data: data)!.resized(to:200)!)
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                    // .frame(width: 50, height: 50)
+                                        .frame(width: 70, height: 70)
                                 } else {
                                     Image(uiImage: UIImage(named: "remedios")!.resized(to:200)!)
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                    // .frame(width: 50, height: 50)
+                                        .frame(width: 70, height: 70)
                                 }
                                 
                                 VStack (alignment: .leading) {
                                     Text("**\(entidade.nomeRemedio ?? "SEM NOME")**")
                                         .padding(.vertical)
-                                    Text("Dosagem: **\(entidade.horario ?? "SEM HORARIO")**")
-                                    Text("Horário: **\(entidade.dosagem ?? "SEM DOSAGEM")**")
-                                    
-                                }
-                                .padding(10)
+                                    Text("Dosagem: **\(entidade.dosagem ?? "SEM DOSAGEM")**")
+                                    Text("Horário: **\(entidade.horario ?? "SEM HORARIO")**")                                }
                             }
                         }
-                        .frame(height: 100)
-                        .padding(10)
+                        .onDelete(perform: vm.deleteRemedios)
                     }
                 }
-            }
+        }
+        .onAppear {
+            vm.fetchRemedios()
         }
         .navigationTitle("Remédios")
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                NavigationLink(destination: AdicionarRemedio(vm: vm)) {
+                    Image("Group 1")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 30)
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
+        }
     }
 }
 
