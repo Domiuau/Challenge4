@@ -52,8 +52,21 @@ class PressaoViewModel: ObservableObject {
         
     }
     
-    func situacaoPressao() -> String {
-        return ""
+    func situacaoPressao(sistolica: Int, diastolica: Int) -> String {
+        switch (sistolica, diastolica) {
+            case (..<90, _), (_, ..<60):
+                return "baixa"
+            case (90...119, 60...79):
+                return "normal"
+            case (120...129, 60...79):
+                return "elevada"
+            case (130...139, 80...89):
+                return "hipertensão estágio 1"
+            case (140...179, 90...119):
+                return "hipertensão estágio 2"
+            default:
+                return "valores inválidos"
+            }
     }
     
     func formatarData(_ date: Date) -> String {

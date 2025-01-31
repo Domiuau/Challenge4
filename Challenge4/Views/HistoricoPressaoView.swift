@@ -22,7 +22,7 @@ struct HistoricoPressaoView: View {
                     Text("\(pressao.sistolica)/\(pressao.diastolica)")
                         .font(.title)
                     HStack {
-                        Text("Normal")
+                        Text(vm.situacaoPressao(sistolica: Int(pressao.sistolica), diastolica: Int(pressao.diastolica)))
                             .font(.title2)
                         Spacer()
                         Text(pressao.data != nil ? vm.formatarData(pressao.data!) : "Sem data")
