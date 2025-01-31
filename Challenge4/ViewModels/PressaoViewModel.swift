@@ -51,9 +51,11 @@ class PressaoViewModel: ObservableObject {
         
         let newPressao = PressaoEntity(context: container.viewContext)
         newPressao.diastolica = Int16(diastolica)
-        newPressao.sistolica = Int16(diastolica)
+        newPressao.sistolica = Int16(sistolica)
         newPressao.data = Date()
         saveData()
+        
+        print("dados salvos")
     }
     
     func saveData() {

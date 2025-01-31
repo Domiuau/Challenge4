@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct PressaoView: View {
-    @State private var sistolico: Int? = nil
-    @State private var diastolico: Int? = nil
+    @State private var sistolica: Int? = nil
+    @State private var diastolica: Int? = nil
     @State private var inputTextS: String = ""
     @State private var inputTextD: String = ""
+    @StateObject var vm = PressaoViewModel()
     
     var body: some View {
         
@@ -28,7 +29,7 @@ struct PressaoView: View {
                         .keyboardType(.numberPad)
                         .font(.system(size: 50))
                         .onChange(of: inputTextS) { newValue in
-                            sistolico = Int(newValue)
+                            sistolica = Int(newValue)
                         }
                     
                     Spacer().frame(height: 10)
@@ -37,13 +38,17 @@ struct PressaoView: View {
                         .keyboardType(.numberPad)
                         .font(.system(size: 50))
                         .onChange(of: inputTextD) { newValue in
-                            sistolico = Int(newValue)
+                            sistolica = Int(newValue)
                         }
                 }
                 .padding()
                 
                 Button("Salvar") {
-                    
+                    if let sistolica = sistolica, let diastolica = diastolica {
+                        vm.addPressao(diastolica: diastolica, sistolica: sistolica)
+                        inputTextS = ""
+                        inputTextD = ""
+                    }
                 }
                 .padding()
                 .frame(width: 300, height: 40)
