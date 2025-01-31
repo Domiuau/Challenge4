@@ -9,27 +9,13 @@ import Foundation
 import CoreData
 
 class PressaoViewModel: ObservableObject {
-    
-    let container: NSPersistentContainer
+    private let conteudo = PersistenceController.persistencia.container.viewContext
     @Published var entidadeSalvas: [PressaoEntity] = []
-    
-    init() {
-        
-        self.container = NSPersistentContainer(name: "CoreDataContainer")
-        self.container.loadPersistentStores { description, error in
-            if let error = error {
-                print(error)
-            } else {
-                print("foi")
-            }
-        }
-        fetchPressoes()
-    }
     
     func deletePressao(index: IndexSet) {
         guard let index = index.first else { return }
         let entidade = entidadeSalvas[index]
-        container.viewContext.delete(entidade)
+        conteudo.delete(entidade)
         saveData()
         
     }
@@ -39,7 +25,7 @@ class PressaoViewModel: ObservableObject {
         let request = NSFetchRequest<PressaoEntity>(entityName: "PressaoEntity")
         
         do {
-           entidadeSalvas = try container.viewContext.fetch(request)
+           entidadeSalvas = try conteudo.fetch(request)
             
         } catch let error {
             print(error)
@@ -48,8 +34,9 @@ class PressaoViewModel: ObservableObject {
     }
     
     func addPressao(diastolica: Int, sistolica: Int) {
+        print("dados salvos")
         
-        let newPressao = PressaoEntity(context: container.viewContext)
+        let newPressao = PressaoEntity(context: conteudo)
         newPressao.diastolica = Int16(diastolica)
         newPressao.sistolica = Int16(sistolica)
         newPressao.data = Date()
@@ -62,7 +49,7 @@ class PressaoViewModel: ObservableObject {
         
         do {
             
-            try container.viewContext.save()
+            try conteudo.save()
            fetchPressoes()
             
         } catch let error {
