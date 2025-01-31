@@ -1,20 +1,13 @@
-//
-//  PressaoCoreDataViewModel.swift
-//  Challenge4
-//
-//  Created by GUILHERME MATEUS SOUSA SANTOS on 30/01/25.
-//
-
 import Foundation
 import CoreData
 
 class PressaoViewModel: ObservableObject {
     private let conteudo = PersistenceController.persistencia.container.viewContext
-    @Published var entidadeSalvas: [PressaoEntity] = []
+    @Published var entidadeSalvasPressao: [PressaoEntity] = []
     
     func deletePressao(index: IndexSet) {
         guard let index = index.first else { return }
-        let entidade = entidadeSalvas[index]
+        let entidade = entidadeSalvasPressao[index]
         conteudo.delete(entidade)
         saveData()
         
@@ -25,7 +18,7 @@ class PressaoViewModel: ObservableObject {
         let request = NSFetchRequest<PressaoEntity>(entityName: "PressaoEntity")
         
         do {
-           entidadeSalvas = try conteudo.fetch(request)
+            entidadeSalvasPressao = try conteudo.fetch(request)
             
         } catch let error {
             print(error)

@@ -59,7 +59,7 @@ struct PressaoView: View {
                     .padding(.horizontal)
                 
                 List {
-                    ForEach(vm.entidadeSalvas, id: \.self) { pressao in
+                    ForEach(vm.entidadeSalvasPressao, id: \.self) { pressao in
                         VStack(alignment: .leading) {
                             Text("Sistólica: \(pressao.sistolica)")
                             Text("Diastólica: \(pressao.diastolica)")

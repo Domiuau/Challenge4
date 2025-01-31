@@ -1,42 +1,23 @@
-//
-//  RemedioCoreDataViewModel.swift
-//  Challenge4
-//
-//  Created by AMANDA CAROLINE DA SILVA RODRIGUES on 30/01/25.
-//
-
 import Foundation
 import CoreData
 
 class RemedioViewModel: ObservableObject {
-    let container: NSPersistentContainer
+    private let conteudo = PersistenceController.persistencia.container.viewContext
+    @Published var entidadeSalvasRemedio: [RemedioEntity] = []
     
-    @Published var savedEntities: [RemedioEntity] = []
-    
-    init() {
-        container = NSPersistentContainer(name: "CoreDataContainer")
-        container.loadPersistentStores { description, error in
-            if let error = error {
-                print("Error loading core data \(error)")
-            }
-        }
-        
-        fetchRemedios()
-        
-    }
     
     func fetchRemedios() {
         let request = NSFetchRequest<RemedioEntity>(entityName: "RemedioEntity")
         
         do {
-            savedEntities = try container.viewContext.fetch(request)
+            entidadeSalvasRemedio = try conteudo.fetch(request)
         } catch let error {
             print("Error fetching. \(error)")
         }
     }
     
     func addRemedio(remedioNome: String, dosagem: String, horario: String, imagem: Data) {
-        let newRemedio = RemedioEntity(context: container.viewContext)
+        let newRemedio = RemedioEntity(context: conteudo)
         
         newRemedio.nomeRemedio = remedioNome
         newRemedio.dosagem = dosagem
@@ -57,7 +38,7 @@ class RemedioViewModel: ObservableObject {
     
     func saveRemedios() {
         do {
-            try container.viewContext.save()
+            try conteudo.save()
             print("salvo")
             fetchRemedios()
         } catch let error {
@@ -67,8 +48,8 @@ class RemedioViewModel: ObservableObject {
     
     func deleteRemedios(indexSet: IndexSet){
         guard let index = indexSet.first else { return }
-            let entity = savedEntities[index]
-        container.viewContext.delete(entity)
+            let entity = entidadeSalvasRemedio[index]
+        conteudo.delete(entity)
         saveRemedios()
     }
 }
