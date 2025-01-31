@@ -52,6 +52,10 @@ class PressaoViewModel: ObservableObject {
         
     }
     
+    func situacaoPressao() -> String {
+        return ""
+    }
+    
     func formatarData(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy 'às' HH:mm"

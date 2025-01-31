@@ -51,16 +51,20 @@ struct PressaoView: View {
                         }
                     }
                     
-                    NavigationLink(destination: HistoricoPressaoView()) {
-                        BotaoAcaoComponent(texto: "Ver Histórico", action: nil)
-                    }
-                    
-                    Divider()
-                        .padding()
                 }
                 .padding()
+                
+                GraficoPressaoComponent(registrosPressoes: vm.entidadeSalvasPressao)
+                    .padding()
+                
+                NavigationLink(destination: HistoricoPressaoView()) {
+                    BotaoAcaoComponent(texto: "Mais Detalhes", action: nil)
+                }
             }
             .navigationTitle("Pressão")
+        }
+        .onAppear {
+            vm.fetchPressoes()
         }
     }
 }
