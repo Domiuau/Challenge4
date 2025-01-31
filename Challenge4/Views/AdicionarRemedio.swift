@@ -61,10 +61,10 @@ struct AdicionarRemedio: View {
                 .padding(.leading)
             
             DatePicker("", selection: $horario, displayedComponents: .hourAndMinute)
-                            .datePickerStyle(WheelDatePickerStyle())
-                            .aspectRatio(contentMode: .fit)
-                            .padding()
-
+                .datePickerStyle(WheelDatePickerStyle())
+                .aspectRatio(contentMode: .fit)
+                .padding()
+            
             
             Button(action: {
                 
@@ -95,8 +95,21 @@ struct AdicionarRemedio: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .padding(.horizontal)
                 
-            }) 
-        }.navigationTitle("Novo Remédio")
+            })
+        }
+        .navigationTitle("Novo Remédio")
+        .onChange(of: photoPicker, { _, _ in
+            Task {
+                if let photoPicker, let data = try? await photoPicker.loadTransferable(type: Data.self) {
+                    if let image = UIImage(data: data) {
+                        imagem = image
+                    }
+                }
+                
+                photoPicker = nil
+                
+            }
+        })
     }
 }
 
