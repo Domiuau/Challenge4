@@ -20,46 +20,62 @@ struct AdicionarRemedio: View {
     @State var horario = Date()
     
     var body: some View {
-        VStack(spacing: 20) {
-            
-            PhotosPicker(selection: $photoPicker, matching: .images) {
-                Image(uiImage: imagem ?? UIImage(named: "remedios")!.resized(to:200)!)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 100, height: 100)
-            }
-            
-            
-            TextField("Nome do Remédio", text: $nomeRemedio)
-                .font(.headline)
+        VStack(alignment: .leading, spacing: 20) {
+            HStack{
+                PhotosPicker(selection: $photoPicker, matching: .images) {
+                    Image(uiImage: imagem ?? UIImage(named: "remedios")!.resized(to:200)!)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 100, height: 100)
+                    
+                }
+                VStack(alignment: .leading) {
+                    Text("Nome do Remédio")
+                        .font(.title2)
+                    
+                    TextField("Nome do Remédio", text: $nomeRemedio)
+                        .padding()
+                        .background(Color.cinzaClaro)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .padding(.trailing)
+                }
                 .padding(.leading)
-                .frame(height: 55)
-                .background(Color.teal)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .padding(.horizontal)
+            }
+            .padding(.horizontal)
+            
+            
+            Text("Dosagem")
+                .font(.title2)
+                .padding(.leading)
             
             TextField("Dosagem", text: $dosagem)
-                .font(.headline)
+                .font(.title2)
                 .padding(.leading)
                 .frame(height: 55)
-                .background(Color.teal)
+                .background(Color.cinzaClaro)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .padding(.horizontal)
             
-            DatePicker("Selecione a Hora", selection: $horario, displayedComponents: .hourAndMinute)
-                            .datePickerStyle(WheelDatePickerStyle())
+            Text("Horários")
+                .font(.title2)
+                .padding(.leading)
             
+            DatePicker("", selection: $horario, displayedComponents: .hourAndMinute)
+                            .datePickerStyle(WheelDatePickerStyle())
+                            .aspectRatio(contentMode: .fit)
+                            .padding()
+
             
             Button(action: {
                 
                 guard !nomeRemedio.isEmpty else { return }
                 guard !dosagem.isEmpty else { return }
-                guard let image = imagem else { return }
+                guard let imagem = imagem else { return }
                 
-                var dateFormatter = DateFormatter()
+                let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "hh:mm"
                 
-                guard let imageData = imagem?.pngData() else {
+                guard let imageData = imagem.pngData() else {
                     print("Erro ao converter imagem para Data")
                     return
                 }
@@ -80,7 +96,7 @@ struct AdicionarRemedio: View {
                     .padding(.horizontal)
                 
             }) 
-        }
+        }.navigationTitle("Novo Remédio")
     }
 }
 

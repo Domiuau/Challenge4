@@ -17,6 +17,7 @@
 		7BE0CA122D4C0760007865A4 /* RemedioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE0CA112D4C0760007865A4 /* RemedioViewModel.swift */; };
 		7BE0CA1A2D4C0AC1007865A4 /* RemediosListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE0CA192D4C0AC1007865A4 /* RemediosListView.swift */; };
 		7BE0CA202D4C15FB007865A4 /* AdicionarRemedio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE0CA1F2D4C15FB007865A4 /* AdicionarRemedio.swift */; };
+		CC4595BB2D4D151B00879D96 /* RemedioListComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4595BA2D4D150C00879D96 /* RemedioListComponent.swift */; };
 		D4BBEA882D4BFDAB0087C1E4 /* SaveVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BBEA872D4BFDAB0087C1E4 /* SaveVM.swift */; };
 		D4BBEA8A2D4BFDB70087C1E4 /* SaveM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BBEA892D4BFDB70087C1E4 /* SaveM.swift */; };
 		D4CC80682D4C0E4D001862F8 /* TabBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CC80672D4C0E4D001862F8 /* TabBarComponent.swift */; };
@@ -36,6 +37,7 @@
 		7BE0CA112D4C0760007865A4 /* RemedioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemedioViewModel.swift; sourceTree = "<group>"; };
 		7BE0CA192D4C0AC1007865A4 /* RemediosListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemediosListView.swift; sourceTree = "<group>"; };
 		7BE0CA1F2D4C15FB007865A4 /* AdicionarRemedio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdicionarRemedio.swift; sourceTree = "<group>"; };
+		CC4595BA2D4D150C00879D96 /* RemedioListComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemedioListComponent.swift; sourceTree = "<group>"; };
 		D4BBEA872D4BFDAB0087C1E4 /* SaveVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveVM.swift; sourceTree = "<group>"; };
 		D4BBEA892D4BFDB70087C1E4 /* SaveM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveM.swift; sourceTree = "<group>"; };
 		D4CC80672D4C0E4D001862F8 /* TabBarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarComponent.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 		D4CC80662D4C0E32001862F8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				CC4595BA2D4D150C00879D96 /* RemedioListComponent.swift */,
 				D4CC80672D4C0E4D001862F8 /* TabBarComponent.swift */,
 				79318CAA2D4C1E5600667196 /* GraficoPressaoComponent.swift */,
 			);
@@ -216,6 +219,7 @@
 				79C451A82D4A9D070025CA15 /* PressaoView.swift in Sources */,
 				79C451A62D4A9D070025CA15 /* Challenge4App.swift in Sources */,
 				D4BBEA8A2D4BFDB70087C1E4 /* SaveM.swift in Sources */,
+				CC4595BB2D4D151B00879D96 /* RemedioListComponent.swift in Sources */,
 				79318CA32D4C0E6E00667196 /* PressaoViewModel.swift in Sources */,
 				79318CA12D4C0C4700667196 /* CoreDataContainer.xcdatamodeld in Sources */,
 				D4BBEA882D4BFDAB0087C1E4 /* SaveVM.swift in Sources */,
@@ -370,10 +374,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = grupo1.Challenge4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -406,10 +411,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = grupo1.Challenge4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

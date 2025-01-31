@@ -18,9 +18,7 @@ struct RemediosListView: View {
                 
                 List {
                     ForEach(vm.savedEntities) { entity in
-                        Text(entity.nomeRemedio ?? "SEM NOME")
-                        Text(entity.dosagem ?? "SEM DOSAGEM")
-                        Text(entity.horario ?? "SEM HORARIO")
+                        RemedioListComponent(vm: vm)
                     }
                 }.navigationTitle("Remédios")
             }
