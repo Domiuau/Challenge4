@@ -31,24 +31,35 @@ struct RemediosListView: View {
                                 if let data = entidade.imagem {
                                     Image(uiImage: UIImage(data: data)!.resized(to:200)!)
                                         .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 70, height: 70)
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 100, height: 100)
+                                        .clipShape(.rect(cornerRadius: 10))
                                 } else {
                                     Image(uiImage: UIImage(named: "remedios")!.resized(to:200)!)
                                         .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 70, height: 70)
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 100, height: 100)
+                                        .clipShape(.rect(cornerRadius: 10))
                                 }
                                 
                                 VStack (alignment: .leading) {
                                     Text("**\(entidade.nomeRemedio ?? "SEM NOME")**")
-                                        .padding(.vertical)
-                                    Text("Dosagem: **\(entidade.dosagem ?? "SEM DOSAGEM")**")
-                                    Text("Horário: **\(entidade.horario ?? "SEM HORARIO")**")                                }
+                                        .font(.system(size: 22))
+                                    HStack {
+                                        Image(systemName: "square.and.arrow.up.badge.clocktimer")
+                                        
+                                        Text("Dosagem: **\(entidade.dosagem ?? "SEM DOSAGEM")**")
+                                            .font(.callout)
+                                    }
+
+                                    Text("Horário: **\(entidade.horario ?? "SEM HORARIO")**")
+                                }
                             }
                         }
                         .onDelete(perform: vm.deleteRemedios)
                     }
+                    .listStyle(InsetListStyle())
+                    .scrollContentBackground(.hidden)
                 }
         }
         .onAppear {
