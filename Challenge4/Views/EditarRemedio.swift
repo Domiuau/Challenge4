@@ -51,7 +51,7 @@ struct EditarRemedioView: View {
             Task {
                 if let photoPicker, let data = try? await photoPicker.loadTransferable(type: Data.self) {
                     if let image = UIImage(data: data) {
-                        UIImage(data: entidade.imagem) = image
+                        novaImagem = image
                     }
                 }
                 

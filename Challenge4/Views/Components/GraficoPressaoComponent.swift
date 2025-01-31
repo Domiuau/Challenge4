@@ -24,65 +24,78 @@ struct GraficoPressaoComponent: View {
     }
     
     var body: some View {
-        Chart {
-            ForEach(registrosPressoes) { registro in
-                LineMark(
-                    x: .value("", dataFormatada(data: registro.data!) + dataFormatadaHorario(data: registro.data!)),
-                    y: .value("", registro.sistolica)
-                )
-                .foregroundStyle(Color.cinzaEscuro)
-                .opacity(0.7)
+        
+        if !registrosPressoes.isEmpty {
+            
+            Chart {
+                ForEach(registrosPressoes) { registro in
+                    LineMark(
+                        x: .value("", dataFormatada(data: registro.data!) + dataFormatadaHorario(data: registro.data!)),
+                        y: .value("", registro.sistolica)
+                    )
+                    .foregroundStyle(Color.cinzaEscuro)
+                    .opacity(0.7)
+                    
+                    PointMark(
+                        x: .value("", dataFormatada(data: registro.data!) + dataFormatadaHorario(data: registro.data!)),
+                        y: .value("", registro.sistolica)
+                    )
+                    .foregroundStyle(Color.vinhoBotoes)
+                    .symbolSize(100)
+                    .annotation(position: .top, alignment: .center, spacing: 3) {
+                        Text("\(registro.sistolica)/\(registro.diastolica)")
+                            .font(.footnote)
+                            .fontWeight(.medium)
+                            .foregroundColor(Color.preto)
+                            .bold()
+                    }
+                    
+                }
+            }
+            .chartXAxis {
                 
-                PointMark(
-                    x: .value("", dataFormatada(data: registro.data!) + dataFormatadaHorario(data: registro.data!)),
-                    y: .value("", registro.sistolica)
-                )
-                .foregroundStyle(Color.vinhoBotoes)
-                .symbolSize(100)
-                .annotation(position: .top, alignment: .center, spacing: 3) {
-                    Text("\(registro.sistolica)/\(registro.diastolica)")
-                        .font(.footnote)
-                        .fontWeight(.medium)
-                        .foregroundColor(Color.preto)
-                        .bold()
+                
+                
+                AxisMarks() { value in
+                    
+                    AxisValueLabel(content: {
+                        VStack(spacing: -2) {
+                            Text(dataFormatada(data: registrosPressoes[value.index].data)).font(.footnote)
+                            Text(dataFormatadaHorario(data: registrosPressoes[value.index].data))
+                            
+                        }.padding(0)
+                    })
+                    .font(.caption2)
+                    
+                    
+                    
                 }
                 
             }
-        }
-        .chartXAxis {
+            .chartScrollableAxes(.horizontal)
+            .chartXVisibleDomain(length: 4)
+            //.chartYAxis(Visibility.hidden)
+            .bold()
+            //  .chartXAxis(Visibility.hidden)
+            // .border(Color.black, width: 2)
+            .chartYScale(domain: 80...180)
+            .frame(height: 260)
+        } else {
             
-            
-            
-            AxisMarks() { value in
-                
-                AxisValueLabel(content: {
-                    VStack(spacing: -2) {
-                        Text(dataFormatada(data: registrosPressoes[value.index].data)).font(.footnote)
-                        Text(dataFormatadaHorario(data: registrosPressoes[value.index].data))
-                        
-                    }.padding(0)
-                })
-                .font(.caption2)
-                
-                
-                
-            }
+            Rectangle().frame(height: 360)
+                .overlay {
+                    Text("arruma e bota mensagem falando q vc nap tem pressao").foregroundStyle(Color.white)
+                }
             
         }
-        .chartScrollableAxes(.horizontal)
-        .chartXVisibleDomain(length: 4)
-        //.chartYAxis(Visibility.hidden)
-        .bold()
-        //  .chartXAxis(Visibility.hidden)
-        // .border(Color.black, width: 2)
-        .chartYScale(domain: 80...180)
-        .frame(height: 260)
-     
+        
+        
+        
         
         
     }
     
-
+    
     
     func dataFormatada(data: Date?) -> String {
         
