@@ -8,6 +8,7 @@
     <entity name="RemedioEntity" representedClassName="RemedioEntity" syncable="YES" codeGenerationType="class">
         <attribute name="dosagem" optional="YES" attributeType="String"/>
         <attribute name="horario" optional="YES" attributeType="String"/>
+        <attribute name="imagem" optional="YES" attributeType="Binary"/>
         <attribute name="nomeRemedio" optional="YES" attributeType="String"/>
     </entity>
 </model>
