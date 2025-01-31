@@ -19,21 +19,36 @@ public struct RemedioListComponent: View {
                 if let data = entidade.imagem {
                     Image(uiImage: UIImage(data: data)!.resized(to:200)!)
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 50, height: 50)
+                        .aspectRatio(contentMode: .fit)
+                       // .frame(width: 50, height: 50)
+                    
                 } else {
                     Image(uiImage: UIImage(named: "remedios")!.resized(to:200)!)
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 50, height: 50)
+                        .aspectRatio(contentMode: .fit)
+                       // .frame(width: 50, height: 50)
                     
                 }
                 
-                Text("\(entidade.nomeRemedio ?? "SEM NOME")")
-                Text("\(entidade.horario ?? "SEM HORARIO")")
-                Text("\(entidade.dosagem ?? "SEM DOSAGEM")")
+                VStack (alignment: .leading) {
+                    Text("**\(entidade.nomeRemedio ?? "SEM NOME")**")
+                        .padding(.vertical)
+                    Text("Dosagem: **\(entidade.horario ?? "SEM HORARIO")**")
+                    Text("Horário: **\(entidade.dosagem ?? "SEM DOSAGEM")**")
+                       
+                }
+                .padding(10)
             }
         }
+        .frame(height: 100)
+        .padding(10)
+        
+        HStack{
+            
+           
+        }
+        .frame(height: 100)
+        .padding(10)
     }
 }
 
