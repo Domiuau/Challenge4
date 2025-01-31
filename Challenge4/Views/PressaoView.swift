@@ -13,7 +13,7 @@ struct PressaoView: View {
     @State private var inputTextS: String = ""
     @State private var inputTextD: String = ""
     @StateObject var vm = PressaoViewModel()
-
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -42,27 +42,22 @@ struct PressaoView: View {
                 }
                 .padding()
                 
-                Button("Salvar") {
+                BotaoAcaoComponent(texto: "Salvar") {
                     if let sistolica = sistolica, let diastolica = diastolica {
                         vm.addPressao(diastolica: diastolica, sistolica: sistolica)
                         inputTextS = ""
                         inputTextD = ""
                     }
                 }
-                .padding()
-                .frame(width: 300, height: 40)
-                .background(.vinhoBotoes)
-                .foregroundColor(.white)
-                .cornerRadius(50)
-
+                
                 Divider()
                     .padding()
-
+                
                 Text("Histórico de Pressões")
                     .font(.headline)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
-
+                
                 List {
                     ForEach(vm.entidadeSalvas, id: \.self) { pressao in
                         VStack(alignment: .leading) {
@@ -81,7 +76,7 @@ struct PressaoView: View {
         }
         .navigationTitle("Pressão")
         .onAppear {
-            vm.fetchPressoes()  // Buscar registros ao abrir a tela
+            vm.fetchPressoes()
         }
     }
 }
