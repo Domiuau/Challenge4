@@ -12,7 +12,7 @@ struct PressaoView: View {
     @State private var diastolica: Int? = nil
     @State private var inputTextS: String = ""
     @State private var inputTextD: String = ""
-    @StateObject var vm = PressaoViewModel()
+    @StateObject var vm: PressaoViewModel
     
     var body: some View {
         NavigationStack {
@@ -66,7 +66,7 @@ struct PressaoView: View {
                 }
                 .padding()
                 
-                GraficoPressaoComponent(registrosPressoes: vm.entidadeSalvasPressao)
+                GraficoPressaoComponent(registrosPressoes: vm.entidadeSalvasPressao, maior: vm.maiorSistolica, menor: vm.menorSistolica)
                     .padding()
                 
                 NavigationLink(destination: HistoricoPressaoView()) {
@@ -82,5 +82,5 @@ struct PressaoView: View {
 }
 
 #Preview {
-    PressaoView()
+    PressaoView(vm: PressaoViewModel())
 }

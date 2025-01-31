@@ -12,19 +12,16 @@ import Charts
 struct GraficoPressaoComponent: View {
     
     var registrosPressoes: [PressaoEntity]
+    var maior: Int
+    var menor: Int
     
-    // @State var registrosPressoes: [Entidade]
-    
-    
-    init(registrosPressoes: [PressaoEntity]) {
-        
-        
+    init(registrosPressoes: [PressaoEntity], maior: Int, menor: Int) {
         self.registrosPressoes = registrosPressoes
-  
+        print(maior)
+        print(menor)
+        self.maior = maior
+        self.menor = menor
     }
-    
-    
-    
     
     var body: some View {
         Chart {
@@ -33,19 +30,20 @@ struct GraficoPressaoComponent: View {
                     x: .value("", dataFormatada(data: registro.data!) + dataFormatadaHorario(data: registro.data!)),
                     y: .value("", registro.sistolica)
                 )
-                .foregroundStyle(Color.black)
+                .foregroundStyle(Color.cinzaEscuro)
                 .opacity(0.7)
                 
                 PointMark(
                     x: .value("", dataFormatada(data: registro.data!) + dataFormatadaHorario(data: registro.data!)),
                     y: .value("", registro.sistolica)
                 )
-                .foregroundStyle(Color.red)
+                .foregroundStyle(Color.vinhoBotoes)
+                .symbolSize(100)
                 .annotation(position: .top, alignment: .center, spacing: 3) {
                     Text("\(registro.sistolica)/\(registro.diastolica)")
                         .font(.footnote)
                         .fontWeight(.medium)
-                        .foregroundColor(Color.black)
+                        .foregroundColor(Color.preto)
                         .bold()
                 }
                 
@@ -65,7 +63,6 @@ struct GraficoPressaoComponent: View {
                     }.padding(0)
                 })
                 .font(.caption2)
-                .foregroundStyle(Color.black)
                 
                 
                 
@@ -74,53 +71,18 @@ struct GraficoPressaoComponent: View {
         }
         .chartScrollableAxes(.horizontal)
         .chartXVisibleDomain(length: 4)
-        .padding(.vertical)
         //.chartYAxis(Visibility.hidden)
         .bold()
-        .font(.title3)
-        
         //  .chartXAxis(Visibility.hidden)
         // .border(Color.black, width: 2)
-        .chartYScale(domain: 70...170)
-        .frame(height: 230)
-        .onAppear(perform: {
-            print(getMenorPressao())
-            print(getMaiorPressao())
-        })
+        .chartYScale(domain: 80...180)
+        .frame(height: 260)
      
         
         
     }
     
-    func getMaiorPressao() -> Int {
-        
-        var maior: Int = 0
 
-        for pressao in registrosPressoes {
-            print("a")
-            if pressao.sistolica > maior {
-                maior = Int(pressao.sistolica)
-            }
-        }
-        
-        return maior
-
-    }
-    
-    func getMenorPressao() -> Int {
-        
-        var menor: Int = 1000
-
-        for i in 0..<registrosPressoes.count {
-            print("a")
-            if registrosPressoes[i].sistolica < menor {
-                menor = Int(registrosPressoes[i].sistolica)
-            }
-        }
-        
-        return menor
-
-    }
     
     func dataFormatada(data: Date?) -> String {
         

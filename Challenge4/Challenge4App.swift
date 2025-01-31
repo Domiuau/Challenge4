@@ -10,9 +10,10 @@ import SwiftUI
 @main
 struct Challenge4App: App {
     let persistenceController =  PersistenceController.persistencia
+    let pressaoViewModel = PressaoViewModel()
     var body: some Scene {
         WindowGroup {
-            TabBarComponent()
+            TabBarComponent(pressaoViewModel: pressaoViewModel)
         }
     }
 }

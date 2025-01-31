@@ -4,6 +4,8 @@ import CoreData
 class PressaoViewModel: ObservableObject {
     private let conteudo = PersistenceController.persistencia.container.viewContext
     @Published var entidadeSalvasPressao: [PressaoEntity] = []
+    @Published var maiorSistolica: Int = Int.min
+    @Published var menorSistolica: Int = Int.max
     
     func deletePressao(index: IndexSet) {
         guard let index = index.first else { return }
@@ -16,9 +18,22 @@ class PressaoViewModel: ObservableObject {
     
     func fetchPressoes() {
         let request = NSFetchRequest<PressaoEntity>(entityName: "PressaoEntity")
+        maiorSistolica = Int.min
+        menorSistolica = Int.max
         
         do {
             entidadeSalvasPressao = try conteudo.fetch(request)
+            
+            for pressao in entidadeSalvasPressao {
+                
+                if pressao.sistolica > maiorSistolica {
+                    maiorSistolica = Int(pressao.sistolica)
+                }
+                
+                if pressao.sistolica < menorSistolica {
+                    menorSistolica = Int(pressao.sistolica)
+                }
+            }
             
         } catch let error {
             print(error)
@@ -43,7 +58,7 @@ class PressaoViewModel: ObservableObject {
         do {
             
             try conteudo.save()
-           fetchPressoes()
+            fetchPressoes()
             
         } catch let error {
             
