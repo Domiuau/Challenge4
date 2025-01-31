@@ -52,4 +52,10 @@ class PressaoViewModel: ObservableObject {
         
     }
     
+    func formatarData(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy 'às' HH:mm"
+        return formatter.string(from: date)
+    }
+    
 }

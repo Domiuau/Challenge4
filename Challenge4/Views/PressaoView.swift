@@ -13,79 +13,57 @@ struct PressaoView: View {
     @State private var inputTextS: String = ""
     @State private var inputTextD: String = ""
     @StateObject var vm = PressaoViewModel()
-
+    
     var body: some View {
-        ScrollView {
-            VStack {
-                Text("Como está a sua pressão hoje?")
-                    .font(.title)
-                    .bold()
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
-                
+        NavigationStack {
+            ScrollView {
                 VStack {
-                    TextField("Sistólico", text: $inputTextS)
-                        .keyboardType(.numberPad)
-                        .font(.system(size: 50))
-                        .onChange(of: inputTextS) { newValue in
-                            sistolica = Int(newValue)
-                        }
+                    Text("Como está a sua pressão hoje?")
+                        .font(.title)
+                        .bold()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
                     
-                    Spacer().frame(height: 10)
-                    
-                    TextField("Diastólico", text: $inputTextD)
-                        .keyboardType(.numberPad)
-                        .font(.system(size: 50))
-                        .onChange(of: inputTextD) { newValue in
-                            diastolica = Int(newValue)
-                        }
-                }
-                .padding()
-                
-                Button("Salvar") {
-                    if let sistolica = sistolica, let diastolica = diastolica {
-                        vm.addPressao(diastolica: diastolica, sistolica: sistolica)
-                        inputTextS = ""
-                        inputTextD = ""
+                    VStack {
+                        TextField("Sistólico", text: $inputTextS)
+                            .keyboardType(.numberPad)
+                            .font(.system(size: 50))
+                            .onChange(of: inputTextS) { newValue in
+                                sistolica = Int(newValue)
+                            }
+                        
+                        Spacer().frame(height: 10)
+                        
+                        TextField("Diastólico", text: $inputTextD)
+                            .keyboardType(.numberPad)
+                            .font(.system(size: 50))
+                            .onChange(of: inputTextD) { newValue in
+                                diastolica = Int(newValue)
+                            }
                     }
-                }
-                .padding()
-                .frame(width: 300, height: 40)
-                .background(.vinhoBotoes)
-                .foregroundColor(.white)
-                .cornerRadius(50)
-
-                Divider()
                     .padding()
-
-                Text("Histórico de Pressões")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
-
-                List {
-                    ForEach(vm.entidadeSalvasPressao, id: \.self) { pressao in
-                        VStack(alignment: .leading) {
-                            Text("Sistólica: \(pressao.sistolica)")
-                            Text("Diastólica: \(pressao.diastolica)")
-                            Text("Data: \(pressao.data?.formatted(date: .abbreviated, time: .shortened) ?? "Sem data")")
-                                .font(.caption)
-                                .foregroundColor(.gray)
+                    
+                    BotaoAcaoComponent(texto: "Salvar") {
+                        if let sistolica = sistolica, let diastolica = diastolica {
+                            vm.addPressao(diastolica: diastolica, sistolica: sistolica)
+                            inputTextS = ""
+                            inputTextD = ""
                         }
                     }
-                    .onDelete(perform: vm.deletePressao)
+                    
+                    NavigationLink(destination: HistoricoPressaoView()) {
+                        BotaoAcaoComponent(texto: "Ver Histórico", action: nil)
+                    }
+                    
+                    Divider()
+                        .padding()
                 }
-                .frame(height: 300)
+                .padding()
             }
-            .padding()
-        }
-        .navigationTitle("Pressão")
-        .onAppear {
-            vm.fetchPressoes()  // Buscar registros ao abrir a tela
+            .navigationTitle("Pressão")
         }
     }
 }
-
 
 #Preview {
     PressaoView()

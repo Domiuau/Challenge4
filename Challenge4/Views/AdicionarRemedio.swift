@@ -11,6 +11,8 @@ import PhotosUI
 
 struct AdicionarRemedio: View {
     
+    @Environment(\.dismiss) var dismiss
+    
     @ObservedObject var vm: RemedioViewModel
     
     @State private var imagem: UIImage?
@@ -63,14 +65,14 @@ struct AdicionarRemedio: View {
             DatePicker("", selection: $horario, displayedComponents: .hourAndMinute)
                 .datePickerStyle(WheelDatePickerStyle())
                 .aspectRatio(contentMode: .fit)
-                .padding()
+                .padding(.horizontal)
             
             
-            Button(action: {
+            BotaoAcaoComponent(texto: "Adicionar Remédio", action: {
                 
                 guard !nomeRemedio.isEmpty else { return }
                 guard !dosagem.isEmpty else { return }
-                guard let imagem = imagem else { return }
+                guard var imagem = imagem else { return }
                 
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "hh:mm"
@@ -84,18 +86,10 @@ struct AdicionarRemedio: View {
                 
                 nomeRemedio = ""
                 dosagem = ""
-                
-            }, label: {
-                Text("Adicionar Remédio")
-                    .font(.headline)
-                    .foregroundStyle(Color.white)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .padding(.horizontal)
-                
+                dismiss()
             })
+            .padding(.horizontal)
+            .frame(maxWidth: .infinity)
         }
         .navigationTitle("Novo Remédio")
         .onChange(of: photoPicker, { _, _ in
