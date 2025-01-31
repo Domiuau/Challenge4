@@ -29,37 +29,46 @@ struct AdicionarRemedio: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 100, height: 100)
-                    
+                        .clipShape(.rect(cornerRadius: 10))
                 }
+                
                 VStack(alignment: .leading) {
-                    Text("Nome do Remédio")
+                    Text("Nome")
                         .font(.title2)
+                        .bold()
                     
                     TextField("Nome do Remédio", text: $nomeRemedio)
-                        .padding()
-                        .background(Color.cinzaClaro)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .padding(.trailing)
+                        .font( .title3)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 30)
+                                .frame(height: 2)
+                                .opacity(0.44)
+                                .foregroundColor(.gray), alignment: .bottom
+                        )
                 }
-                .padding(.leading)
+                .padding()
             }
-            .padding(.horizontal)
+            .padding()
             
-            
-            Text("Dosagem")
+            Text("Dosagem (miligramas)")
                 .font(.title2)
+                .bold()
                 .padding(.leading)
             
-            TextField("Dosagem", text: $dosagem)
-                .font(.title2)
-                .padding(.leading)
-                .frame(height: 55)
-                .background(Color.cinzaClaro)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .padding(.horizontal)
+                TextField("Dosagem", text: $dosagem)
+                .font(.title3)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 30)
+                        .frame(height: 2)
+                        .opacity(0.44)
+                        .foregroundColor(.gray), alignment: .bottom
+                )
+                .padding()
+                .font(.title)
             
             Text("Horários")
                 .font(.title2)
+                .bold()
                 .padding(.leading)
             
             DatePicker("", selection: $horario, displayedComponents: .hourAndMinute)
@@ -68,7 +77,7 @@ struct AdicionarRemedio: View {
                 .padding(.horizontal)
             
             
-            BotaoAcaoComponent(texto: "Adicionar Remédio", action: {
+            BotaoAcaoComponent(texto: "Cadastrar", action: {
                 
                 guard !nomeRemedio.isEmpty else { return }
                 guard !dosagem.isEmpty else { return }
@@ -88,10 +97,10 @@ struct AdicionarRemedio: View {
                 dosagem = ""
                 dismiss()
             })
-            .padding(.horizontal)
             .frame(maxWidth: .infinity)
         }
-        .navigationTitle("Cadastro de \nRemédios")
+        .padding()
+        .navigationTitle("Cadastro de Remédios")
         .onChange(of: photoPicker, { _, _ in
             Task {
                 if let photoPicker, let data = try? await photoPicker.loadTransferable(type: Data.self) {
