@@ -14,6 +14,7 @@
 		79C451A82D4A9D070025CA15 /* PressaoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C451A72D4A9D070025CA15 /* PressaoView.swift */; };
 		79C451AA2D4A9D080025CA15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79C451A92D4A9D080025CA15 /* Assets.xcassets */; };
 		79C451AE2D4A9D080025CA15 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79C451AD2D4A9D080025CA15 /* Preview Assets.xcassets */; };
+		7B28BFCE2D4D64EE0049798A /* EditarRemedio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B28BFCD2D4D64EE0049798A /* EditarRemedio.swift */; };
 		7BE0CA122D4C0760007865A4 /* RemedioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE0CA112D4C0760007865A4 /* RemedioViewModel.swift */; };
 		7BE0CA1A2D4C0AC1007865A4 /* RemediosListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE0CA192D4C0AC1007865A4 /* RemediosListView.swift */; };
 		7BE0CA202D4C15FB007865A4 /* AdicionarRemedio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE0CA1F2D4C15FB007865A4 /* AdicionarRemedio.swift */; };
@@ -35,6 +36,7 @@
 		79C451A92D4A9D080025CA15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		79C451AB2D4A9D080025CA15 /* Challenge4.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Challenge4.entitlements; sourceTree = "<group>"; };
 		79C451AD2D4A9D080025CA15 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		7B28BFCD2D4D64EE0049798A /* EditarRemedio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditarRemedio.swift; sourceTree = "<group>"; };
 		7BE0CA112D4C0760007865A4 /* RemedioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemedioViewModel.swift; sourceTree = "<group>"; };
 		7BE0CA192D4C0AC1007865A4 /* RemediosListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemediosListView.swift; sourceTree = "<group>"; };
 		7BE0CA1F2D4C15FB007865A4 /* AdicionarRemedio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdicionarRemedio.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				D4CC80662D4C0E32001862F8 /* Components */,
 				79C451A72D4A9D070025CA15 /* PressaoView.swift */,
 				7BE0CA192D4C0AC1007865A4 /* RemediosListView.swift */,
+				7B28BFCD2D4D64EE0049798A /* EditarRemedio.swift */,
 				7BE0CA1F2D4C15FB007865A4 /* AdicionarRemedio.swift */,
 				D4CC80692D4C1024001862F8 /* SobreView.swift */,
 				D4D14C4B2D4D4D5800EBEFC6 /* HistoricoPressaoView.swift */,
@@ -223,6 +226,7 @@
 				D402FDA22D4D498000A1D88C /* BotaoAcaoComponent.swift in Sources */,
 				79C451A82D4A9D070025CA15 /* PressaoView.swift in Sources */,
 				D4D14C4C2D4D4D5800EBEFC6 /* HistoricoPressaoView.swift in Sources */,
+				7B28BFCE2D4D64EE0049798A /* EditarRemedio.swift in Sources */,
 				79C451A62D4A9D070025CA15 /* Challenge4App.swift in Sources */,
 				D4BBEA8A2D4BFDB70087C1E4 /* SaveM.swift in Sources */,
 				79318CA32D4C0E6E00667196 /* PressaoViewModel.swift in Sources */,
