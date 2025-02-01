@@ -45,9 +45,9 @@ struct AdicionarRemedio: View {
                                 .opacity(0.44)
                                 .foregroundColor(.gray), alignment: .bottom
                         )
-                }
+                } // VStack
                 .padding()
-            }
+            } // HStack
             .padding()
             
             Text("Dosagem (miligramas)")
@@ -55,7 +55,7 @@ struct AdicionarRemedio: View {
                 .bold()
                 .padding(.leading)
             
-                TextField("Dosagem", text: $dosagem)
+            TextField("Dosagem", text: $dosagem)
                 .font(.title3)
                 .overlay(
                     RoundedRectangle(cornerRadius: 30)
@@ -96,7 +96,7 @@ struct AdicionarRemedio: View {
                 nomeRemedio = ""
                 dosagem = ""
                 dismiss()
-            })
+            }) // BotaoAcaoComponente
             .frame(maxWidth: .infinity)
         }
         .padding()
