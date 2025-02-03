@@ -119,7 +119,7 @@ struct EditarRemedioView: View {
                     
                     guard !novoNome.isEmpty else { return }
                     guard !novaDosagem.isEmpty else { return }
-                    guard var imagem = novaImagem else { return }
+                    guard let imagem = novaImagem else { return }
                     
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "hh:mm"
