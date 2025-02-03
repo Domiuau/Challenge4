@@ -15,10 +15,15 @@ struct RemediosListView: View {
 
         NavigationView {
                 if vm.entidadeSalvasRemedio.isEmpty {
-                    Text("Nenhum\nremédio\ncadastrado.")
-                        .multilineTextAlignment(.center)
-                        .font(.title)
-                        .foregroundColor(.cinzaClaro)
+                    
+                    VStack {
+                        Image(systemName: "exclamationmark.triangle")
+                        
+                        Text("Nenhum\nremédio\ncadastrado.")
+                            .multilineTextAlignment(.center)
+                            .font(.title)
+                            .foregroundColor(.cinzaClaro)
+                    }
                 }
                 else {
                     List {
@@ -45,14 +50,18 @@ struct RemediosListView: View {
                                 VStack (alignment: .leading) {
                                     Text("**\(entidade.nomeRemedio ?? "SEM NOME")**")
                                         .font(.system(size: 22))
+                                    
+                                        .padding()
+                                    
                                     HStack {
-                                        Image(systemName: "square.and.arrow.up.badge.clocktimer")
-                                        
+                                        Image(systemName: "drop.fill")
                                         Text("Dosagem: **\(entidade.dosagem ?? "SEM DOSAGEM")**")
                                             .font(.callout)
                                     }
-
-                                    Text("Horário: **\(entidade.horario ?? "SEM HORARIO")**")
+                                    HStack {
+                                        Image(systemName: "timer")
+                                        Text("Horário: **\(entidade.horario ?? "SEM HORARIO")**")
+                                    }
                                 }
                             }
                         }
