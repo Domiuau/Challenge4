@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HistoricoPressaoView: View {
-    @ObservedObject var vm = PressaoViewModel()
+    @ObservedObject var vm: PressaoViewModel
     
     var body: some View {
         Text("Histórico de Pressões")
@@ -40,5 +40,5 @@ struct HistoricoPressaoView: View {
 }
 
 #Preview {
-    HistoricoPressaoView()
+    HistoricoPressaoView(vm: PressaoViewModel())
 }

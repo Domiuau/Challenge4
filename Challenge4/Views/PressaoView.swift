@@ -69,7 +69,7 @@ struct PressaoView: View {
                 GraficoPressaoComponent(registrosPressoes: vm.entidadeSalvasPressao, maior: vm.maiorSistolica, menor: vm.menorSistolica)
                     .padding()
                 
-                NavigationLink(destination: HistoricoPressaoView()) {
+                NavigationLink(destination: HistoricoPressaoView(vm: vm)) {
                     BotaoAcaoComponent(texto: "Mais Detalhes", action: nil)
                 }
             }
