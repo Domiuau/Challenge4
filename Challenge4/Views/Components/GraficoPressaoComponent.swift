@@ -92,7 +92,7 @@ struct GraficoPressaoComponent: View {
                     .multilineTextAlignment(.center)
                     .font(.title)
                     .foregroundColor(.cinzaClaro)
-                    
+                
             }
             .frame(height: 260)
             
@@ -119,13 +119,10 @@ struct GraficoPressaoComponent: View {
     func dataFormatadaHorario(data: Date?) -> String {
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "hh:mm:ss "
+        dateFormatter.dateFormat = "HH:mm:ss "
         return dateFormatter.string(from: data!)
         
     }
-    
-    
-    
     
 }
 

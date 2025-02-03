@@ -22,32 +22,84 @@ struct AdicionarRemedio: View {
     @State var horario = Date()
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            HStack{
-                PhotosPicker(selection: $photoPicker, matching: .images) {
-                    Image(uiImage: imagem ?? UIImage(named: "remedios")!.resized(to:50)!)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 100, height: 100)
-                        .clipShape(.rect(cornerRadius: 10))
-                }
-                
-                VStack(alignment: .leading) {
-                    Text("Nome")
-                        .font(.title2)
-                        .bold()
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                HStack{
+                    PhotosPicker(selection: $photoPicker, matching: .images) {
+                        Image(uiImage: imagem ?? UIImage(named: "remedios")!.resized(to:200)!)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 100, height: 100)
+                            .clipShape(.rect(cornerRadius: 10))
+                    }
                     
-                    TextField("Nome do Remédio", text: $nomeRemedio)
-                        .font( .title3)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 30)
-                                .frame(height: 2)
-                                .opacity(0.44)
-                                .foregroundColor(.gray), alignment: .bottom
-                        )
-                } // VStack
+                    VStack(alignment: .leading) {
+                        Text("Nome")
+                            .font(.title2)
+                            .bold()
+                        
+                        TextField("Nome do Remédio", text: $nomeRemedio)
+                            .font( .title3)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 30)
+                                    .frame(height: 2)
+                                    .opacity(0.44)
+                                    .foregroundColor(.gray), alignment: .bottom
+                            )
+                    } // VStack
+                    .padding()
+                } // HStack
                 .padding()
-            } // HStack
+                
+                Text("Dosagem (miligramas)")
+                    .font(.title2)
+                    .bold()
+                    .padding(.leading)
+                
+                TextField("Dosagem", text: $dosagem)
+                    .font(.title3)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 30)
+                            .frame(height: 2)
+                            .opacity(0.44)
+                            .foregroundColor(.gray), alignment: .bottom
+                    )
+                    .padding()
+                    .font(.title)
+                
+                Text("Horários")
+                    .font(.title2)
+                    .bold()
+                    .padding(.leading)
+                
+                DatePicker("", selection: $horario, displayedComponents: .hourAndMinute)
+                    .datePickerStyle(WheelDatePickerStyle())
+                    .aspectRatio(contentMode: .fit)
+                    .padding(.horizontal)
+                
+                
+                BotaoAcaoComponent(texto: "Cadastrar", action: {
+                    
+                    guard !nomeRemedio.isEmpty else { return }
+                    guard !dosagem.isEmpty else { return }
+                    guard var imagem = imagem else { return }
+                    
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "hh:mm"
+                    
+                    guard let imageData = imagem.pngData() else {
+                        print("Erro ao converter imagem para Data")
+                        return
+                    }
+                    
+                    vm.addRemedio(remedioNome: nomeRemedio, dosagem: dosagem, horario: dateFormatter.string(from: horario), imagem: imageData)
+                    
+                    nomeRemedio = ""
+                    dosagem = ""
+                    dismiss()
+                }) // BotaoAcaoComponente
+                .frame(maxWidth: .infinity)
+            }
             .padding()
             
             Text("Dosagem (miligramas)")
@@ -107,15 +159,14 @@ struct AdicionarRemedio: View {
                     if let image = UIImage(data: data) {
                         imagem = image
                     }
+                    
+                    photoPicker = nil
+                    
                 }
-                
-                photoPicker = nil
-                
-            }
-        })
+            })
+        }
     }
 }
-
 
 extension UIImage {
     func resized(to maxWidth: CGFloat) -> UIImage? {
