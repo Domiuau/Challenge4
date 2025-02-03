@@ -34,4 +34,3 @@ struct Challenge4App: App {
         }
     }
 }
-

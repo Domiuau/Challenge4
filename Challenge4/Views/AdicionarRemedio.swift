@@ -85,7 +85,7 @@ struct AdicionarRemedio: View {
                     guard var imagem = imagem else { return }
                     
                     let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "hh:mm"
+                    dateFormatter.dateFormat = "HH:mm"
                     
                     guard let imageData = imagem.pngData() else {
                         print("Erro ao converter imagem para Data")
@@ -101,55 +101,6 @@ struct AdicionarRemedio: View {
                 .frame(maxWidth: .infinity)
             }
             .padding()
-            
-            Text("Dosagem (miligramas)")
-                .font(.title2)
-                .bold()
-                .padding(.leading)
-            
-            TextField("Dosagem", text: $dosagem)
-                .font(.title3)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 30)
-                        .frame(height: 2)
-                        .opacity(0.44)
-                        .foregroundColor(.gray), alignment: .bottom
-                )
-                .padding()
-                .font(.title)
-            
-            Text("Horários")
-                .font(.title2)
-                .bold()
-                .padding(.leading)
-            
-            DatePicker("", selection: $horario, displayedComponents: .hourAndMinute)
-                .datePickerStyle(WheelDatePickerStyle())
-                .aspectRatio(contentMode: .fit)
-                .padding(.horizontal)
-            
-            
-            BotaoAcaoComponent(texto: "Cadastrar", action: {
-                
-                guard !nomeRemedio.isEmpty else { return }
-                guard !dosagem.isEmpty else { return }
-                guard var imagem = imagem else { return }
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "HH:mm"
-                
-                guard let imageData = imagem.pngData() else {
-                    print("Erro ao converter imagem para Data")
-                    return
-                }
-                
-                vm.addRemedio(remedioNome: nomeRemedio, dosagem: dosagem, horario: dateFormatter.string(from: horario), imagem: imageData)
-                
-                nomeRemedio = ""
-                dosagem = ""
-                dismiss()
-            }) // BotaoAcaoComponente
-            .frame(maxWidth: .infinity)
         }
         .padding()
         .navigationTitle("Cadastro de Remédios")
@@ -159,12 +110,12 @@ struct AdicionarRemedio: View {
                     if let image = UIImage(data: data) {
                         imagem = image
                     }
-                    
-                    photoPicker = nil
-                    
                 }
-            })
-        }
+                
+                photoPicker = nil
+                
+            }
+        })
     }
 }
 
