@@ -84,7 +84,7 @@ struct AdicionarRemedio: View {
                 guard var imagem = imagem else { return }
                 
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "hh:mm"
+                dateFormatter.dateFormat = "HH:mm"
                 
                 guard let imageData = imagem.pngData() else {
                     print("Erro ao converter imagem para Data")

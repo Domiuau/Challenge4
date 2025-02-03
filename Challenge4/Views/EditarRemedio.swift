@@ -121,7 +121,7 @@ struct EditarRemedioView: View {
                 
                 let imagemSalvar = novaImagem ?? entidadeImagem
                 
-                guard var imagem = imagemSalvar else { return }
+                guard let imagem = imagemSalvar else { return }
                 
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "hh:mm"
