@@ -13,7 +13,7 @@ struct RemediosListView: View {
     
     var body: some View {
 
-        NavigationView {
+        NavigationStack {
                 if vm.entidadeSalvasRemedio.isEmpty {
                     
                     VStack {
@@ -46,25 +46,28 @@ struct RemediosListView: View {
                                         .frame(width: 100, height: 100)
                                         .clipShape(.rect(cornerRadius: 10))
                                 }
-                                
-                                VStack (alignment: .leading) {
-                                    Text("**\(entidade.nomeRemedio ?? "SEM NOME")**")
-                                        .font(.system(size: 22))
                                     
-                                        .padding()
-                                    
-                                    HStack {
-                                        Image(systemName: "drop.fill")
-                                        Text("Dosagem: **\(entidade.dosagem ?? "SEM DOSAGEM")**")
-                                            .font(.callout)
-                                    }
-                                    HStack {
-                                        Image(systemName: "timer")
-                                        Text("Horário: **\(entidade.horario ?? "SEM HORARIO")**")
+                                    VStack (alignment: .leading) {
+                                        Text("**\(entidade.nomeRemedio ?? "SEM NOME")**")
+                                            .font(.system(size: 22))
+                                            .padding(.bottom, 5)
+                                        
+                                        HStack {
+                                            Image(systemName: "drop.fill")
+                                            Text("Dosagem: **\(entidade.dosagem ?? "SEM DOSAGEM")**")
+                                                .font(.callout)
+                                        }
+                                        
+                                        HStack {
+                                            Image(systemName: "timer")
+                                            Text("Horário: **\(entidade.horario ?? "SEM HORARIO")**")
+                                                .font(.callout)
+                                        }
                                     }
                                 }
+                                
                             }
-                        }
+                        //}
                         .onDelete(perform: vm.deleteRemedios)
                     }
                     .listStyle(InsetListStyle())
