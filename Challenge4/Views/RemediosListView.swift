@@ -77,7 +77,7 @@ struct RemediosListView: View {
         .navigationTitle("Remédios")
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                NavigationLink(destination: AdicionarRemedio(vm: vm)) {
+                NavigationLink(destination: AdicionarRemedioView(vm: vm)) {
                     Image(systemName: "plus")
                         .font(.title3)
                         .bold()

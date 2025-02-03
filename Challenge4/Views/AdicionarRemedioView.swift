@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 
 
-struct AdicionarRemedio: View {
+struct AdicionarRemedioView: View {
     
     @Environment(\.dismiss) var dismiss
     
@@ -118,7 +118,7 @@ struct AdicionarRemedio: View {
         })
     }
 }
-                  
+
 extension UIImage {
     func resized(to maxWidth: CGFloat) -> UIImage? {
         let aspectRatio = self.size.height / self.size.width

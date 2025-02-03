@@ -44,7 +44,7 @@ struct EditarRemedioView: View {
                     PhotosPicker(selection: $photoPicker, matching: .images) {
                         if let novaImagem = novaImagem {
                             
-                            Image(uiImage: novaImagem.resized(to: 50)!)
+                            Image(uiImage: novaImagem.resized(to: 300)!)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 100, height: 100)
@@ -52,7 +52,7 @@ struct EditarRemedioView: View {
                             
                         } else if let entidadeImagem = entidade.imagem, let imagemAntiga = UIImage(data: entidadeImagem) {
                             
-                            Image(uiImage: imagemAntiga.resized(to: 50)!)
+                            Image(uiImage: imagemAntiga.resized(to: 300)!)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 100, height: 100)
