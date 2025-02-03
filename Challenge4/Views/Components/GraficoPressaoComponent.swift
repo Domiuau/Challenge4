@@ -12,15 +12,10 @@ import Charts
 struct GraficoPressaoComponent: View {
     
     var registrosPressoes: [PressaoEntity]
-    var maior: Int
-    var menor: Int
     
-    init(registrosPressoes: [PressaoEntity], maior: Int, menor: Int) {
+    init(registrosPressoes: [PressaoEntity]) {
         self.registrosPressoes = registrosPressoes
-        print(maior)
-        print(menor)
-        self.maior = maior
-        self.menor = menor
+
     }
     
     var body: some View {
@@ -34,7 +29,8 @@ struct GraficoPressaoComponent: View {
                         y: .value("", registro.sistolica)
                     )
                     .foregroundStyle(Color.cinzaEscuro)
-                    .opacity(0.7)
+                    .lineStyle(.init(lineWidth: 5))
+                    .opacity(0.4)
                     
                     PointMark(
                         x: .value("", dataFormatada(data: registro.data!) + dataFormatadaHorario(data: registro.data!)),
@@ -45,7 +41,6 @@ struct GraficoPressaoComponent: View {
                     .annotation(position: .top, alignment: .center, spacing: 3) {
                         Text("\(registro.sistolica)/\(registro.diastolica)")
                             .font(.footnote)
-                            .fontWeight(.medium)
                             .foregroundColor(Color.preto)
                             .bold()
                     }

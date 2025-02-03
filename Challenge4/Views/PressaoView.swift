@@ -72,15 +72,19 @@ struct PressaoView: View {
                                 return
                             }
                             
-                            vm.addPressao(diastolica: diastolica, sistolica: sistolica)
-                            exibirAlert(titulo: "A sua pressão arterial foi registrada com sucesso!", mensagem: "Data: 03/06/2024 - Pressão Arterial: \(sistolica)/\(diastolica)")
+                            let dataAtual = Date()
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.dateFormat = "dd/MM/yyyy hh:mm:ss"
+                            
+                            vm.addPressao(diastolica: diastolica, sistolica: sistolica, data: dataAtual)
+                            exibirAlert(titulo: "A sua pressão arterial foi registrada com sucesso!", mensagem: "Data: \(dateFormatter.string(from: dataAtual)) - Pressão Arterial: \(sistolica)/\(diastolica)")
                         }
                     }
                     
                 }
                 .padding()
                 
-                GraficoPressaoComponent(registrosPressoes: vm.entidadeSalvasPressao, maior: vm.maiorSistolica, menor: vm.menorSistolica)
+                GraficoPressaoComponent(registrosPressoes: vm.entidadeSalvasPressao)
                     .padding()
                 
                 NavigationLink(destination: HistoricoPressaoView(vm: vm)) {
