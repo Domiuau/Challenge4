@@ -14,6 +14,7 @@ struct PressaoView: View {
     @State private var inputTextD: String = ""
     @State private var showAlert: Bool = false
     @State private var tituloAlert: String = ""
+    @State private var showSheet: Bool = false
     @State private var mensagemAlert: String = ""
     @StateObject var vm: PressaoViewModel
     
@@ -21,11 +22,28 @@ struct PressaoView: View {
         NavigationStack {
             ScrollView {
                 VStack {
-                    Text("Como está a sua pressão hoje?")
-                        .font(.title)
-                        .bold()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding()
+                    
+                    HStack(alignment: .top) {
+                        
+                        Text("Como está a sua pressão hoje?")
+                            .font(.title)
+                            .fontWeight(.semibold)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Button(action: {
+                            
+                            showSheet.toggle()
+                        }, label: {
+                            Image(systemName: "info.circle")
+                                .font(.title)
+                                .foregroundColor(.preto)
+                        })
+                        
+                        
+                    }
+                    .padding(.horizontal)
+                    
+                    
                     
                     VStack {
                         TextField("Sistólico", text: $inputTextS)
@@ -60,35 +78,16 @@ struct PressaoView: View {
                     
                     BotaoAcaoComponent(texto: "Salvar") {
                         
-                        if let sistolica = sistolica, let diastolica = diastolica {
-                            
-                            if (sistolica < 80 || sistolica > 170) {
-                                
-                                exibirAlert(titulo: "Valores inválidos", mensagem: "A pressão sistólica deve estar entre 80 e 170.")
-                                return
-                            } else if (diastolica < 40 || diastolica > 130) {
-                                
-                                exibirAlert(titulo: "Valores inválidos", mensagem: "A pressão diastólica deve estar entre 40 e 130.")
-                                return
-                            }
-                            
-                            let dataAtual = Date()
-                            let dateFormatter = DateFormatter()
-                            dateFormatter.dateFormat = "dd/MM/yyyy hh:mm:ss"
-                            
-                            vm.addPressao(diastolica: diastolica, sistolica: sistolica, data: dataAtual)
-                            exibirAlert(titulo: "A sua pressão arterial foi registrada com sucesso!", mensagem: "Data: \(dateFormatter.string(from: dataAtual)) - Pressão Arterial: \(sistolica)/\(diastolica)")
-                        }
+                        salvarPressao()
                     }
                     
                 }
-                .padding()
                 
                 Text("Histórico")
-                    .font(.largeTitle)
-                    .bold()
+                    .font(.title)
+                    .fontWeight(.semibold)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
+                    .padding()
                 
                 GraficoPressaoComponent(registrosPressoes: vm.entidadeSalvasPressao)
                     .padding()
@@ -97,6 +96,7 @@ struct PressaoView: View {
                     BotaoAcaoComponent(texto: "Mais Detalhes", action: nil)
                 }
             }
+            .scrollIndicators(.hidden)
             .navigationTitle("Pressão")
         }
         .onAppear {
@@ -110,12 +110,55 @@ struct PressaoView: View {
                 dismissButton: .default(Text("OK"))
             )
         }
+        .sheet(isPresented: $showSheet, content: {
+            VStack {
+                
+                Button(action: {
+                    showSheet = false
+                }, label: {
+                    Text("OK")
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        .foregroundColor(.accentColor)
+                        .bold()
+                })
+                
+                
+                
+                Spacer()
+
+                    
+
+            }.padding()
+        })
         .onChange(of: showAlert) { newValue in
             if !newValue {
                 inputTextS = ""
                 inputTextD = ""
                 
             }
+        }
+    }
+    
+    func salvarPressao() {
+        
+        if let sistolica = sistolica, let diastolica = diastolica {
+            
+            if (sistolica < PressaoViewModel.MIN_SISTOLICO || sistolica > PressaoViewModel.MAX_SISTOLICO) {
+                
+                exibirAlert(titulo: "Valores inválidos", mensagem: "A pressão sistólica deve estar entre \(PressaoViewModel.MIN_SISTOLICO) e \(PressaoViewModel.MAX_SISTOLICO).")
+                return
+            } else if (diastolica < PressaoViewModel.MIN_DIASTOLICO || diastolica > PressaoViewModel.MAX_DIASTOLICO) {
+                
+                exibirAlert(titulo: "Valores inválidos", mensagem: "A pressão diastólica deve estar entre \(PressaoViewModel.MIN_DIASTOLICO) e \(PressaoViewModel.MAX_DIASTOLICO).")
+                return
+            }
+            
+            let dataAtual = Date()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yyyy hh:mm:ss"
+            
+            vm.addPressao(diastolica: diastolica, sistolica: sistolica, data: dataAtual)
+            exibirAlert(titulo: "A sua pressão arterial foi registrada com sucesso!", mensagem: "Data: \(dateFormatter.string(from: dataAtual)) - Pressão Arterial: \(sistolica)/\(diastolica)")
         }
     }
     

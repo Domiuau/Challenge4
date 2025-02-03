@@ -73,7 +73,7 @@ struct GraficoPressaoComponent: View {
             .bold()
             //  .chartXAxis(Visibility.hidden)
             // .border(Color.black, width: 2)
-            .chartYScale(domain: 80...180)
+            .chartYScale(domain: 70...180)
             .frame(height: 260)
         } else {
             
