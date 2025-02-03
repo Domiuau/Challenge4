@@ -28,7 +28,7 @@ struct GraficoPressaoComponent: View {
         if !registrosPressoes.isEmpty {
             
             Chart {
-                ForEach(registrosPressoes) { registro in
+                ForEach(registrosPressoes.reversed()) { registro in
                     LineMark(
                         x: .value("", dataFormatada(data: registro.data!) + dataFormatadaHorario(data: registro.data!)),
                         y: .value("", registro.sistolica)
@@ -60,8 +60,8 @@ struct GraficoPressaoComponent: View {
                     
                     AxisValueLabel(content: {
                         VStack(spacing: -2) {
-                            Text(dataFormatada(data: registrosPressoes[value.index].data)).font(.footnote)
-                            Text(dataFormatadaHorario(data: registrosPressoes[value.index].data))
+                            Text(dataFormatada(data: registrosPressoes[registrosPressoes.count - 1 - value.index].data)).font(.footnote)
+                            Text(dataFormatadaHorario(data: registrosPressoes[registrosPressoes.count - 1 - value.index].data))
                             
                         }.padding(0)
                     })
@@ -82,10 +82,22 @@ struct GraficoPressaoComponent: View {
             .frame(height: 260)
         } else {
             
-            Rectangle().frame(height: 360)
-                .overlay {
-                    Text("arruma e bota mensagem falando q vc nap tem pressao").foregroundStyle(Color.white)
-                }
+            VStack(spacing: 10) {
+                
+                Image(systemName: "chart.line.uptrend.xyaxis")
+                    .foregroundColor(.cinzaClaro)
+                    .font(.system(size: 80))
+                
+                Text("Nenhuma pressão cadastrada.")
+                    .multilineTextAlignment(.center)
+                    .font(.title)
+                    .foregroundColor(.cinzaClaro)
+                    
+            }
+            .frame(height: 260)
+            
+            
+            
             
         }
         

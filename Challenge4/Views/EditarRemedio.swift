@@ -19,7 +19,23 @@ struct EditarRemedioView: View {
     @State var novaDosagem = ""
     @State var novoHorario = Date()
     @State private var novaImagem: UIImage?
+    @State private var entidadeImagem: UIImage?
     @State var photoPicker: PhotosPickerItem?
+    
+    init(entidade: RemedioEntity, vm: RemedioViewModel) {
+            self.entidade = entidade
+            self.vm = vm
+        
+            if let imagemData = entidade.imagem, let imagem = UIImage(data: imagemData) {
+                _entidadeImagem = State(initialValue: imagem)
+            } else {
+                _entidadeImagem = State(initialValue: UIImage(named: "remedios"))
+            }
+        
+        
+            _novoNome = State(initialValue: entidade.nomeRemedio ?? "")
+            _novaDosagem = State(initialValue: entidade.dosagem ?? "")
+        }
     
     var body: some View {
         ScrollView {
