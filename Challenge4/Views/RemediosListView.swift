@@ -78,10 +78,10 @@ struct RemediosListView: View {
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 NavigationLink(destination: AdicionarRemedio(vm: vm)) {
-                    Image("Group 1")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 30)
+                    Image(systemName: "plus")
+                        .font(.title3)
+                        .bold()
+                        .foregroundColor(.maisUmVinho)
                 }
                 .buttonStyle(PlainButtonStyle())
             }
