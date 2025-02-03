@@ -31,7 +31,7 @@
 		79318CA02D4C0C4700667196 /* CoreDataContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataContainer.xcdatamodel; sourceTree = "<group>"; };
 		79318CA22D4C0E6E00667196 /* PressaoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressaoViewModel.swift; sourceTree = "<group>"; };
 		79318CAA2D4C1E5600667196 /* GraficoPressaoComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraficoPressaoComponent.swift; sourceTree = "<group>"; };
-		79C451A22D4A9D070025CA15 /* Challenge4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Challenge4.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		79C451A22D4A9D070025CA15 /* HearTrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HearTrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79C451A52D4A9D070025CA15 /* Challenge4App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge4App.swift; sourceTree = "<group>"; };
 		79C451A72D4A9D070025CA15 /* PressaoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressaoView.swift; sourceTree = "<group>"; };
 		79C451A92D4A9D080025CA15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -73,7 +73,7 @@
 		79C451A32D4A9D070025CA15 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				79C451A22D4A9D070025CA15 /* Challenge4.app */,
+				79C451A22D4A9D070025CA15 /* HearTrack.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -154,9 +154,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		79C451A12D4A9D070025CA15 /* Challenge4 */ = {
+		79C451A12D4A9D070025CA15 /* HearTrack */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 79C451B12D4A9D080025CA15 /* Build configuration list for PBXNativeTarget "Challenge4" */;
+			buildConfigurationList = 79C451B12D4A9D080025CA15 /* Build configuration list for PBXNativeTarget "HearTrack" */;
 			buildPhases = (
 				79C4519E2D4A9D070025CA15 /* Sources */,
 				79C4519F2D4A9D070025CA15 /* Frameworks */,
@@ -166,9 +166,9 @@
 			);
 			dependencies = (
 			);
-			name = Challenge4;
+			name = HearTrack;
 			productName = Challenge4;
-			productReference = 79C451A22D4A9D070025CA15 /* Challenge4.app */;
+			productReference = 79C451A22D4A9D070025CA15 /* HearTrack.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -186,7 +186,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 79C4519D2D4A9D070025CA15 /* Build configuration list for PBXProject "Challenge4" */;
+			buildConfigurationList = 79C4519D2D4A9D070025CA15 /* Build configuration list for PBXProject "HearTrack" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -199,7 +199,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				79C451A12D4A9D070025CA15 /* Challenge4 */,
+				79C451A12D4A9D070025CA15 /* HearTrack */,
 			);
 		};
 /* End PBXProject section */
@@ -440,7 +440,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		79C4519D2D4A9D070025CA15 /* Build configuration list for PBXProject "Challenge4" */ = {
+		79C4519D2D4A9D070025CA15 /* Build configuration list for PBXProject "HearTrack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				79C451AF2D4A9D080025CA15 /* Debug */,
@@ -449,7 +449,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		79C451B12D4A9D080025CA15 /* Build configuration list for PBXNativeTarget "Challenge4" */ = {
+		79C451B12D4A9D080025CA15 /* Build configuration list for PBXNativeTarget "HearTrack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				79C451B22D4A9D080025CA15 /* Debug */,
