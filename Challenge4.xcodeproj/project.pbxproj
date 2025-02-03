@@ -20,6 +20,7 @@
 		7BE0CA202D4C15FB007865A4 /* AdicionarRemedio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE0CA1F2D4C15FB007865A4 /* AdicionarRemedio.swift */; };
 		D402FDA02D4D3EB600A1D88C /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D402FD9F2D4D3EB600A1D88C /* Persistence.swift */; };
 		D402FDA22D4D498000A1D88C /* BotaoAcaoComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D402FDA12D4D498000A1D88C /* BotaoAcaoComponent.swift */; };
+		D48593E62D51457B007BEBA0 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48593E52D51457B007BEBA0 /* NotificationManager.swift */; };
 		D4BBEA8A2D4BFDB70087C1E4 /* SaveM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BBEA892D4BFDB70087C1E4 /* SaveM.swift */; };
 		D4CC80682D4C0E4D001862F8 /* TabBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CC80672D4C0E4D001862F8 /* TabBarComponent.swift */; };
 		D4CC806A2D4C1024001862F8 /* SobreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CC80692D4C1024001862F8 /* SobreView.swift */; };
@@ -42,6 +43,7 @@
 		7BE0CA1F2D4C15FB007865A4 /* AdicionarRemedio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdicionarRemedio.swift; sourceTree = "<group>"; };
 		D402FD9F2D4D3EB600A1D88C /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		D402FDA12D4D498000A1D88C /* BotaoAcaoComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotaoAcaoComponent.swift; sourceTree = "<group>"; };
+		D48593E52D51457B007BEBA0 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		D4BBEA892D4BFDB70087C1E4 /* SaveM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveM.swift; sourceTree = "<group>"; };
 		D4CC80672D4C0E4D001862F8 /* TabBarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarComponent.swift; sourceTree = "<group>"; };
 		D4CC80692D4C1024001862F8 /* SobreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SobreView.swift; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				D4BBEA862D4BFD720087C1E4 /* Views */,
 				79C451A52D4A9D070025CA15 /* Challenge4App.swift */,
 				D402FD9F2D4D3EB600A1D88C /* Persistence.swift */,
+				D48593E52D51457B007BEBA0 /* NotificationManager.swift */,
 				79C451A92D4A9D080025CA15 /* Assets.xcassets */,
 				79C451AB2D4A9D080025CA15 /* Challenge4.entitlements */,
 				79C451AC2D4A9D080025CA15 /* Preview Content */,
@@ -224,6 +227,7 @@
 				D402FDA02D4D3EB600A1D88C /* Persistence.swift in Sources */,
 				D4CC806A2D4C1024001862F8 /* SobreView.swift in Sources */,
 				D402FDA22D4D498000A1D88C /* BotaoAcaoComponent.swift in Sources */,
+				D48593E62D51457B007BEBA0 /* NotificationManager.swift in Sources */,
 				79C451A82D4A9D070025CA15 /* PressaoView.swift in Sources */,
 				D4D14C4C2D4D4D5800EBEFC6 /* HistoricoPressaoView.swift in Sources */,
 				7B28BFCE2D4D64EE0049798A /* EditarRemedio.swift in Sources */,
