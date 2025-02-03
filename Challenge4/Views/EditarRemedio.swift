@@ -23,19 +23,19 @@ struct EditarRemedioView: View {
     @State var photoPicker: PhotosPickerItem?
     
     init(entidade: RemedioEntity, vm: RemedioViewModel) {
-            self.entidade = entidade
-            self.vm = vm
+        self.entidade = entidade
+        self.vm = vm
         
-            if let imagemData = entidade.imagem, let imagem = UIImage(data: imagemData) {
-                _entidadeImagem = State(initialValue: imagem)
-            } else {
-                _entidadeImagem = State(initialValue: UIImage(named: "remedios"))
-            }
-        
-        
-            _novoNome = State(initialValue: entidade.nomeRemedio ?? "")
-            _novaDosagem = State(initialValue: entidade.dosagem ?? "")
+        if let imagemData = entidade.imagem, let imagem = UIImage(data: imagemData) {
+            _entidadeImagem = State(initialValue: imagem)
+        } else {
+            _entidadeImagem = State(initialValue: UIImage(named: "remedios"))
         }
+        
+        
+        _novoNome = State(initialValue: entidade.nomeRemedio ?? "")
+        _novaDosagem = State(initialValue: entidade.dosagem ?? "")
+    }
     
     var body: some View {
         ScrollView {
@@ -119,10 +119,13 @@ struct EditarRemedioView: View {
                     
                     guard !novoNome.isEmpty else { return }
                     guard !novaDosagem.isEmpty else { return }
-                    guard let imagem = novaImagem else { return }
+                    
+                    let imagemSalvar = novaImagem ?? entidadeImagem
+                    
+                    guard let imagem = imagemSalvar else { return }
                     
                     let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "hh:mm"
+                    dateFormatter.dateFormat = "HH:mm"
                     
                     guard let imageData = imagem.pngData() else {
                         print("Erro ao converter imagem para Data")
@@ -134,53 +137,23 @@ struct EditarRemedioView: View {
                     novoNome = ""
                     novaDosagem = ""
                     dismiss()
-                }) // Botão de componente
+                    
+                })
                 .frame(maxWidth: .infinity)
             }
             .padding()
             
-            
-            Text("Dosagem (miligramas)")
-                .font(.title2)
-                .bold()
-                .padding(.leading)
-            
-            TextField(entidade.dosagem ?? "Remédio sem dosagem", text: $novaDosagem)
-                .font(.title3)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 30)
-                        .frame(height: 2)
-                        .opacity(0.44)
-                        .foregroundColor(.gray), alignment: .bottom
-                )
-                .padding()
-                .font(.title)
-            
-            Text("Horários")
-                .font(.title2)
-                .bold()
-                .padding(.leading)
-            
-            DatePicker("", selection: $novoHorario, displayedComponents: .hourAndMinute)
-                .datePickerStyle(WheelDatePickerStyle())
-                .aspectRatio(contentMode: .fit)
-                .padding(.horizontal)
-            
-            BotaoAcaoComponent(texto: "Editar", action: {
-                
-                guard !novoNome.isEmpty else { return }
-                guard !novaDosagem.isEmpty else { return }
-                
-                let imagemSalvar = novaImagem ?? entidadeImagem
-                
-                guard let imagem = imagemSalvar else { return }
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "hh:mm"
-                
-                guard let imageData = imagem.pngData() else {
-                    print("Erro ao converter imagem para Data")
-                    return
+            .navigationTitle("Editor de Remédios")
+            .onChange(of: photoPicker, { _, _ in
+                Task {
+                    if let photoPicker, let data = try? await photoPicker.loadTransferable(type: Data.self) {
+                        if let image = UIImage(data: data) {
+                            novaImagem = image
+                        }
+                    }
+                    
+                    photoPicker = nil
+                    
                 }
             })
         }
