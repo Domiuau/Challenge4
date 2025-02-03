@@ -21,11 +21,20 @@ struct PressaoView: View {
         NavigationStack {
             ScrollView {
                 VStack {
-                    Text("Como está a sua pressão hoje?")
-                        .font(.title)
-                        .bold()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding()
+                    
+                    HStack(alignment: .top) {
+                        
+                        Text("Como está a sua pressão hoje?")
+                            .font(.title)
+                            .fontWeight(.semibold)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Image(systemName: "info.circle")
+                            .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                    }
+                    .padding(.horizontal)
+                    
+                    
                     
                     VStack {
                         TextField("Sistólico", text: $inputTextS)
@@ -82,7 +91,12 @@ struct PressaoView: View {
                     }
                     
                 }
-                .padding()
+                
+                Text("Histórico")
+                    .font(.title)
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding()
                 
                 GraficoPressaoComponent(registrosPressoes: vm.entidadeSalvasPressao)
                     .padding()
@@ -91,6 +105,7 @@ struct PressaoView: View {
                     BotaoAcaoComponent(texto: "Mais Detalhes", action: nil)
                 }
             }
+            .scrollIndicators(.hidden)
             .navigationTitle("Pressão")
         }
         .onAppear {
