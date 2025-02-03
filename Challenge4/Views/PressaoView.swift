@@ -98,6 +98,12 @@ struct PressaoView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
                 
+                Text("Histórico")
+                    .font(.largeTitle)
+                    .bold()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
+                
                 GraficoPressaoComponent(registrosPressoes: vm.entidadeSalvasPressao)
                     .padding()
                 

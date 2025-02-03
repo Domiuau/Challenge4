@@ -11,8 +11,9 @@ struct HistoricoPressaoView: View {
     @ObservedObject var vm: PressaoViewModel
     
     var body: some View {
-        Text("Histórico de Pressões")
-            .font(.headline)
+        Text("Histórico")
+            .font(.largeTitle)
+            .bold()
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal)
         
@@ -21,18 +22,26 @@ struct HistoricoPressaoView: View {
                 VStack(alignment: .leading) {
                     Text("\(pressao.sistolica)/\(pressao.diastolica)")
                         .font(.title)
+                        .bold()
+                    
+                    Spacer()
+                        .frame(height: 5)
+                    
                     HStack {
                         Text(vm.situacaoPressao(sistolica: Int(pressao.sistolica), diastolica: Int(pressao.diastolica)))
-                            .font(.title2)
+                            .font(.headline)
                         Spacer()
                         Text(pressao.data != nil ? vm.formatarData(pressao.data!) : "Sem data")
-                            .font(.title3)
+                            .font(.headline)
                             .foregroundColor(.gray)
                     }
                 }
             }
             .onDelete(perform: vm.deletePressao)
         }
+        .listStyle(InsetListStyle())
+        .scrollContentBackground(.hidden)
+        
         .onAppear {
             vm.fetchPressoes()
         }
