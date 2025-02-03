@@ -3,6 +3,10 @@ import CoreData
 
 class PressaoViewModel: ObservableObject {
     private let conteudo = PersistenceController.persistencia.container.viewContext
+    static let MAX_SISTOLICO = 170
+    static let MIN_SISTOLICO = 80
+    static let MAX_DIASTOLICO = 130
+    static let MIN_DIASTOLICO = 40
     @Published var entidadeSalvasPressao: [PressaoEntity] = []
     
     func deletePressao(index: IndexSet) {
@@ -12,7 +16,6 @@ class PressaoViewModel: ObservableObject {
         saveData()
         
     }
-    
     
     func fetchPressoes() {
         let request = NSFetchRequest<PressaoEntity>(entityName: "PressaoEntity")
