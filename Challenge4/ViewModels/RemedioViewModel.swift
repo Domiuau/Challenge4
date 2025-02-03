@@ -1,6 +1,7 @@
 import Foundation
 import CoreData
 import UserNotifications
+import PhotosUI
 
 class RemedioViewModel: ObservableObject {
     private let conteudo = PersistenceController.persistencia.container.viewContext
@@ -59,6 +60,14 @@ class RemedioViewModel: ObservableObject {
         saveRemedios()
     }
 
+//    func openGallery() {
+//        var config = PHPickerConfiguration()
+//        config.selectionLimit = 1
+//        
+//        let pickerVC = PHPickerViewController(configuration: config)
+//        present(pickerVC, animated: true)
+//    }
+    
     
     func scheduleNotification(for remedio: RemedioEntity) {
         let content = UNMutableNotificationContent()

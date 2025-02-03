@@ -12,6 +12,9 @@ struct PressaoView: View {
     @State private var diastolica: Int? = nil
     @State private var inputTextS: String = ""
     @State private var inputTextD: String = ""
+    @State private var showAlert: Bool = false
+    @State private var tituloAlert: String = ""
+    @State private var mensagemAlert: String = ""
     @StateObject var vm: PressaoViewModel
     
     var body: some View {
@@ -56,10 +59,21 @@ struct PressaoView: View {
                     .padding()
                     
                     BotaoAcaoComponent(texto: "Salvar") {
+                        
                         if let sistolica = sistolica, let diastolica = diastolica {
+                            
+                            if (sistolica < 80 || sistolica > 170) {
+                                
+                                exibirAlert(titulo: "Valores inválidos", mensagem: "A pressão sistólica deve estar entre 80 e 170.")
+                                return
+                            } else if (diastolica < 40 || diastolica > 130) {
+                                
+                                exibirAlert(titulo: "Valores inválidos", mensagem: "A pressão diastólica deve estar entre 40 e 130.")
+                                return
+                            }
+                            
                             vm.addPressao(diastolica: diastolica, sistolica: sistolica)
-                            inputTextS = ""
-                            inputTextD = ""
+                            exibirAlert(titulo: "A sua pressão arterial foi registrada com sucesso!", mensagem: "Data: 03/06/2024 - Pressão Arterial: \(sistolica)/\(diastolica)")
                         }
                     }
                     
@@ -78,6 +92,27 @@ struct PressaoView: View {
         .onAppear {
             vm.fetchPressoes()
         }
+        
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text(tituloAlert),
+                message: Text(mensagemAlert),
+                dismissButton: .default(Text("OK"))
+            )
+        }
+        .onChange(of: showAlert) { newValue in
+            if !newValue {
+                inputTextS = ""
+                inputTextD = ""
+                
+            }
+        }
+    }
+    
+    func exibirAlert(titulo: String, mensagem: String) {
+        tituloAlert = titulo
+        mensagemAlert = mensagem
+        showAlert.toggle()
     }
 }
 

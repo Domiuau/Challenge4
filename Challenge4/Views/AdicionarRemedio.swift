@@ -82,7 +82,7 @@ struct AdicionarRemedio: View {
                     
                     guard !nomeRemedio.isEmpty else { return }
                     guard !dosagem.isEmpty else { return }
-                    guard var imagem = imagem else { return }
+                    guard let imagem = imagem else { return }
                     
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "HH:mm"
@@ -118,7 +118,7 @@ struct AdicionarRemedio: View {
         })
     }
 }
-
+                  
 extension UIImage {
     func resized(to maxWidth: CGFloat) -> UIImage? {
         let aspectRatio = self.size.height / self.size.width
