@@ -58,7 +58,7 @@ struct RemediosListView: View {
                                     .padding(.bottom, 5)
                                 
                                 HStack {
-                                    Image(systemName: "drop.fill")
+                                    Image(systemName: "pills.fill")
                                     Text("Dosagem: **\(entidade.dosagem ?? "SEM DOSAGEM")**")
                                         .font(.callout)
                                 }

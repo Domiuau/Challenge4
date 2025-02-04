@@ -127,8 +127,8 @@ struct EditarRemedioView: View {
                     .aspectRatio(contentMode: .fit)
                     .padding(.horizontal)
                 
-                BotaoAcaoComponent(texto: "Editar", action: {
-                    
+                BotaoAcaoComponent(texto: "Salvar", action: {
+                  
                     guard !novoNome.isEmpty else { return }
                     guard !novaDosagem.isEmpty else { return }
                     
@@ -154,7 +154,7 @@ struct EditarRemedioView: View {
                 .frame(maxWidth: .infinity)
             }
             .padding()
-            .navigationTitle("Editor de Remédios")
+            .navigationTitle("Editar Remédio")
             .onChange(of: photoPicker, { _, _ in
                 Task {
                     if let photoPicker, let data = try? await photoPicker.loadTransferable(type: Data.self) {
