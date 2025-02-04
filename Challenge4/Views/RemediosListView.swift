@@ -18,8 +18,10 @@ struct RemediosListView: View {
                     
                     VStack {
                         Image(systemName: "exclamationmark.triangle")
+                            .font(.largeTitle)
+                            .foregroundColor(.cinzaClaro)
                         
-                        Text("Nenhum\nremédio\ncadastrado.")
+                        Text("Você ainda não adicionou\num remédio")
                             .multilineTextAlignment(.center)
                             .font(.title)
                             .foregroundColor(.cinzaClaro)
