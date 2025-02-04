@@ -53,10 +53,10 @@ struct SobreView: View {
                      [João Victor Farias Teixeira](https://www.linkedin.com/in/jo%C3%A3o-victor-farias-teixeira-83a313265/)
                      [Maria Mercedes da Silva Rodrigues](www.linkedin.com/in/maria-mercedes-rodrigues)
                      """)
-                //
             }
             .padding(50)
         }
+        .navigationTitle("Sobre")
     }
 }
 
