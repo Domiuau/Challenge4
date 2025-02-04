@@ -55,7 +55,7 @@ struct RemediosListView: View {
                             VStack (alignment: .leading) {
                                 Text("**\(entidade.nomeRemedio ?? "SEM NOME")**")
                                     .font(.system(size: 22))
-                                    .padding(.bottom, 5)
+                                    .padding(.bottom, 10)
                                 
                                 HStack {
                                     Image(systemName: "pills.fill")
@@ -69,6 +69,7 @@ struct RemediosListView: View {
                                         .font(.callout)
                                 }
                             }
+                            .padding(.leading, 20)
                         }
                         
                     }

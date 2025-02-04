@@ -48,36 +48,39 @@ struct PressaoView: View {
                     }
                     .padding(.horizontal)
                     
-                    VStack {
-                        TextField("Sistólico", text: $inputTextS)
-                            .keyboardType(.numberPad)
-                            .font(.system(size: 50))
-                            .onChange(of: inputTextS) { newValue in
-                                sistolica = Int(newValue)
-                            }
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 30)
-                                    .frame(height: 3)
-                                    .opacity(0.44)
-                                    .foregroundColor(.gray), alignment: .bottom
-                            )
-                        
-                        Spacer().frame(height: 16)
-                        
-                        TextField("Diastólico", text: $inputTextD)
-                            .keyboardType(.numberPad)
-                            .font(.system(size: 50))
-                            .onChange(of: inputTextD) { newValue in
-                                diastolica = Int(newValue)
-                            }
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 30)
-                                    .frame(height: 3)
-                                    .opacity(0.44)
-                                    .foregroundColor(.gray), alignment: .bottom
-                            )
+                    HStack {
+                        VStack {
+                            TextField("Sistólico", text: $inputTextS)
+                                .keyboardType(.numberPad)
+                                .font(.system(size: 50))
+                                .onChange(of: inputTextS) { newValue in
+                                    sistolica = Int(newValue)
+                                }
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .frame(height: 3)
+                                        .opacity(0.44)
+                                        .foregroundColor(.gray), alignment: .bottom
+                                )
+                            
+                            Spacer().frame(height: 16)
+                            
+                            TextField("Diastólico", text: $inputTextD)
+                                .keyboardType(.numberPad)
+                                .font(.system(size: 50))
+                                .onChange(of: inputTextD) { newValue in
+                                    diastolica = Int(newValue)
+                                }
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .frame(height: 3)
+                                        .opacity(0.44)
+                                        .foregroundColor(.gray), alignment: .bottom
+                                )
+                        }
+                        .padding()
                     }
-                    .padding()
+                    .padding(.trailing, 150)
                     
                     BotaoAcaoComponent(texto: "Salvar") {
                         
