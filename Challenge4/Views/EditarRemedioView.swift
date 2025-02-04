@@ -167,15 +167,6 @@ struct EditarRemedioView: View {
                     
                 }
             })
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Remédios") {
-                        dismiss()
-                    }
-                    .padding(.leading, -18)
-                    .background(Color.red)
-                }
-            }
         }
     }
 }
