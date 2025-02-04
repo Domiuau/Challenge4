@@ -25,7 +25,8 @@ struct SobreView: View {
             Bem-vindo ao **HearTrack** - o seu aplicativo gratuito para o registro da sua pressão arterial!\n
             Você poderá informar os valores da sua pressão arterial para manter um histórico pessoal, e também adicionar seus medicamentos anti-hipertensivos para receber um lembrete de quando tomá-los.\n
             Este aplicativo é um registro pessoal, por isso, ressaltamos que o HearTrack não deve ser utilizado como laudo médico ou diagnóstico de doenças cardíacas. É de responsabilidade do usuário a correta utilização da plataforma.\n
-            Todos os dados informados não serão compartilhados e são de inteira responsabilidade dos próprios usuários.
+            Todos os dados informados não serão compartilhados e são de inteira responsabilidade dos próprios usuários. \n
+            Todos os direitos deste aplicativo são de propriedade intelectual da equipe que o produziu. É permitido utilizar os elementos visuais do aplicativo contanto que seus autores sejam devidamente creditados.
             """)
                 
                 Spacer()
