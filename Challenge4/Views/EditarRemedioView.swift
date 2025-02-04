@@ -154,7 +154,6 @@ struct EditarRemedioView: View {
                 .frame(maxWidth: .infinity)
             }
             .padding()
-            
             .navigationTitle("Editor de Remédios")
             .onChange(of: photoPicker, { _, _ in
                 Task {
@@ -168,6 +167,15 @@ struct EditarRemedioView: View {
                     
                 }
             })
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Remédios") {
+                        dismiss()
+                    }
+                    .padding(.leading, -18)
+                    .background(Color.red)
+                }
+            }
         }
     }
 }

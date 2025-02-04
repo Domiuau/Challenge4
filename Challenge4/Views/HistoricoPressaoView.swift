@@ -14,11 +14,8 @@ struct HistoricoPressaoView: View {
     @ObservedObject var vm: PressaoViewModel
     
     var body: some View {
-        Text("Histórico")
-            .font(.largeTitle)
-            .bold()
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal)
+        
+        
         
         List {
             ForEach(vm.entidadeSalvasPressao, id: \.self) { pressao in
@@ -44,10 +41,15 @@ struct HistoricoPressaoView: View {
         }
         .listStyle(InsetListStyle())
         .scrollContentBackground(.hidden)
+        .navigationTitle("Histórico")
         
         .onAppear {
             vm.fetchPressoes()
         }
+        
+        
+        
+        
     }
 }
 

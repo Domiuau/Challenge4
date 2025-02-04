@@ -125,6 +125,29 @@ struct PressaoView: View {
                         .bold()
                 })
                 
+                Image("medidorDePressao")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .padding(.vertical)
+                
+                
+                Text("• SIS = Sistólico")
+                    .foregroundColor(.vinhoBotoes)
+                    .padding(.leading, 5)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .bold()
+                    .font(.title2)
+                
+                Text("• DIA = Diastólico")
+                    .foregroundColor(.batommorto)
+                    .padding(.leading, 5)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .bold()
+                    .font(.title2)
+
+                
+                
+                
                 
                 
                 Spacer()
