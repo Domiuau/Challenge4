@@ -14,6 +14,8 @@ struct SplashScreenView: View {
     @State private var drawProgress2: CGFloat = 0.0
     @State private var drawProgress3: CGFloat = 0.0
     @State private var isActive = false
+    
+    
     var body: some View {
         if isActive{
             TabBarComponent(pressaoViewModel: vm)
@@ -46,15 +48,11 @@ struct SplashScreenView: View {
                         )
                         .onAppear {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                                withAnimation(.linear(duration: 1.0)) {
+                                withAnimation(.linear(duration: 0.5)) {
                                     drawProgress2 = 1.0
                                 }
                             }
                         }
-                }.onAppear{
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 10.0){
-                        self.isActive = true
-                    }
                 }
                 
                 Image("appNome")
@@ -64,12 +62,17 @@ struct SplashScreenView: View {
                     .opacity(drawProgress3)
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                            withAnimation(.linear(duration: 1.0)) {
+                            withAnimation(.linear(duration: 0.4)) {
                                 drawProgress3 = 1.0
                             }
                         }
                     }
+            }.onAppear{
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0){
+                    self.isActive = true
+                }
             }
+
         }
     }
 }
