@@ -24,7 +24,6 @@ struct BotaoAcaoComponent: View {
             .cornerRadius(50)
         } else {
             Text(texto)
-                .frame(maxWidth: .infinity)
                 .padding()
                 .frame(width: 300, height: 40)
                 .background(Color.outroVinho)
