@@ -10,6 +10,7 @@ import SwiftUI
 struct SobreView: View {
     var body: some View {
         Text("SobreView")
+        //
     }
 }
 
