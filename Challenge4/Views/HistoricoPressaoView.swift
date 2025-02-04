@@ -1,9 +1,12 @@
-//
-//  HistoricoPressaoView.swift
-//  Challenge4
-//
-//  Created by JOAO VICTOR FARIAS TEIXEIRA on 31/01/25.
-//
+/*
+ By:
+ 
+ Alissa Yoshioka
+ Amanda Rodrigues
+ Guilherme Sousa
+ João V. Teixeira
+ Maria M. Rodrigues
+ */
 
 import SwiftUI
 
@@ -11,11 +14,8 @@ struct HistoricoPressaoView: View {
     @ObservedObject var vm: PressaoViewModel
     
     var body: some View {
-        Text("Histórico")
-            .font(.largeTitle)
-            .bold()
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal)
+        
+        
         
         List {
             ForEach(vm.entidadeSalvasPressao, id: \.self) { pressao in
@@ -41,10 +41,15 @@ struct HistoricoPressaoView: View {
         }
         .listStyle(InsetListStyle())
         .scrollContentBackground(.hidden)
+        .navigationTitle("Histórico")
         
         .onAppear {
             vm.fetchPressoes()
         }
+        
+        
+        
+        
     }
 }
 
