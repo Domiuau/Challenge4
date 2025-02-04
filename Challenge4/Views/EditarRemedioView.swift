@@ -1,9 +1,12 @@
-//
-//  EditarRemedio.swift
-//  Challenge4
-//
-//  Created by AMANDA CAROLINE DA SILVA RODRIGUES on 31/01/25.
-//
+/*
+ By:
+ 
+ Alissa Yoshioka
+ Amanda Rodrigues
+ Guilherme Sousa
+ João V. Teixeira
+ Maria M. Rodrigues
+ */
 
 import SwiftUI
 import PhotosUI
@@ -32,7 +35,6 @@ struct EditarRemedioView: View {
             _entidadeImagem = State(initialValue: UIImage(named: "remedios"))
         }
         
-        
         _novoNome = State(initialValue: entidade.nomeRemedio ?? "")
         _novaDosagem = State(initialValue: entidade.dosagem ?? "")
     }
@@ -51,14 +53,24 @@ struct EditarRemedioView: View {
                                 .clipShape(.rect(cornerRadius: 10))
                             
                         } else if let entidadeImagem = entidade.imagem, let imagemAntiga = UIImage(data: entidadeImagem) {
-                            
-                            Image(uiImage: imagemAntiga.resized(to: 300)!)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 100, height: 100)
-                                .clipShape(.rect(cornerRadius: 10))
-                            
-                            
+                            ZStack {
+                                Image(uiImage: imagemAntiga.resized(to: 300)!)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 100, height: 100)
+                                    .clipShape(.rect(cornerRadius: 10))
+                                
+                                Rectangle()
+                                    .frame(width: 100, height: 100)
+                                    .foregroundColor(.black)
+                                    .opacity(0.4)
+                                    .clipShape(.rect(cornerRadius: 10))
+                                
+                                Image(systemName: "applepencil.gen2")
+                                    .bold()
+                                    .font(.system(size: 30))
+                                    .foregroundColor(.white)
+                            }
                         } else {
                             
                             Image(systemName: "photo.on.rectangle.angled")
@@ -67,8 +79,8 @@ struct EditarRemedioView: View {
                                 .frame(width: 100, height: 100)
                                 .clipShape(.rect(cornerRadius: 10))
                             
-                        } // else
-                    } // Photo Picker
+                        }
+                    }
                     
                     VStack(alignment: .leading) {
                         Text("Nome")
@@ -83,9 +95,9 @@ struct EditarRemedioView: View {
                                     .opacity(0.44)
                                     .foregroundColor(.gray), alignment: .bottom
                             )
-                    } // VStack
+                    }
                     .padding()
-                } // HStack
+                }
                 .padding()
                 
                 

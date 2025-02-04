@@ -1,9 +1,12 @@
-//
-//  AdicionarRemedio.swift
-//  Challenge4
-//
-//  Created by AMANDA CAROLINE DA SILVA RODRIGUES on 30/01/25.
-//
+/*
+ By:
+ 
+ Alissa Yoshioka
+ Amanda Rodrigues
+ Guilherme Sousa
+ João V. Teixeira
+ Maria M. Rodrigues
+ */
 
 import SwiftUI
 import PhotosUI
@@ -26,11 +29,27 @@ struct AdicionarRemedioView: View {
             VStack(alignment: .leading, spacing: 20) {
                 HStack{
                     PhotosPicker(selection: $photoPicker, matching: .images) {
-                        Image(uiImage: imagem?.resized(to:200)! ?? UIImage(named: "remedios")!.resized(to:200)!)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 100, height: 100)
-                            .clipShape(.rect(cornerRadius: 10))
+                        if let imagemSelecionada = imagem {
+                            
+                            Image(uiImage: imagem ?? UIImage(named: "remedios")!.resized(to:200)!)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 100, height: 100)
+                                .clipShape(.rect(cornerRadius: 10))
+                            
+                        } else {
+                            ZStack {
+                                Rectangle()
+                                    .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: 100)
+                                    .clipShape(.rect(cornerRadius: 10))
+                                    .foregroundColor(.cinzaClaro)
+                                
+                                Text("Escolha uma imagem")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(.cinzaEscuro)
+                            }
+                            .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: 100)
+                        }
                     }
                     
                     VStack(alignment: .leading) {
@@ -46,9 +65,9 @@ struct AdicionarRemedioView: View {
                                     .opacity(0.44)
                                     .foregroundColor(.gray), alignment: .bottom
                             )
-                    } // VStack
+                    }
                     .padding()
-                } // HStack
+                }
                 .padding()
                 
                 Text("Dosagem (miligramas)")
@@ -97,7 +116,7 @@ struct AdicionarRemedioView: View {
                     nomeRemedio = ""
                     dosagem = ""
                     dismiss()
-                }) // BotaoAcaoComponente
+                })
                 .frame(maxWidth: .infinity)
             }
             .padding()

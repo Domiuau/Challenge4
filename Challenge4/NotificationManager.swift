@@ -1,9 +1,12 @@
-//
-//  NotificationManager.swift
-//  Challenge4
-//
-//  Created by JOAO VICTOR FARIAS TEIXEIRA on 03/02/25.
-//
+/*
+ By:
+ 
+ Alissa Yoshioka
+ Amanda Rodrigues
+ Guilherme Sousa
+ João V. Teixeira
+ Maria M. Rodrigues
+ */
 
 import Foundation
 

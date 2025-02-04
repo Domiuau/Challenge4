@@ -1,3 +1,13 @@
+/*
+ By:
+ 
+ Alissa Yoshioka
+ Amanda Rodrigues
+ Guilherme Sousa
+ João V. Teixeira
+ Maria M. Rodrigues
+ */
+
 import SwiftUI
 import UserNotifications
 
@@ -7,7 +17,7 @@ struct Challenge4App: App {
     let pressaoViewModel = PressaoViewModel()
 
     init() {
-        NotificationManager.shared.requestNotificationPermission() 
+        NotificationManager.shared.requestNotificationPermission()
     }
 
     var body: some Scene {

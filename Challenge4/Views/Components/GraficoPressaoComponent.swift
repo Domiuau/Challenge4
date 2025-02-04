@@ -1,22 +1,19 @@
-
-//
-//  GraficoPressaoComponent.swift
-//  Challenge4
-//
-//  Created by GUILHERME MATEUS SOUSA SANTOS on 30/01/25.
-//
+/*
+ By:
+ 
+ Alissa Yoshioka
+ Amanda Rodrigues
+ Guilherme Sousa
+ João V. Teixeira
+ Maria M. Rodrigues
+ */
 
 import SwiftUI
 import Charts
 
 struct GraficoPressaoComponent: View {
-    
+    @ObservedObject var vm = PressaoViewModel()
     var registrosPressoes: [PressaoEntity]
-    
-    init(registrosPressoes: [PressaoEntity]) {
-        self.registrosPressoes = registrosPressoes
-
-    }
     
     var body: some View {
         
@@ -25,7 +22,7 @@ struct GraficoPressaoComponent: View {
             Chart {
                 ForEach(registrosPressoes.reversed()) { registro in
                     LineMark(
-                        x: .value("", dataFormatada(data: registro.data!) + dataFormatadaHorario(data: registro.data!)),
+                        x: .value("", vm.dataFormatada(data: registro.data!) + vm.dataFormatadaHorario(data: registro.data!)),
                         y: .value("", registro.sistolica)
                     )
                     .foregroundStyle(Color.cinzaEscuro)
@@ -33,7 +30,7 @@ struct GraficoPressaoComponent: View {
                     .opacity(0.4)
                     
                     PointMark(
-                        x: .value("", dataFormatada(data: registro.data!) + dataFormatadaHorario(data: registro.data!)),
+                        x: .value("", vm.dataFormatada(data: registro.data!) + vm.dataFormatadaHorario(data: registro.data!)),
                         y: .value("", registro.sistolica)
                     )
                     .foregroundStyle(Color.vinhoBotoes)
@@ -49,30 +46,23 @@ struct GraficoPressaoComponent: View {
             }
             .chartXAxis {
                 
-                
-                
                 AxisMarks() { value in
                     
                     AxisValueLabel(content: {
                         VStack(spacing: -2) {
-                            Text(dataFormatada(data: registrosPressoes[registrosPressoes.count - 1 - value.index].data)).font(.footnote)
-                            Text(dataFormatadaHorario(data: registrosPressoes[registrosPressoes.count - 1 - value.index].data))
+                            Text(vm.dataFormatada(data: registrosPressoes[registrosPressoes.count - 1 - value.index].data)).font(.footnote)
+                            Text(vm.dataFormatadaHorario(data: registrosPressoes[registrosPressoes.count - 1 - value.index].data))
                             
                         }.padding(0)
                     })
                     .font(.caption2)
-                    
-                    
                     
                 }
                 
             }
             .chartScrollableAxes(.horizontal)
             .chartXVisibleDomain(length: 4)
-            //.chartYAxis(Visibility.hidden)
             .bold()
-            //  .chartXAxis(Visibility.hidden)
-            // .border(Color.black, width: 2)
             .chartYScale(domain: 70...180)
             .frame(height: 260)
         } else {
@@ -91,31 +81,7 @@ struct GraficoPressaoComponent: View {
             }
             .frame(height: 260)
             
-            
-            
-            
         }
-        
-        
-        
-        
-        
-    }
-    
-    
-    
-    func dataFormatada(data: Date?) -> String {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yy "
-        return dateFormatter.string(from: data!)
-    }
-    
-    func dataFormatadaHorario(data: Date?) -> String {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss "
-        return dateFormatter.string(from: data!)
         
     }
     
@@ -143,6 +109,3 @@ struct Entidade: Identifiable {
     }
 }
 
-//#Preview {
-//    GraficoPressaoComponent(registrosPressoes: [Entidade(sistolica: 125, diastolica: 42), Entidade(sistolica: 121, diastolica: 45), Entidade(sistolica: 126, diastolica: 40), Entidade(sistolica: 120, diastolica: 47), Entidade(sistolica: 128, diastolica: 40), Entidade(sistolica: 128, diastolica: 40), Entidade(sistolica: 138, diastolica: 40), Entidade(sistolica: 129, diastolica: 40)])
-//}

@@ -1,15 +1,18 @@
-//
-//  BotaoAcaoComponent.swift
-//  Challenge4
-//
-//  Created by JOAO VICTOR FARIAS TEIXEIRA on 31/01/25.
-//
+/*
+ By:
+ 
+ Alissa Yoshioka
+ Amanda Rodrigues
+ Guilherme Sousa
+ João V. Teixeira
+ Maria M. Rodrigues
+ */
 
 import SwiftUI
 
 struct BotaoAcaoComponent: View {
     let texto: String
-    var action: (() -> Void)?  // Permitir ação opcional
+    var action: (() -> Void)?
 
     var body: some View {
         if let action = action {
@@ -34,8 +37,3 @@ struct BotaoAcaoComponent: View {
     }
 }
 
-
-
-//#Preview {
-//    BotaoAcaoComponent(texto: "default")
-//}

@@ -1,9 +1,12 @@
-//
-//  ContentView.swift
-//  Challenge4
-//
-//  Created by GUILHERME MATEUS SOUSA SANTOS on 29/01/25.
-//
+/*
+ By:
+ 
+ Alissa Yoshioka
+ Amanda Rodrigues
+ Guilherme Sousa
+ João V. Teixeira
+ Maria M. Rodrigues
+ */
 
 import SwiftUI
 
@@ -20,7 +23,9 @@ struct PressaoView: View {
     
     var body: some View {
         NavigationStack {
+            
             ScrollView {
+                
                 VStack {
                     
                     HStack(alignment: .top) {
@@ -42,8 +47,6 @@ struct PressaoView: View {
                         
                     }
                     .padding(.horizontal)
-                    
-                    
                     
                     VStack {
                         TextField("Sistólico", text: $inputTextS)
@@ -125,9 +128,9 @@ struct PressaoView: View {
                 
                 
                 Spacer()
-
-                    
-
+                
+                
+                
             }.padding()
         })
         .onChange(of: showAlert) { newValue in

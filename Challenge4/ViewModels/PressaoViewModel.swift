@@ -1,12 +1,22 @@
+/*
+ By:
+ 
+ Alissa Yoshioka
+ Amanda Rodrigues
+ Guilherme Sousa
+ João V. Teixeira
+ Maria M. Rodrigues
+ */
+
 import Foundation
 import CoreData
 
 class PressaoViewModel: ObservableObject {
     private let conteudo = PersistenceController.persistencia.container.viewContext
-    static let MAX_SISTOLICO = 170
-    static let MIN_SISTOLICO = 80
-    static let MAX_DIASTOLICO = 130
-    static let MIN_DIASTOLICO = 40
+    static let MAX_SISTOLICO = 190
+    static let MIN_SISTOLICO = 30
+    static let MAX_DIASTOLICO = 110
+    static let MIN_DIASTOLICO = 10
     @Published var entidadeSalvasPressao: [PressaoEntity] = []
     
     func deletePressao(index: IndexSet) {
@@ -57,21 +67,36 @@ class PressaoViewModel: ObservableObject {
     
     func situacaoPressao(sistolica: Int, diastolica: Int) -> String {
         switch (sistolica, diastolica) {
-            case (..<90, _), (_, ..<60):
-                return "Baixa"
-            case (90...119, 60...79):
-                return "Normal"
-            case (120...129, 60...79):
-                return "Elevada"
-            default:
-                return "Valores Inválidos"
-            }
+        case (..<90, ..<60):
+            return "Baixa"
+        case (..<129, ..<84):
+            return "Normal"
+        case (130...190, 85...110):
+            return "Elevada"
+        default:
+            return "Valores fora do intervalo esperado"
+        }
     }
     
     func formatarData(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy 'às' HH:mm"
         return formatter.string(from: date)
+    }
+    
+    func dataFormatada(data: Date?) -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yy "
+        return dateFormatter.string(from: data!)
+    }
+    
+    func dataFormatadaHorario(data: Date?) -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss "
+        return dateFormatter.string(from: data!)
+        
     }
     
 }
