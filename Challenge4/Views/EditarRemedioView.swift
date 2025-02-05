@@ -18,17 +18,18 @@ struct EditarRemedioView: View {
     let entidade: RemedioEntity
     @ObservedObject var vm: RemedioViewModel
     
-    @State var novoNome = ""
-    @State var novaDosagem = ""
+    @State var novoNome: String
+    @State var novaDosagem: String
     @State var novoHorario: Date
     @State private var novaImagem: UIImage?
     @State private var entidadeImagem: UIImage?
     @State var photoPicker: PhotosPickerItem?
+    @State private var imagemTrocada = false
     private let antigoNome: String
     private let antigaDosagem: String
     private let antigoHorario: String
     private let antigaImagem: Data
-    private let dateFormatter = DateFormatter()
+    private let dateFormatterHora = DateFormatter()
     
     init(entidade: RemedioEntity, vm: RemedioViewModel) {
         self.entidade = entidade
@@ -45,20 +46,12 @@ struct EditarRemedioView: View {
         antigoHorario = entidade.horario ?? "0"
         antigaImagem = entidade.imagem!
         
-        _novoNome = State(initialValue: entidade.nomeRemedio ?? "")
+        _novoNome = State(initialValue: entidade.nomeRemedio ?? "asd")
         _novaDosagem = State(initialValue: entidade.dosagem ?? "")
         
-        let dateFormatterHora = DateFormatter()
+        
         dateFormatterHora.dateFormat = "HH:mm"
         
-        if let data = dateFormatterHora.date(from: entidade.horario!) {
-            print("converteu")
-        } else {
-            print("nao converteu")
-        }
-        
-        
-
         
         _novoHorario = State(initialValue: dateFormatterHora.date(from: entidade.horario!) ?? Date())
     }
@@ -104,6 +97,11 @@ struct EditarRemedioView: View {
                                 .clipShape(.rect(cornerRadius: 10))
                             
                         }
+                    }
+                    .onChange(of: photoPicker) { newSelection in
+                        
+                        imagemTrocada = true
+                        
                     }
                     
                     VStack(alignment: .leading) {
@@ -152,7 +150,8 @@ struct EditarRemedioView: View {
                     .padding(.horizontal)
                 
                 BotaoAcaoComponent(texto: "Salvar", action: {
-                  
+                    
+                    
                     guard !novoNome.isEmpty else { return }
                     guard !novaDosagem.isEmpty else { return }
                     
@@ -161,29 +160,19 @@ struct EditarRemedioView: View {
                     guard let imagem = imagemSalvar else { return }
                     
                     
-                    dateFormatter.dateFormat = "HH:mm"
+                    dateFormatterHora.dateFormat = "HH:mm"
                     
                     guard let imageData = imagem.pngData() else {
                         print("Erro ao converter imagem para Data")
                         return
                     }
                     
-                    vm.updateRemedio(remedioNome: novoNome, dosagem: novaDosagem, horario: dateFormatter.string(from: novoHorario), imagem: imageData, entidade: entidade)
+                    vm.updateRemedio(remedioNome: novoNome, dosagem: novaDosagem, horario: dateFormatterHora.string(from: novoHorario), imagem: imageData, entidade: entidade)
                     
-                    print(((antigoNome != novoNome) || (dateFormatter.string(from: novoHorario) != antigoHorario) || (antigaDosagem != novaDosagem)))
-                    print("antigo " + antigoNome + " novo " + novoNome)
-                    print("antigo " + dateFormatter.string(from: novoHorario)  + " novo " + antigoHorario)
-                    print("antigo " + antigaDosagem + " novo " + novaDosagem)
-
-                    
-                    novoNome = ""
-                    novaDosagem = ""
                     dismiss()
                     
                     
-                })
-                //.disabled((antigoNome != novoNome) || (dateFormatter.string(from: novoHorario) != antigoHorario) || (antigaDosagem != novaDosagem))
-
+                }, desabilitado: ((antigoNome == novoNome) && (dateFormatterHora.string(from: novoHorario) == antigoHorario) && (antigaDosagem == novaDosagem) && (!imagemTrocada)))
                 .frame(maxWidth: .infinity)
             }
             .padding()
