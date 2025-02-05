@@ -18,9 +18,7 @@ struct TabBarComponent: View {
         TabView {
             NavigationStack {
                 PressaoView(vm: pressaoViewModel)
-                    .onTapGesture {
-                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                    }
+                    
             }
             .tabItem {
                 Image(systemName: "heart.fill")

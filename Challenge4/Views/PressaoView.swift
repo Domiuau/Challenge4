@@ -89,6 +89,9 @@ struct PressaoView: View {
                     }, desabilitado: inputTextS == "" || inputTextD == "")
                     
                 }
+                .onTapGesture {
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
                 
                 
                 Text("Histórico")
@@ -109,15 +112,19 @@ struct PressaoView: View {
                 
                 if (vm.entidadeSalvasPressao.isEmpty) {
                     BotaoAcaoComponent(texto: "Mais Detalhes", action: nil, desabilitado: true)
+                        .padding(.vertical)
                 } else {
                     NavigationLink(destination: HistoricoPressaoView(vm: vm)) {
                         BotaoAcaoComponent(texto: "Mais Detalhes", action: nil)
+                            .padding(.vertical)
+                        
                     }
                 }
             }
             .scrollIndicators(.hidden)
             .navigationTitle("Pressão")
         }
+        
         .onAppear {
             vm.fetchPressoes()
         }
@@ -132,6 +139,7 @@ struct PressaoView: View {
         .sheet(isPresented: $showSheet, content: {
             VStack {
                 
+                
                 Button(action: {
                     showSheet = false
                 }, label: {
@@ -141,25 +149,47 @@ struct PressaoView: View {
                         .bold()
                 })
                 
+                Spacer()
+                
+                Text("O que é a pressão sistólica e diastólica?")
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .font(.title)
+                    .padding(.vertical)
+                    .bold()
+                
+                Text("A pressão arterial é composta por dois valores: a sistólica, que é a pressão quando o coração se contrai, e a diastólica, que é a pressão quando o coração está em repouso")
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                Text("[(OMRON, 2025).](https://omronbrasil.com/o-que-e-pressao-arterial-sistolica-2/?srsltid=AfmBOopI9ifoLXgY3bw7amnoXYSBRGwH15MhxYPqf_ZsfTXqFbbnQECp)")
+                    .underline()
+                
+                
                 Image("medidorDePressao")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .padding(.vertical)
+                
+                HStack {
+                    
+                    Text("• SIS = Sistólica")
+                        .foregroundColor(.vinhoBotoes)
+                        .padding(.leading, 5)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .bold()
+                        .font(.title3)
+                    
+                    Spacer()
+                    
+                    Text("• DIA = Diastólica")
+                        .foregroundColor(.batommorto)
+                        .padding(.leading, 5)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .bold()
+                        .font(.title3)
+                }
                 
                 
-                Text("• SIS = Sistólica")
-                    .foregroundColor(.vinhoBotoes)
-                    .padding(.leading, 5)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .bold()
-                    .font(.title2)
                 
-                Text("• DIA = Diastólica")
-                    .foregroundColor(.batommorto)
-                    .padding(.leading, 5)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .bold()
-                    .font(.title2)
                 
                 
                 
@@ -178,6 +208,7 @@ struct PressaoView: View {
                 inputTextD = ""
                 
             }
+            
         }
     }
     

@@ -48,9 +48,12 @@ struct AdicionarRemedioView: View {
                                     .clipShape(.rect(cornerRadius: 10))
                                     .foregroundColor(.cinzaClaro)
                                 
-                                Text("Escolha uma imagem")
-                                    .font(.system(size: 12))
-                                    .foregroundColor(.cinzaEscuro)
+                                Image(systemName: "photo.badge.plus")
+                                    .font(.system(size: 35))
+                                    .foregroundColor(Color.preto)
+                                    .opacity(0.5)
+                                
+                            
                             }
                             .frame(width: 100, height: 100)
                         }

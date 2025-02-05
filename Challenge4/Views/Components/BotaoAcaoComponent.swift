@@ -14,28 +14,32 @@ struct BotaoAcaoComponent: View {
     let texto: String
     var action: (() -> Void)?
     var desabilitado: Bool = false
-
+    
     var body: some View {
         if let action = action {
-            Button(action: action) {
-                Text(texto)
-                    .frame(maxWidth: .infinity)
-            }
-            .padding()
-            .frame(width: 300, height: 40)
-            .background(desabilitado ? Color.cinzaClaro : Color.outroVinho)
-            .foregroundColor(.white)
-            .cornerRadius(50)
+            Button(action: action, label: {
+                
+                RoundedRectangle(cornerRadius: 50).overlay(
+                    Text(texto)
+                        .foregroundColor(.white)
+                    
+                )
+                .padding(.horizontal)
+                .frame(height: 42)
+                .foregroundColor(desabilitado ? Color.cinzaClaro : Color.outroVinho)
+            })
             .disabled(desabilitado)
+            
+            
         } else {
-            Text(texto)
-                .padding()
-                .frame(width: 300, height: 40)
-                .background(desabilitado ? Color.cinzaClaro : Color.outroVinho)
-                .background(Color.outroVinho)
-                .foregroundColor(.white)
-                .cornerRadius(50)
-                .disabled(desabilitado)
+            RoundedRectangle(cornerRadius: 50).overlay(
+                Text(texto)
+                    .foregroundColor(.white)
+                
+            )
+            .padding(.horizontal)
+            .frame(height: 42)
+            .foregroundColor(desabilitado ? Color.cinzaClaro : Color.outroVinho)
         }
     }
 }
