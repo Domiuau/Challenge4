@@ -10,6 +10,7 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
 class PressaoViewModel: ObservableObject {
     private let conteudo = PersistenceController.persistencia.container.viewContext
@@ -18,6 +19,11 @@ class PressaoViewModel: ObservableObject {
     static let MAX_DIASTOLICO = 110
     static let MIN_DIASTOLICO = 10
     @Published var entidadeSalvasPressao: [PressaoEntity] = []
+    @Published var ordenacaoAscendente: Bool = false {
+        didSet {
+            fetchPressoes()
+        }
+    }
     
     func deletePressao(index: IndexSet) {
         guard let index = index.first else { return }
@@ -30,13 +36,14 @@ class PressaoViewModel: ObservableObject {
     func fetchPressoes() {
         let request = NSFetchRequest<PressaoEntity>(entityName: "PressaoEntity")
         
+        let sortDescriptor = NSSortDescriptor(key: "data", ascending: ordenacaoAscendente)
+        request.sortDescriptors = [sortDescriptor]
+        
         do {
             entidadeSalvasPressao = try conteudo.fetch(request)
-            
         } catch let error {
             print(error)
         }
-        
     }
     
     func addPressao(diastolica: Int, sistolica: Int, data: Date) {
@@ -65,16 +72,25 @@ class PressaoViewModel: ObservableObject {
         
     }
     
-    func situacaoPressao(sistolica: Int, diastolica: Int) -> String {
-        switch (sistolica, diastolica) {
-        case (..<99, ..<69):
+    func situacaoPressao(sistolica: Int) -> String {
+        switch (sistolica) {
+        case (..<99):
             return "Baixa"
-        case (...129, ...84):
+        case (...129):
             return "Normal"
-        case (130...190, 85...110):
+        case (130...190):
             return "Elevada"
         default:
             return "Valores fora do intervalo esperado"
+        }
+    }
+    
+    func corSituacaoPressao(situacao: String) -> Color {
+        switch (situacao) {
+        case "Baixa": return Color.blue
+        case "Normal": return Color.black
+        case "Elevada": return Color.maisUmVinho
+        default: return Color.gray
         }
     }
     
