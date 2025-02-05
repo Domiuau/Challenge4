@@ -101,14 +101,10 @@ struct PressaoView: View {
                                 Text("Diastólica").tag(1)
                             }
                             .pickerStyle(SegmentedPickerStyle())
-                            .background(
-                                RoundedRectangle(cornerRadius: 10.0)
-                                    .fill(Color.outroVinho)
-                            )
                             .padding(.horizontal)
                 
                 GraficoPressaoComponent(registrosPressoes: vm.entidadeSalvasPressao, tipoDePressao: $opcaoSelecionada)
-                    .padding()
+                    .padding(.horizontal)
                 
                 NavigationLink(destination: HistoricoPressaoView(vm: vm)) {
                     BotaoAcaoComponent(texto: "Mais Detalhes", action: nil)
