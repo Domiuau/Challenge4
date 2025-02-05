@@ -18,7 +18,6 @@ struct TabBarComponent: View {
         TabView {
             NavigationStack {
                 PressaoView(vm: pressaoViewModel)
-                    
             }
             .tabItem {
                 Image(systemName: "heart.fill")
