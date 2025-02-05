@@ -51,9 +51,9 @@ struct PressaoView: View {
                     
                     HStack {
                         VStack {
-                            TextField("Sistólico", text: $inputTextS)
+                            TextField("Sistólica", text: $inputTextS)
                                 .keyboardType(.numberPad)
-                                .font(.system(size: 50))
+                                .font(.system(size: 40))
                                 .onChange(of: inputTextS) { newValue in
                                     sistolica = Int(newValue)
                                 }
@@ -66,9 +66,9 @@ struct PressaoView: View {
                             
                             Spacer().frame(height: 16)
                             
-                            TextField("Diastólico", text: $inputTextD)
+                            TextField("Diastólica", text: $inputTextD)
                                 .keyboardType(.numberPad)
-                                .font(.system(size: 50))
+                                .font(.system(size: 40))
                                 .onChange(of: inputTextD) { newValue in
                                     diastolica = Int(newValue)
                                 }
@@ -79,7 +79,7 @@ struct PressaoView: View {
                                         .foregroundColor(.gray), alignment: .bottom
                                 )
                         }
-                        .padding()
+                        .padding([.bottom, .horizontal])
                     }
                     .padding(.trailing, 150)
                     
@@ -101,6 +101,10 @@ struct PressaoView: View {
                                 Text("Diastólica").tag(1)
                             }
                             .pickerStyle(SegmentedPickerStyle())
+                            .background(
+                                RoundedRectangle(cornerRadius: 10.0)
+                                    .fill(Color.outroVinho)
+                            )
                             .padding(.horizontal)
                 
                 GraficoPressaoComponent(registrosPressoes: vm.entidadeSalvasPressao, tipoDePressao: $opcaoSelecionada)
@@ -142,14 +146,14 @@ struct PressaoView: View {
                     .padding(.vertical)
                 
                 
-                Text("• SIS = Sistólico")
+                Text("• SIS = Sistólica")
                     .foregroundColor(.vinhoBotoes)
                     .padding(.leading, 5)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .bold()
                     .font(.title2)
                 
-                Text("• DIA = Diastólico")
+                Text("• DIA = Diastólica")
                     .foregroundColor(.batommorto)
                     .padding(.leading, 5)
                     .frame(maxWidth: .infinity, alignment: .leading)

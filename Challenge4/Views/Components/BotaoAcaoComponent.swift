@@ -13,6 +13,7 @@ import SwiftUI
 struct BotaoAcaoComponent: View {
     let texto: String
     var action: (() -> Void)?
+    var desabilitado: Bool = false
 
     var body: some View {
         if let action = action {
@@ -22,9 +23,10 @@ struct BotaoAcaoComponent: View {
             }
             .padding()
             .frame(width: 300, height: 40)
-            .background(Color.outroVinho)
+            .background(desabilitado ? Color.cinzaClaro : Color.outroVinho)
             .foregroundColor(.white)
             .cornerRadius(50)
+            .disabled(desabilitado)
         } else {
             Text(texto)
                 .padding()
