@@ -19,6 +19,7 @@ struct PressaoView: View {
     @State private var tituloAlert: String = ""
     @State private var showSheet: Bool = false
     @State private var mensagemAlert: String = ""
+    @State var opcaoSelecionada = 0
     @StateObject var vm: PressaoViewModel
     
     var body: some View {
@@ -95,7 +96,14 @@ struct PressaoView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
                 
-                GraficoPressaoComponent(registrosPressoes: vm.entidadeSalvasPressao)
+                Picker("Opções", selection: $opcaoSelecionada) {
+                                Text("Sistólica").tag(0)
+                                Text("Diastólica").tag(1)
+                            }
+                            .pickerStyle(SegmentedPickerStyle())
+                            .padding(.horizontal)
+                
+                GraficoPressaoComponent(registrosPressoes: vm.entidadeSalvasPressao, tipoDePressao: $opcaoSelecionada)
                     .padding()
                 
                 NavigationLink(destination: HistoricoPressaoView(vm: vm)) {

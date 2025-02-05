@@ -14,6 +14,7 @@ import Charts
 struct GraficoPressaoComponent: View {
     @ObservedObject var vm = PressaoViewModel()
     var registrosPressoes: [PressaoEntity]
+    @Binding var tipoDePressao: Int
     
     var body: some View {
         
@@ -23,7 +24,7 @@ struct GraficoPressaoComponent: View {
                 ForEach(registrosPressoes.reversed()) { registro in
                     LineMark(
                         x: .value("", vm.dataFormatada(data: registro.data!) + vm.dataFormatadaHorario(data: registro.data!)),
-                        y: .value("", registro.sistolica)
+                        y: .value("", tipoDePressao == 0 ? registro.sistolica : registro.diastolica)
                     )
                     .foregroundStyle(Color.cinzaEscuro)
                     .lineStyle(.init(lineWidth: 5))
@@ -31,15 +32,30 @@ struct GraficoPressaoComponent: View {
                     
                     PointMark(
                         x: .value("", vm.dataFormatada(data: registro.data!) + vm.dataFormatadaHorario(data: registro.data!)),
-                        y: .value("", registro.sistolica)
+                        y: .value("", tipoDePressao == 0 ? registro.sistolica : registro.diastolica)
                     )
                     .foregroundStyle(Color.vinhoBotoes)
                     .symbolSize(100)
                     .annotation(position: .top, alignment: .center, spacing: 3) {
-                        Text("\(registro.sistolica)/\(registro.diastolica)")
-                            .font(.footnote)
-                            .foregroundColor(Color.preto)
-                            .bold()
+
+                        
+                        HStack(spacing: 1) {
+                            Text(String(registro.sistolica))
+                                .foregroundColor(Color.preto)
+                                .font(tipoDePressao == 0 ? .title3 : .footnote)
+                                .fontWeight(tipoDePressao == 0 ? .heavy : .regular)
+                             //   .bold(tipoDePressao == 0)
+                              //  .opacity(tipoDePressao == 0 ? 1 : 0.5)
+                            Text("/").bold()
+                            Text(String(registro.diastolica))
+                                .font(tipoDePressao == 1 ? .title3 : .footnote)
+                                .foregroundColor(Color.preto)
+                                .fontWeight(tipoDePressao == 1 ? .heavy : .regular)
+
+                              //  .opacity(tipoDePressao == 1 ? 1 : 0.5)
+
+                                
+                        }
                     }
                     
                 }
@@ -63,7 +79,7 @@ struct GraficoPressaoComponent: View {
             .chartScrollableAxes(.horizontal)
             .chartXVisibleDomain(length: 4)
             .bold()
-            .chartYScale(domain: 70...180)
+            .chartYScale(domain: tipoDePressao == 0 ? (PressaoViewModel.MIN_SISTOLICO - 5)...(PressaoViewModel.MAX_SISTOLICO + 5) : (PressaoViewModel.MIN_DIASTOLICO - 5)...(PressaoViewModel.MAX_DIASTOLICO + 5))
             .frame(height: 260)
         } else {
             

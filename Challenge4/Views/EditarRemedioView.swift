@@ -20,10 +20,15 @@ struct EditarRemedioView: View {
     
     @State var novoNome = ""
     @State var novaDosagem = ""
-    @State var novoHorario = Date()
+    @State var novoHorario: Date
     @State private var novaImagem: UIImage?
     @State private var entidadeImagem: UIImage?
     @State var photoPicker: PhotosPickerItem?
+    private let antigoNome: String
+    private let antigaDosagem: String
+    private let antigoHorario: String
+    private let antigaImagem: Data
+    private let dateFormatter = DateFormatter()
     
     @State private var showAlert = false
     
@@ -37,8 +42,27 @@ struct EditarRemedioView: View {
             _entidadeImagem = State(initialValue: UIImage(named: "remedios"))
         }
         
+        antigoNome = entidade.nomeRemedio ?? "remédio"
+        antigaDosagem = entidade.dosagem ?? "-"
+        antigoHorario = entidade.horario ?? "0"
+        antigaImagem = entidade.imagem!
+        
         _novoNome = State(initialValue: entidade.nomeRemedio ?? "")
         _novaDosagem = State(initialValue: entidade.dosagem ?? "")
+        
+        let dateFormatterHora = DateFormatter()
+        dateFormatterHora.dateFormat = "HH:mm"
+        
+        if let data = dateFormatterHora.date(from: entidade.horario!) {
+            print("converteu")
+        } else {
+            print("nao converteu")
+        }
+        
+        
+
+        
+        _novoHorario = State(initialValue: dateFormatterHora.date(from: entidade.horario!) ?? Date())
     }
     
     var body: some View {
@@ -138,7 +162,7 @@ struct EditarRemedioView: View {
                     
                     guard let imagem = imagemSalvar else { return }
                     
-                    let dateFormatter = DateFormatter()
+                    
                     dateFormatter.dateFormat = "HH:mm"
                     
                     guard let imageData = imagem.pngData() else {
@@ -156,6 +180,8 @@ struct EditarRemedioView: View {
                         dismiss()
                     }))
                 })
+                //.disabled((antigoNome != novoNome) || (dateFormatter.string(from: novoHorario) != antigoHorario) || (antigaDosagem != novaDosagem))
+
                 .frame(maxWidth: .infinity)
             }
             .padding()
