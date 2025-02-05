@@ -67,9 +67,9 @@ class PressaoViewModel: ObservableObject {
     
     func situacaoPressao(sistolica: Int, diastolica: Int) -> String {
         switch (sistolica, diastolica) {
-        case (..<90, ..<60):
+        case (..<99, ..<69):
             return "Baixa"
-        case (..<129, ..<84):
+        case (...129, ...84):
             return "Normal"
         case (130...190, 85...110):
             return "Elevada"

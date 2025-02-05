@@ -42,11 +42,11 @@ struct SobreView: View {
                     .frame(height: 25)
                 
                 Text("Equipe:")
-                        .bold()
-                                
+                    .bold()
+                
                 Spacer()
-                .frame(height: 10)
-                                
+                    .frame(height: 10)
+                
                 Text("""
                      [Alissa Miki Usami Yoshioka](https://www.linkedin.com/in/alissamiki/)
                      [Amanda Rodrigues](https://www.linkedin.com/in/amanda-c-rodrigues)
@@ -54,6 +54,14 @@ struct SobreView: View {
                      [João Victor Farias Teixeira](https://www.linkedin.com/in/jo%C3%A3o-victor-farias-teixeira-83a313265/)
                      [Maria Mercedes da Silva Rodrigues](www.linkedin.com/in/maria-mercedes-rodrigues)
                      """)
+                
+                Spacer()
+                    .frame(height: 50)
+                
+               Text("""
+                    HearTrack © 2025 by Equipe HearTrack is licensed under CC BY-NC-SA 4.0
+                    \(Image("cc")) \(Image("homenzinho")) \(Image("dinheiro nao")) \(Image("c ao contrario"))
+                    """)
             }
             .padding(50)
         }
