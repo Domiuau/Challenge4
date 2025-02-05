@@ -104,7 +104,7 @@ struct PressaoView: View {
                             .padding(.horizontal)
                 
                 GraficoPressaoComponent(registrosPressoes: vm.entidadeSalvasPressao, tipoDePressao: $opcaoSelecionada)
-                    .padding()
+                    .padding(.horizontal)
                 
                 NavigationLink(destination: HistoricoPressaoView(vm: vm)) {
                     BotaoAcaoComponent(texto: "Mais Detalhes", action: nil)
