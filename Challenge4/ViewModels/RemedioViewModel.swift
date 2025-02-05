@@ -70,6 +70,13 @@ class RemedioViewModel: ObservableObject {
         saveRemedios()
     }
     
+    func deleteRemedio(entidade: RemedioEntity) {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [entidade.objectID.uriRepresentation().absoluteString])
+        
+        conteudo.delete(entidade)
+        saveRemedios()
+    }
+    
     func scheduleNotification(for remedio: RemedioEntity) {
         let content = UNMutableNotificationContent()
         content.title = "Hora do Remédio 💊"

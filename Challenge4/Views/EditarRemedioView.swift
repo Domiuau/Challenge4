@@ -25,6 +25,7 @@ struct EditarRemedioView: View {
     @State private var entidadeImagem: UIImage?
     @State var photoPicker: PhotosPickerItem?
     @State private var imagemTrocada = false
+    @State private var showDeleteAlert = false
     private let antigoNome: String
     private let antigaDosagem: String
     private let antigoHorario: String
@@ -150,6 +151,8 @@ struct EditarRemedioView: View {
                     .datePickerStyle(WheelDatePickerStyle())
                     .aspectRatio(contentMode: .fit)
                     .padding(.horizontal)
+                    .padding(.leading)
+                    .labelsHidden()
                 
                 BotaoAcaoComponent(texto: "Salvar", action: {
                     
@@ -185,6 +188,25 @@ struct EditarRemedioView: View {
             }
             .padding()
             .navigationTitle("Editar Remédio")
+            .toolbar { ToolbarItem {
+                Image(systemName: "trash")
+                    .foregroundColor(Color.red)
+                    .onTapGesture {
+                        showDeleteAlert = true
+                    }
+            }
+            }
+            .alert(isPresented: $showDeleteAlert) {
+                Alert(
+                    title: Text("Excluir Remédio"),
+                    message: Text("Tem certeza de que deseja excluir este remédio? Esta ação não pode ser desfeita."),
+                    primaryButton: .destructive(Text("Excluir")) {
+                        vm.deleteRemedio(entidade: entidade)
+                        dismiss()
+                    },
+                    secondaryButton: .cancel()
+                )
+            }
             .onChange(of: photoPicker, { _, _ in
                 Task {
                     if let photoPicker, let data = try? await photoPicker.loadTransferable(type: Data.self) {
