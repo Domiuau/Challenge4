@@ -75,11 +75,11 @@ class PressaoViewModel: ObservableObject {
     func situacaoPressao(sistolica: Int) -> String {
         switch (sistolica) {
         case (..<99):
-            return "Baixa"
+            return "Pressão baixa"
         case (...129):
-            return "Normal"
+            return "Pressão normal"
         case (130...190):
-            return "Elevada"
+            return "Pressão elevada"
         default:
             return "Valores fora do intervalo esperado"
         }
@@ -87,9 +87,9 @@ class PressaoViewModel: ObservableObject {
     
     func corSituacaoPressao(situacao: String) -> Color {
         switch (situacao) {
-        case "Baixa": return Color.blue
-        case "Normal": return Color.black
-        case "Elevada": return Color.maisUmVinho
+        case "Pressão baixa": return Color.blue
+        case "Pressão normal": return Color.preto
+        case "Pressão elevada": return Color.maisUmVinho
         default: return Color.gray
         }
     }

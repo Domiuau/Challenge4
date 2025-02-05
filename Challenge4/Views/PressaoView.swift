@@ -83,12 +83,13 @@ struct PressaoView: View {
                     }
                     .padding(.trailing, 150)
                     
-                    BotaoAcaoComponent(texto: "Salvar") {
-                        
+                    BotaoAcaoComponent(texto: "Salvar", action: {
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                         salvarPressao()
-                    }
+                    }, desabilitado: inputTextS == "" || inputTextD == "")
                     
                 }
+                
                 
                 Text("Histórico")
                     .font(.title)
@@ -97,17 +98,21 @@ struct PressaoView: View {
                     .padding()
                 
                 Picker("Opções", selection: $opcaoSelecionada) {
-                                Text("Sistólica").tag(0)
-                                Text("Diastólica").tag(1)
-                            }
-                            .pickerStyle(SegmentedPickerStyle())
-                            .padding(.horizontal)
+                    Text("Sistólica").tag(0)
+                    Text("Diastólica").tag(1)
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding(.horizontal)
                 
                 GraficoPressaoComponent(registrosPressoes: vm.entidadeSalvasPressao, tipoDePressao: $opcaoSelecionada)
                     .padding(.horizontal)
                 
-                NavigationLink(destination: HistoricoPressaoView(vm: vm)) {
-                    BotaoAcaoComponent(texto: "Mais Detalhes", action: nil)
+                if (vm.entidadeSalvasPressao.isEmpty) {
+                    BotaoAcaoComponent(texto: "Mais Detalhes", action: nil, desabilitado: true)
+                } else {
+                    NavigationLink(destination: HistoricoPressaoView(vm: vm)) {
+                        BotaoAcaoComponent(texto: "Mais Detalhes", action: nil)
+                    }
                 }
             }
             .scrollIndicators(.hidden)
@@ -155,7 +160,7 @@ struct PressaoView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .bold()
                     .font(.title2)
-
+                
                 
                 
                 

@@ -21,13 +21,18 @@ struct RemediosListView: View {
                 
                 VStack {
                     Image(systemName: "exclamationmark.triangle")
-                        .font(.largeTitle)
+                        .font(.system(size: 70))
                         .foregroundColor(.cinzaClaro)
                     
-                    Text("Você ainda não adicionou\num remédio")
-                        .multilineTextAlignment(.center)
-                        .font(.title)
-                        .foregroundColor(.cinzaClaro)
+                    Spacer().frame(height: 10)
+                    
+                    Text("""
+                    Nenhum remédio cadastrado
+                    """)
+                    
+                    .multilineTextAlignment(.center)
+                    .font(.title2)
+                    .foregroundColor(.cinzaClaro)
                 }
             }
             else {

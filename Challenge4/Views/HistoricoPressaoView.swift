@@ -12,6 +12,7 @@ import SwiftUI
 
 struct HistoricoPressaoView: View {
     @ObservedObject var vm: PressaoViewModel
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack {
@@ -43,7 +44,12 @@ struct HistoricoPressaoView: View {
                         }
                     }
                 }
-                .onDelete(perform: vm.deletePressao)
+                .onDelete(perform: { indexSet in
+                    vm.deletePressao(index: indexSet)
+                    if(vm.entidadeSalvasPressao.isEmpty) {
+                        dismiss()
+                    }
+                })
             }
             .listStyle(InsetListStyle())
             .scrollContentBackground(.hidden)
