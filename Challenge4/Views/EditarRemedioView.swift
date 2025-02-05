@@ -25,6 +25,8 @@ struct EditarRemedioView: View {
     @State private var entidadeImagem: UIImage?
     @State var photoPicker: PhotosPickerItem?
     
+    @State private var showAlert = false
+    
     init(entidade: RemedioEntity, vm: RemedioViewModel) {
         self.entidade = entidade
         self.vm = vm
@@ -146,10 +148,13 @@ struct EditarRemedioView: View {
                     
                     vm.updateRemedio(remedioNome: novoNome, dosagem: novaDosagem, horario: dateFormatter.string(from: novoHorario), imagem: imageData, entidade: entidade)
                     
-                    novoNome = ""
-                    novaDosagem = ""
-                    dismiss()
-                    
+                })
+                .alert(isPresented: showAlert, actions: {
+                    Alert(title: Text("Remédio editado!"), message: Text("O remédio foi editado com sucesso"), dismissButton: .default(Text("OK"), action: {
+                        novoNome = ""
+                        novaDosagem = ""
+                        dismiss()
+                    }))
                 })
                 .frame(maxWidth: .infinity)
             }

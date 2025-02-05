@@ -24,6 +24,10 @@ struct AdicionarRemedioView: View {
     @State var dosagem: String = ""
     @State var horario = Date()
     
+    @State private var feedback1 = true
+    @State private var feedback2 = true
+    @State private var showAlert = false
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
@@ -40,7 +44,7 @@ struct AdicionarRemedioView: View {
                         } else {
                             ZStack {
                                 Rectangle()
-                                    .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: 100)
+                                    .frame(width: 100, height: 100)
                                     .clipShape(.rect(cornerRadius: 10))
                                     .foregroundColor(.cinzaClaro)
                                 
@@ -48,7 +52,7 @@ struct AdicionarRemedioView: View {
                                     .font(.system(size: 12))
                                     .foregroundColor(.cinzaEscuro)
                             }
-                            .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: 100)
+                            .frame(width: 100, height: 100)
                         }
                     }
                     
@@ -65,6 +69,18 @@ struct AdicionarRemedioView: View {
                                     .opacity(0.44)
                                     .foregroundColor(.gray), alignment: .bottom
                             )
+                            .onChange(of: nomeRemedio) { oldValue, newValue in
+                                if !newValue.isEmpty {
+                                    feedback1 = false
+                                } else {
+                                    feedback1 = true
+                                }
+                            }
+                        if feedback1 {
+                            Text("Este campo é obrigatório")
+                                .foregroundStyle(Color.vinhoBotoes)
+                                .font(.caption)
+                        }
                     }
                     .padding()
                 }
@@ -74,17 +90,32 @@ struct AdicionarRemedioView: View {
                     .font(.title2)
                     .bold()
                     .padding(.leading)
-                
-                TextField("Dosagem", text: $dosagem)
-                    .font(.title3)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 30)
-                            .frame(height: 2)
-                            .opacity(0.44)
-                            .foregroundColor(.gray), alignment: .bottom
-                    )
-                    .padding()
-                    .font(.title)
+                VStack(alignment: .leading) {
+                    TextField("Dosagem", text: $dosagem)
+                        .font(.title3)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 30)
+                                .frame(height: 2)
+                                .opacity(0.44)
+                                .foregroundColor(.gray), alignment: .bottom
+                        )
+                        .font(.title)
+                        .onChange(of: dosagem) { oldValue, newValue in
+                            if !newValue.isEmpty {
+                                feedback2 = false
+                            } else {
+                                feedback2 = true
+                            }
+                        }
+                    
+                    if feedback2 {
+                        Text("Este campo é obrigatório")
+                            .foregroundStyle(Color.vinhoBotoes)
+                            .font(.caption)
+                    }
+                }
+                .padding()
+
                 
                 Text("Horários")
                     .font(.title2)
@@ -113,10 +144,20 @@ struct AdicionarRemedioView: View {
                     
                     vm.addRemedio(remedioNome: nomeRemedio, dosagem: dosagem, horario: dateFormatter.string(from: horario), imagem: imageData)
                     
-                    nomeRemedio = ""
-                    dosagem = ""
-                    dismiss()
+                    showAlert.toggle()
                 })
+                .alert(isPresented: $showAlert) {
+                    Alert(
+                        title: Text("Remédio cadastrado!"),
+                        message: Text("O remédio \(nomeRemedio) foi cadastrado com sucesso"),
+                        dismissButton: .default(Text("OK"),
+                        action: {
+                            nomeRemedio = ""
+                            dosagem = ""
+                            dismiss()
+                        })
+                    )
+                }
                 .frame(maxWidth: .infinity)
             }
             .padding()
