@@ -31,9 +31,11 @@ struct BotaoAcaoComponent: View {
             Text(texto)
                 .padding()
                 .frame(width: 300, height: 40)
+                .background(desabilitado ? Color.cinzaClaro : Color.outroVinho)
                 .background(Color.outroVinho)
                 .foregroundColor(.white)
                 .cornerRadius(50)
+                .disabled(desabilitado)
         }
     }
 }

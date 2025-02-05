@@ -106,8 +106,12 @@ struct PressaoView: View {
                 GraficoPressaoComponent(registrosPressoes: vm.entidadeSalvasPressao, tipoDePressao: $opcaoSelecionada)
                     .padding(.horizontal)
                 
-                NavigationLink(destination: HistoricoPressaoView(vm: vm)) {
-                    BotaoAcaoComponent(texto: "Mais Detalhes", action: nil)
+                if (vm.entidadeSalvasPressao.isEmpty) {
+                    BotaoAcaoComponent(texto: "Mais Detalhes", action: nil, desabilitado: true)
+                } else {
+                    NavigationLink(destination: HistoricoPressaoView(vm: vm)) {
+                        BotaoAcaoComponent(texto: "Mais Detalhes", action: nil)
+                    }
                 }
             }
             .scrollIndicators(.hidden)

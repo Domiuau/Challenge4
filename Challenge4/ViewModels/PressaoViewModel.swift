@@ -88,7 +88,7 @@ class PressaoViewModel: ObservableObject {
     func corSituacaoPressao(situacao: String) -> Color {
         switch (situacao) {
         case "Pressão baixa": return Color.blue
-        case "Pressão normal": return Color.black
+        case "Pressão normal": return Color.preto
         case "Pressão elevada": return Color.maisUmVinho
         default: return Color.gray
         }

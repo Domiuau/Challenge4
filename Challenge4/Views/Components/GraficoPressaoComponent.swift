@@ -91,7 +91,7 @@ struct GraficoPressaoComponent: View {
                 
                 Text("Nenhuma pressão cadastrada.")
                     .multilineTextAlignment(.center)
-                    .font(.title)
+                    .font(.title2)
                     .foregroundColor(.cinzaClaro)
                 
             }
