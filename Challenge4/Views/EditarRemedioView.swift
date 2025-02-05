@@ -169,12 +169,11 @@ struct EditarRemedioView: View {
                         return
                     }
                     
-                    vm.updateRemedio(remedioNome: novoNome, dosagem: novaDosagem, horario: dateFormatter.string(from: novoHorario), imagem: imageData, entidade: entidade)
+                    vm.updateRemedio(remedioNome: novoNome, dosagem: novaDosagem, horario: dateFormatterHora.string(from: novoHorario), imagem: imageData, entidade: entidade)
                     
                     showAlert.toggle()
                     
                 }, desabilitado: ((antigoNome == novoNome) && (dateFormatterHora.string(from: novoHorario) == antigoHorario) && (antigaDosagem == novaDosagem) && (!imagemTrocada)))
-                })
                 .alert(isPresented: $showAlert) {
                     Alert(title: Text("Remédio editado!"), message: Text("O remédio foi editado com sucesso"), dismissButton: .default(Text("OK"), action: {
                         novoNome = ""
@@ -182,7 +181,6 @@ struct EditarRemedioView: View {
                         dismiss()
                     }))
                 }
-
                 .frame(maxWidth: .infinity)
             }
             .padding()
