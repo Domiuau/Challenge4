@@ -25,7 +25,7 @@ struct EditarRemedioView: View {
     @State private var entidadeImagem: UIImage?
     @State var photoPicker: PhotosPickerItem?
     @State private var imagemTrocada = false
-    @State private var showDeleteAlert = false
+    @State private var showDeleteConfirmation = false
     private let antigoNome: String
     private let antigaDosagem: String
     private let antigoHorario: String
@@ -192,19 +192,21 @@ struct EditarRemedioView: View {
                 Image(systemName: "trash")
                     .foregroundColor(Color.red)
                     .onTapGesture {
-                        showDeleteAlert = true
+                        showDeleteConfirmation = true
                     }
             }
             }
-            .alert(isPresented: $showDeleteAlert) {
-                Alert(
-                    title: Text("Excluir Remédio"),
+            .actionSheet(isPresented: $showDeleteConfirmation) {
+                ActionSheet(
+                    title: Text("Confirmar Exclusão"),
                     message: Text("Tem certeza de que deseja excluir este remédio? Esta ação não pode ser desfeita."),
-                    primaryButton: .destructive(Text("Excluir")) {
-                        vm.deleteRemedio(entidade: entidade)
-                        dismiss()
-                    },
-                    secondaryButton: .cancel()
+                    buttons: [
+                        .destructive(Text("Excluir")) {
+                            vm.deleteRemedio(entidade: entidade)
+                            dismiss()
+                        },
+                        .cancel()
+                    ]
                 )
             }
             .onChange(of: photoPicker, { _, _ in

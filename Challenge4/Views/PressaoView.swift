@@ -23,101 +23,103 @@ struct PressaoView: View {
     @StateObject var vm: PressaoViewModel
     
     var body: some View {
-        NavigationStack {
-            
-            ScrollView {
+            NavigationStack {
                 
-                VStack {
+                ScrollView {
                     
-                    HStack(alignment: .top) {
+                    VStack {
                         
-                        Text("Como está a sua pressão hoje?")
-                            .font(.title)
-                            .fontWeight(.semibold)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        Button(action: {
+                        HStack(alignment: .top) {
                             
-                            showSheet.toggle()
-                        }, label: {
-                            Image(systemName: "info.circle")
+                            Text("Como está a sua pressão hoje?")
                                 .font(.title)
-                                .foregroundColor(.preto)
-                        })
-                        
-                        
-                    }
-                    .padding(.horizontal)
-                    
-                    HStack {
-                        VStack {
-                            TextField("Sistólica", text: $inputTextS)
-                                .keyboardType(.numberPad)
-                                .font(.system(size: 40))
-                                .onChange(of: inputTextS) { newValue in
-                                    sistolica = Int(newValue)
-                                }
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 30)
-                                        .frame(height: 3)
-                                        .opacity(0.44)
-                                        .foregroundColor(.gray), alignment: .bottom
-                                )
+                                .fontWeight(.semibold)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             
-                            Spacer().frame(height: 16)
+                            Button(action: {
+                                
+                                showSheet.toggle()
+                            }, label: {
+                                Image(systemName: "info.circle")
+                                    .font(.title)
+                                    .foregroundColor(.preto)
+                            })
                             
-                            TextField("Diastólica", text: $inputTextD)
-                                .keyboardType(.numberPad)
-                                .font(.system(size: 40))
-                                .onChange(of: inputTextD) { newValue in
-                                    diastolica = Int(newValue)
-                                }
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 30)
-                                        .frame(height: 3)
-                                        .opacity(0.44)
-                                        .foregroundColor(.gray), alignment: .bottom
-                                )
+                            
                         }
-                        .padding([.bottom, .horizontal])
+                        .padding(.horizontal)
+                        
+                        HStack {
+                            VStack {
+                                TextField("Sistólica", text: $inputTextS)
+                                    .keyboardType(.numberPad)
+                                    .font(.system(size: 40))
+                                    .onChange(of: inputTextS) { newValue in
+                                        sistolica = Int(newValue)
+                                    }
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 30)
+                                            .frame(height: 3)
+                                            .opacity(0.44)
+                                            .foregroundColor(.gray), alignment: .bottom
+                                    )
+                                
+                                Spacer().frame(height: 16)
+                                
+                                TextField("Diastólica", text: $inputTextD)
+                                    .keyboardType(.numberPad)
+                                    .font(.system(size: 40))
+                                    .onChange(of: inputTextD) { newValue in
+                                        diastolica = Int(newValue)
+                                    }
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 30)
+                                            .frame(height: 3)
+                                            .opacity(0.44)
+                                            .foregroundColor(.gray), alignment: .bottom
+                                    )
+                            }
+                            .padding([.bottom, .horizontal])
+                        }
+                        .padding(.trailing, 150)
+                        
+                        BotaoAcaoComponent(texto: "Salvar", action: {
+                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                            salvarPressao()
+                        }, desabilitado: inputTextS == "" || inputTextD == "")
+                        
                     }
-                    .padding(.trailing, 150)
                     
-                    BotaoAcaoComponent(texto: "Salvar", action: {
-                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                        salvarPressao()
-                    }, desabilitado: inputTextS == "" || inputTextD == "")
                     
-                }
-                
-                
-                Text("Histórico")
-                    .font(.title)
-                    .fontWeight(.semibold)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
-                
-                Picker("Opções", selection: $opcaoSelecionada) {
-                    Text("Sistólica").tag(0)
-                    Text("Diastólica").tag(1)
-                }
-                .pickerStyle(SegmentedPickerStyle())
-                .padding(.horizontal)
-                
-                GraficoPressaoComponent(registrosPressoes: vm.entidadeSalvasPressao, tipoDePressao: $opcaoSelecionada)
+                    Text("Histórico")
+                        .font(.title)
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
+                    
+                    Picker("Opções", selection: $opcaoSelecionada) {
+                        Text("Sistólica").tag(0)
+                        Text("Diastólica").tag(1)
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
                     .padding(.horizontal)
-                
-                if (vm.entidadeSalvasPressao.isEmpty) {
-                    BotaoAcaoComponent(texto: "Mais Detalhes", action: nil, desabilitado: true)
-                } else {
-                    NavigationLink(destination: HistoricoPressaoView(vm: vm)) {
-                        BotaoAcaoComponent(texto: "Mais Detalhes", action: nil)
+                    
+                    GraficoPressaoComponent(registrosPressoes: vm.entidadeSalvasPressao, tipoDePressao: $opcaoSelecionada)
+                        .padding(.horizontal)
+                    
+                    if (vm.entidadeSalvasPressao.isEmpty) {
+                        BotaoAcaoComponent(texto: "Mais Detalhes", action: nil, desabilitado: true)
+                    } else {
+                        NavigationLink(destination: HistoricoPressaoView(vm: vm)) {
+                            BotaoAcaoComponent(texto: "Mais Detalhes", action: nil)
+                        }
                     }
                 }
+                .scrollDismissesKeyboard(.immediately)
+                .scrollIndicators(.hidden)
+                .navigationTitle("Pressão")
             }
-            .scrollIndicators(.hidden)
-            .navigationTitle("Pressão")
-        }
+        
         .onAppear {
             vm.fetchPressoes()
         }
