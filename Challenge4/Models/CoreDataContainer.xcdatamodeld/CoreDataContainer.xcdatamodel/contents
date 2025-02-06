@@ -10,5 +10,6 @@
         <attribute name="horario" optional="YES" attributeType="String"/>
         <attribute name="imagem" optional="YES" attributeType="Binary"/>
         <attribute name="nomeRemedio" optional="YES" attributeType="String"/>
+        <attribute name="notifyOn" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
 </model>

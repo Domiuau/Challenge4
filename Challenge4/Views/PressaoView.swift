@@ -1,29 +1,31 @@
-    /*
-     By:
-     
-     Alissa Yoshioka
-     Amanda Rodrigues
-     Guilherme Sousa
-     João V. Teixeira
-     Maria M. Rodrigues
-     */
+/*
+ By:
+ 
+ Alissa Yoshioka
+ Amanda Rodrigues
+ Guilherme Sousa
+ João V. Teixeira
+ Maria M. Rodrigues
+ */
 
-    import SwiftUI
+import SwiftUI
 
-    struct PressaoView: View {
-        @State private var sistolica: Int? = nil
-        @State private var diastolica: Int? = nil
-        @State private var inputTextS: String = ""
-        @State private var inputTextD: String = ""
-        @State private var showAlert: Bool = false
-        @State private var tituloAlert: String = ""
-        @State private var showSheet: Bool = false
-        @State private var mensagemAlert: String = ""
-        @State var opcaoSelecionada = 0
-        @StateObject var vm: PressaoViewModel
-        
-        var body: some View {
-                NavigationStack {
+struct PressaoView: View {
+    @State private var sistolica: Int? = nil
+    @State private var diastolica: Int? = nil
+    @State private var inputTextS: String = ""
+    @State private var inputTextD: String = ""
+    @State private var showAlert: Bool = false
+    @State private var tituloAlert: String = ""
+    @State private var showSheet: Bool = false
+    @State private var mensagemAlert: String = ""
+    @State var opcaoSelecionada = 0
+    @StateObject var vm: PressaoViewModel
+    
+    var body: some View {
+            NavigationStack {
+                
+                ScrollView {
                     
                     VStack {
                         
@@ -36,12 +38,12 @@
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             
                             Button(action: {
-                                showSheet = false
+                                
+                                showSheet.toggle()
                             }, label: {
-                                Text("OK")
-                                    .frame(maxWidth: .infinity, alignment: .trailing)
-                                    .foregroundColor(.accentColor)
-                                    .bold()
+                                Image(systemName: "info.circle")
+                                    .font(.title)
+                                    .foregroundColor(.preto)
                             })
                             
                             
@@ -177,11 +179,10 @@
                             
                             Spacer()
                             
-                            Text("O que é a pressão sistólica e diastólica?")
-                                .multilineTextAlignment(.center)
-                                .frame(maxWidth: .infinity, alignment: .center)
-                                .font(.title)
-                                .padding(.vertical)
+                            Text("• DIA = Diastólica")
+                                .foregroundColor(.batommorto)
+                                .padding(.leading, 5)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                                 .bold()
                                 .font(.title3)
                         }
@@ -197,17 +198,18 @@
                 
             }
         }
+    }
+    
+    func salvarPressao() {
         
-        func salvarPressao() {
+        if let sistolica = sistolica, let diastolica = diastolica {
             
-            if let sistolica = sistolica, let diastolica = diastolica {
+            if (sistolica < PressaoViewModel.MIN_SISTOLICO || sistolica > PressaoViewModel.MAX_SISTOLICO) {
                 
-                if (sistolica < PressaoViewModel.MIN_SISTOLICO || sistolica > PressaoViewModel.MAX_SISTOLICO) {
-                    
-                    exibirAlert(titulo: "Valores inválidos", mensagem: "A pressão sistólica deve estar entre \(PressaoViewModel.MIN_SISTOLICO) e \(PressaoViewModel.MAX_SISTOLICO).")
-                    return
-                } else if (diastolica < PressaoViewModel.MIN_DIASTOLICO || diastolica > PressaoViewModel.MAX_DIASTOLICO) {
-                    
+                exibirAlert(titulo: "Valores inválidos", mensagem: "A pressão sistólica deve estar entre \(PressaoViewModel.MIN_SISTOLICO) e \(PressaoViewModel.MAX_SISTOLICO).")
+                return
+            } else if (diastolica < PressaoViewModel.MIN_DIASTOLICO || diastolica > PressaoViewModel.MAX_DIASTOLICO) {
+                
                 exibirAlert(titulo: "Valores inválidos", mensagem: "A pressão diastólica deve estar entre \(PressaoViewModel.MIN_DIASTOLICO) e \(PressaoViewModel.MAX_DIASTOLICO).")
                 return
             }

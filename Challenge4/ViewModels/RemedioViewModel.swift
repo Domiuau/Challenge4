@@ -34,6 +34,7 @@ class RemedioViewModel: ObservableObject {
         newRemedio.dosagem = dosagem
         newRemedio.horario = horario
         newRemedio.imagem = imagem
+        newRemedio.notifyOn = notifyOn
         
         saveRemedios()
         
@@ -43,13 +44,20 @@ class RemedioViewModel: ObservableObject {
     }
     
     
-    func updateRemedio(remedioNome: String, dosagem: String, horario: String, imagem: Data, entidade: RemedioEntity) {
+    func updateRemedio(remedioNome: String, dosagem: String, horario: String, imagem: Data, entidade: RemedioEntity, notifyOn: Bool) {
         entidade.nomeRemedio = remedioNome
         entidade.dosagem = dosagem
         entidade.horario = horario
         entidade.imagem = imagem
-        
+        entidade.notifyOn = notifyOn
         saveRemedios()
+        
+        if (notifyOn) {
+            scheduleNotification(for: entidade)
+        } else {
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [entidade.objectID.uriRepresentation().absoluteString])
+            print("bye bye not not")
+        }
     }
     
     func saveRemedios() {

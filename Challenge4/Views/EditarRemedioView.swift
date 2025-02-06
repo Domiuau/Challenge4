@@ -30,8 +30,10 @@ struct EditarRemedioView: View {
     private let antigaDosagem: String
     private let antigoHorario: String
     private let antigaImagem: Data
+    private let antigoNotifyOn: Bool
+    @State private var notifyOn: Bool
     private let dateFormatterHora = DateFormatter()
-    
+
     @State private var showAlert = false
     
     init(entidade: RemedioEntity, vm: RemedioViewModel) {
@@ -48,6 +50,7 @@ struct EditarRemedioView: View {
         antigaDosagem = entidade.dosagem ?? "-"
         antigoHorario = entidade.horario ?? "0"
         antigaImagem = entidade.imagem!
+        _notifyOn = State(initialValue: entidade.notifyOn)
         
         _novoNome = State(initialValue: entidade.nomeRemedio ?? "asd")
         _novaDosagem = State(initialValue: entidade.dosagem ?? "")
@@ -55,8 +58,8 @@ struct EditarRemedioView: View {
         
         dateFormatterHora.dateFormat = "HH:mm"
         
-        
         _novoHorario = State(initialValue: dateFormatterHora.date(from: entidade.horario!) ?? Date())
+        antigoNotifyOn = entidade.notifyOn
     }
     
     var body: some View {
@@ -154,6 +157,9 @@ struct EditarRemedioView: View {
                     .aspectRatio(contentMode: .fit)
                     .labelsHidden()
                 
+                Toggle ("Ativar notificação", isOn: $notifyOn)
+                    .padding()
+                
                 BotaoAcaoComponent(texto: "Salvar", action: {
                     
                     
@@ -172,11 +178,11 @@ struct EditarRemedioView: View {
                         return
                     }
                     
-                    vm.updateRemedio(remedioNome: novoNome, dosagem: novaDosagem, horario: dateFormatterHora.string(from: novoHorario), imagem: imageData, entidade: entidade)
+                    vm.updateRemedio(remedioNome: novoNome, dosagem: novaDosagem, horario: dateFormatterHora.string(from: novoHorario), imagem: imageData, entidade: entidade, notifyOn: notifyOn)
                     
                     showAlert.toggle()
                     
-                }, desabilitado: ((antigoNome == novoNome) && (dateFormatterHora.string(from: novoHorario) == antigoHorario) && (antigaDosagem == novaDosagem) && (!imagemTrocada)))
+                }, desabilitado: ((antigoNome == novoNome) && (dateFormatterHora.string(from: novoHorario) == antigoHorario) && (antigaDosagem == novaDosagem) && (!imagemTrocada)) && (antigoNotifyOn == notifyOn))
                 .alert(isPresented: $showAlert) {
                     Alert(title: Text("Remédio editado!"), message: Text("O remédio foi editado com sucesso"), dismissButton: .default(Text("OK"), action: {
                         novoNome = ""
