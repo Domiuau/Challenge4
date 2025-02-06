@@ -48,10 +48,14 @@ struct RemediosListView: View {
                              
                             
                             VStack (alignment: .leading) {
-                                Text("**\(entidade.nomeRemedio ?? "SEM NOME")**")
-                                    .font(.system(size: 22))
-                                    .padding(.bottom, 10)
-                                
+                                HStack {
+                                    Text("**\(entidade.nomeRemedio ?? "SEM NOME")**")
+                                        .font(.system(size: 22))
+                                        .padding(.bottom, 10)
+                                    
+                                    Spacer()
+                                    
+                                }
                                 HStack {
                                     Image(systemName: "pills.fill")
                                     Text("Dosagem: **\(entidade.dosagem ?? "SEM DOSAGEM")**")
@@ -63,7 +67,12 @@ struct RemediosListView: View {
                                     Text("Horário: **\(entidade.horario ?? "SEM HORARIO")**")
                                         .font(.callout)
                                 }
+                                HStack{
+                                    Image(systemName: entidade.notifyOn ? "bell.fill" : "bell.slash.fill")
+                                    Text("Notificação: **\(entidade.notifyOn ? "Ativado" : "Desativado")**")
+                                }
                             }
+                                
                             .padding(.leading, 20)
                         }
                         

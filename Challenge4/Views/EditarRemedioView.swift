@@ -30,8 +30,10 @@ struct EditarRemedioView: View {
     private let antigaDosagem: String
     private let antigoHorario: String
     private let antigaImagem: Data
+    private let antigoNotifyOn: Bool
+    @State private var notifyOn: Bool
     private let dateFormatterHora = DateFormatter()
-    
+
     @State private var showAlert = false
     
     init(entidade: RemedioEntity, vm: RemedioViewModel) {
@@ -48,6 +50,7 @@ struct EditarRemedioView: View {
         antigaDosagem = entidade.dosagem ?? "-"
         antigoHorario = entidade.horario ?? "0"
         antigaImagem = entidade.imagem!
+        _notifyOn = State(initialValue: entidade.notifyOn)
         
         _novoNome = State(initialValue: entidade.nomeRemedio ?? "asd")
         _novaDosagem = State(initialValue: entidade.dosagem ?? "")
@@ -55,104 +58,107 @@ struct EditarRemedioView: View {
         
         dateFormatterHora.dateFormat = "HH:mm"
         
-        
         _novoHorario = State(initialValue: dateFormatterHora.date(from: entidade.horario!) ?? Date())
+        antigoNotifyOn = entidade.notifyOn
     }
     
     var body: some View {
         ScrollView {
-            VStack (alignment: .leading, spacing: 20){
-                HStack{
-                    PhotosPicker(selection: $photoPicker, matching: .images) {
-                        if let novaImagem = novaImagem {
-                            
-                            Image(uiImage: novaImagem.resized(to: 300)!)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 100, height: 100)
-                                .clipShape(.rect(cornerRadius: 10))
-                            
-                        } else if let entidadeImagem = entidade.imagem, let imagemAntiga = UIImage(data: entidadeImagem) {
-                            ZStack {
-                                Image(uiImage: imagemAntiga.resized(to: 300)!)
+            VStack (spacing: 20){
+                VStack (alignment: .leading) {
+                    HStack{
+                        PhotosPicker(selection: $photoPicker, matching: .images) {
+                            if let novaImagem = novaImagem {
+                                
+                                Image(uiImage: novaImagem.resized(to: 300)!)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 100, height: 100)
                                     .clipShape(.rect(cornerRadius: 10))
                                 
-                                Rectangle()
+                            } else if let entidadeImagem = entidade.imagem, let imagemAntiga = UIImage(data: entidadeImagem) {
+                                ZStack {
+                                    Image(uiImage: imagemAntiga.resized(to: 300)!)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 100, height: 100)
+                                        .clipShape(.rect(cornerRadius: 10))
+                                    
+                                    Rectangle()
+                                        .frame(width: 100, height: 100)
+                                        .foregroundColor(.black)
+                                        .opacity(0.4)
+                                        .clipShape(.rect(cornerRadius: 10))
+                                    
+                                    Image(systemName: "applepencil.gen2")
+                                        .bold()
+                                        .font(.system(size: 30))
+                                        .foregroundColor(.white)
+                                }
+                            } else {
+                                
+                                Image(systemName: "photo.on.rectangle.angled")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
                                     .frame(width: 100, height: 100)
-                                    .foregroundColor(.black)
-                                    .opacity(0.4)
                                     .clipShape(.rect(cornerRadius: 10))
                                 
-                                Image(systemName: "applepencil.gen2")
-                                    .bold()
-                                    .font(.system(size: 30))
-                                    .foregroundColor(.white)
                             }
-                        } else {
+                        }
+                        .onChange(of: photoPicker) { newSelection in
                             
-                            Image(systemName: "photo.on.rectangle.angled")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 100, height: 100)
-                                .clipShape(.rect(cornerRadius: 10))
+                            imagemTrocada = true
                             
                         }
-                    }
-                    .onChange(of: photoPicker) { newSelection in
                         
-                        imagemTrocada = true
-                        
+                        VStack(alignment: .leading) {
+                            Text("Nome")
+                                .font(.title2)
+                                .bold()
+                            
+                            TextField(entidade.nomeRemedio ?? "Nome do Remédio", text: $novoNome)
+                                .font( .title3)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .frame(height: 2)
+                                        .opacity(0.44)
+                                        .foregroundColor(.gray), alignment: .bottom
+                                )
+                        }
+                        .padding()
                     }
+                    .padding()
                     
-                    VStack(alignment: .leading) {
-                        Text("Nome")
-                            .font(.title2)
-                            .bold()
-                        
-                        TextField(entidade.nomeRemedio ?? "Nome do Remédio", text: $novoNome)
-                            .font( .title3)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 30)
-                                    .frame(height: 2)
-                                    .opacity(0.44)
-                                    .foregroundColor(.gray), alignment: .bottom
-                            )
-                    }
-                    .padding()
+                    
+                    Text("Dosagem (miligramas)")
+                        .font(.title2)
+                        .bold()
+                        .padding(.leading)
+                    
+                    TextField(entidade.dosagem ?? "Remédio sem dosagem", text: $novaDosagem)
+                        .font(.title3)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 30)
+                                .frame(height: 2)
+                                .opacity(0.44)
+                                .foregroundColor(.gray), alignment: .bottom
+                        )
+                        .padding()
+                        .font(.title)
+                    
+                    Text("Horários")
+                        .font(.title2)
+                        .bold()
+                        .padding(.leading)
                 }
-                .padding()
                 
-                
-                Text("Dosagem (miligramas)")
-                    .font(.title2)
-                    .bold()
-                    .padding(.leading)
-                
-                TextField(entidade.dosagem ?? "Remédio sem dosagem", text: $novaDosagem)
-                    .font(.title3)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 30)
-                            .frame(height: 2)
-                            .opacity(0.44)
-                            .foregroundColor(.gray), alignment: .bottom
-                    )
-                    .padding()
-                    .font(.title)
-                
-                Text("Horários")
-                    .font(.title2)
-                    .bold()
-                    .padding(.leading)
-                
-                DatePicker("", selection: $novoHorario, displayedComponents: .hourAndMinute)
+                DatePicker("gdfgdth", selection: $novoHorario, displayedComponents: .hourAndMinute)
                     .datePickerStyle(WheelDatePickerStyle())
                     .aspectRatio(contentMode: .fit)
-                    .padding(.horizontal)
-                    .padding(.leading)
                     .labelsHidden()
+                
+                Toggle ("Ativar notificação", isOn: $notifyOn)
+                    .padding()
                 
                 BotaoAcaoComponent(texto: "Salvar", action: {
                     
@@ -172,11 +178,11 @@ struct EditarRemedioView: View {
                         return
                     }
                     
-                    vm.updateRemedio(remedioNome: novoNome, dosagem: novaDosagem, horario: dateFormatterHora.string(from: novoHorario), imagem: imageData, entidade: entidade)
+                    vm.updateRemedio(remedioNome: novoNome, dosagem: novaDosagem, horario: dateFormatterHora.string(from: novoHorario), imagem: imageData, entidade: entidade, notifyOn: notifyOn)
                     
                     showAlert.toggle()
                     
-                }, desabilitado: ((antigoNome == novoNome) && (dateFormatterHora.string(from: novoHorario) == antigoHorario) && (antigaDosagem == novaDosagem) && (!imagemTrocada)))
+                }, desabilitado: ((antigoNome == novoNome) && (dateFormatterHora.string(from: novoHorario) == antigoHorario) && (antigaDosagem == novaDosagem) && (!imagemTrocada)) && (antigoNotifyOn == notifyOn))
                 .alert(isPresented: $showAlert) {
                     Alert(title: Text("Remédio editado!"), message: Text("O remédio foi editado com sucesso"), dismissButton: .default(Text("OK"), action: {
                         novoNome = ""
