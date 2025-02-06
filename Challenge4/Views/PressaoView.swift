@@ -32,6 +32,7 @@ struct PressaoView: View {
                         HStack(alignment: .top) {
                             
                             Text("Como está a sua pressão hoje?")
+                                
                                 .font(.title)
                                 .fontWeight(.semibold)
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -48,10 +49,11 @@ struct PressaoView: View {
                             
                         }
                         .padding(.horizontal)
+                        .padding(.top, 2)
                         
                         HStack {
                             VStack {
-                                TextField("Sistólica", text: $inputTextS)
+                                TextField("120", text: $inputTextS)
                                     .keyboardType(.numberPad)
                                     .font(.system(size: 40))
                                     .onChange(of: inputTextS) { newValue in
@@ -66,7 +68,7 @@ struct PressaoView: View {
                                 
                                 Spacer().frame(height: 16)
                                 
-                                TextField("Diastólica", text: $inputTextD)
+                                TextField("80", text: $inputTextD)
                                     .keyboardType(.numberPad)
                                     .font(.system(size: 40))
                                     .onChange(of: inputTextD) { newValue in
@@ -81,12 +83,14 @@ struct PressaoView: View {
                             }
                             .padding([.bottom, .horizontal])
                         }
-                        .padding(.trailing, 150)
+                        .padding(.trailing, 180)
                         
                         BotaoAcaoComponent(texto: "Salvar", action: {
                             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                             salvarPressao()
-                        }, desabilitado: inputTextS == "" || inputTextD == "")
+                        }, desabilitado: inputTextS == "" || inputTextD == ""
+                        )
+                        .padding(.top, 4)
                         
                     }
                     
@@ -105,7 +109,7 @@ struct PressaoView: View {
                     .padding(.horizontal)
                     
                     GraficoPressaoComponent(registrosPressoes: vm.entidadeSalvasPressao, tipoDePressao: $opcaoSelecionada)
-                        .padding(.horizontal)
+                        .padding([.horizontal, .bottom])
                     
                     if (vm.entidadeSalvasPressao.isEmpty) {
                         BotaoAcaoComponent(texto: "Mais Detalhes", action: nil, desabilitado: true)
@@ -183,18 +187,8 @@ struct PressaoView: View {
                                 .font(.title3)
                         }
                         
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
                         Spacer()
-                        
-                        
-                        
+                 
                     }.padding()
                 })
         .onChange(of: showAlert) { newValue in
