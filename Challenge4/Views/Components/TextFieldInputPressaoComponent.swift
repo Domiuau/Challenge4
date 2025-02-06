@@ -29,6 +29,3 @@ struct TextFieldInputPressaoComponent: View {
     }
 }
 
-//#Preview {
-//   // TextFieldInputPressaoComponent()
-//}

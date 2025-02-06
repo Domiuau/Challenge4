@@ -15,7 +15,6 @@ struct SplashScreenView: View {
     @State private var drawProgress3: CGFloat = 0.0
     @State private var isActive = false
     
-    
     var body: some View {
         if isActive{
             TabBarComponent(pressaoViewModel: vm)

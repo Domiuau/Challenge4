@@ -37,27 +37,20 @@ struct GraficoPressaoComponent: View {
                     .foregroundStyle(Color.vinhoBotoes)
                     .symbolSize(100)
                     .annotation(position: .top, alignment: .center, spacing: 3) {
-
                         
                         HStack(spacing: 1) {
                             Text(String(registro.sistolica))
                                 .foregroundColor(Color.preto)
                                 .font(tipoDePressao == 0 ? .title3 : .footnote)
                                 .fontWeight(tipoDePressao == 0 ? .heavy : .regular)
-                             //   .bold(tipoDePressao == 0)
-                              //  .opacity(tipoDePressao == 0 ? 1 : 0.5)
                             Text("/").bold()
                             Text(String(registro.diastolica))
                                 .font(tipoDePressao == 1 ? .title3 : .footnote)
                                 .foregroundColor(Color.preto)
                                 .fontWeight(tipoDePressao == 1 ? .heavy : .regular)
-
-                              //  .opacity(tipoDePressao == 1 ? 1 : 0.5)
-
-                                
+   
                         }
                     }
-                    
                 }
             }
             .chartXAxis {
@@ -66,8 +59,6 @@ struct GraficoPressaoComponent: View {
                     
                     AxisValueLabel(content: {
                         VStack(spacing: -2) {
-                          //  Text(vm.dataFormatada(data: registrosPressoes[registrosPressoes.count - 1 - value.index].data)).font(.footnote)
-                            //Text(vm.dataFormatadaHorario(data: registrosPressoes[registrosPressoes.count - 1 - value.index].data))
                             Text(vm.dataFormatada(data: registrosPressoes[value.index].data)).font(.footnote)
                             Text(vm.dataFormatadaHorario(data: registrosPressoes[value.index].data))
                             
