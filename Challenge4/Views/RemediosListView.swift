@@ -43,19 +43,9 @@ struct RemediosListView: View {
                             EditarRemedioView(entidade: entidade, vm: vm)
                             
                         } label: {
-                            if let data = entidade.imagem {
-                                Image(uiImage: UIImage(data: data)!.resized(to:200)!)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 100, height: 100)
-                                    .clipShape(.rect(cornerRadius: 10))
-                            } else {
-                                Image(uiImage: UIImage(named: "remedios")!.resized(to:200)!)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 100, height: 100)
-                                    .clipShape(.rect(cornerRadius: 10))
-                            }
+                            
+                            ImagemRemedioView(uiImage: entidade.imagem != nil ? UIImage(data: entidade.imagem!) : UIImage(named: "remedios"))
+                             
                             
                             VStack (alignment: .leading) {
                                 Text("**\(entidade.nomeRemedio ?? "SEM NOME")**")
@@ -98,6 +88,19 @@ struct RemediosListView: View {
                 }
                 .buttonStyle(PlainButtonStyle())
             }
+        }
+    }
+    
+    struct ImagemRemedioView: View {
+        
+        let uiImage: UIImage?
+        
+        var body: some View {
+            Image(uiImage: uiImage!.resized(to:200)!)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 100, height: 100)
+                .clipShape(.rect(cornerRadius: 10))
         }
     }
 }

@@ -32,7 +32,6 @@ struct PressaoView: View {
                         HStack(alignment: .top) {
                             
                             Text("Como está a sua pressão hoje?")
-                                
                                 .font(.title)
                                 .fontWeight(.semibold)
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -46,40 +45,19 @@ struct PressaoView: View {
                                     .foregroundColor(.preto)
                             })
                             
-                            
                         }
                         .padding(.horizontal)
                         .padding(.top, 2)
                         
                         HStack {
                             VStack {
-                                TextField("120", text: $inputTextS)
-                                    .keyboardType(.numberPad)
-                                    .font(.system(size: 40))
-                                    .onChange(of: inputTextS) { newValue in
-                                        sistolica = Int(newValue)
-                                    }
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 30)
-                                            .frame(height: 3)
-                                            .opacity(0.44)
-                                            .foregroundColor(.gray), alignment: .bottom
-                                    )
+                                
+                                TextFieldInputPressaoComponent(inputText: $inputTextS, numeroInserido: $sistolica, textoPadrao: "120")
                                 
                                 Spacer().frame(height: 16)
                                 
-                                TextField("80", text: $inputTextD)
-                                    .keyboardType(.numberPad)
-                                    .font(.system(size: 40))
-                                    .onChange(of: inputTextD) { newValue in
-                                        diastolica = Int(newValue)
-                                    }
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 30)
-                                            .frame(height: 3)
-                                            .opacity(0.44)
-                                            .foregroundColor(.gray), alignment: .bottom
-                                    )
+                                TextFieldInputPressaoComponent(inputText: $inputTextD, numeroInserido: $diastolica, textoPadrao: "80")
+
                             }
                             .padding([.bottom, .horizontal])
                         }
@@ -93,7 +71,6 @@ struct PressaoView: View {
                         .padding(.top, 4)
                         
                     }
-                    
                     
                     Text("Histórico")
                         .font(.title)
@@ -136,60 +113,7 @@ struct PressaoView: View {
             )
         }
         .sheet(isPresented: $showSheet, content: {
-                    VStack {
-                        
-                        
-                        Button(action: {
-                            showSheet = false
-                        }, label: {
-                            Text("OK")
-                                .frame(maxWidth: .infinity, alignment: .trailing)
-                                .foregroundColor(.accentColor)
-                                .bold()
-                        })
-                        
-                        Spacer()
-                        
-                        Text("O que é a pressão sistólica e diastólica?")
-                            .multilineTextAlignment(.center)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                            .font(.title)
-                            .padding(.vertical)
-                            .bold()
-                        
-                        Text("A pressão arterial é composta por dois valores: a sistólica, que é a pressão quando o coração se contrai, e a diastólica, que é a pressão quando o coração está em repouso")
-                            .multilineTextAlignment(.center)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                        Text("[(OMRON, 2025).](https://omronbrasil.com/o-que-e-pressao-arterial-sistolica-2/?srsltid=AfmBOopI9ifoLXgY3bw7amnoXYSBRGwH15MhxYPqf_ZsfTXqFbbnQECp)")
-                            .underline()
-                        
-                        
-                        Image("medidorDePressao")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                        
-                        HStack {
-                            
-                            Text("• SIS = Sistólica")
-                                .foregroundColor(.vinhoBotoes)
-                                .padding(.leading, 5)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .bold()
-                                .font(.title3)
-                            
-                            Spacer()
-                            
-                            Text("• DIA = Diastólica")
-                                .foregroundColor(.batommorto)
-                                .padding(.leading, 5)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .bold()
-                                .font(.title3)
-                        }
-                        
-                        Spacer()
-                 
-                    }.padding()
+                    sheetInformacoesDasPressoes(showSheet: $showSheet)
                 })
         .onChange(of: showAlert) { newValue in
             if !newValue {
@@ -227,6 +151,67 @@ struct PressaoView: View {
         tituloAlert = titulo
         mensagemAlert = mensagem
         showAlert.toggle()
+    }
+    
+    struct sheetInformacoesDasPressoes: View {
+        
+        @Binding var showSheet: Bool
+        
+        var body: some View {
+            VStack {
+
+                Button(action: {
+                    showSheet = false
+                }, label: {
+                    Text("OK")
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        .foregroundColor(.accentColor)
+                        .bold()
+                })
+                
+                Spacer()
+                
+                Text("O que é a pressão sistólica e diastólica?")
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .font(.title)
+                    .padding(.vertical)
+                    .bold()
+                
+                Text("A pressão arterial é composta por dois valores: a sistólica, que é a pressão quando o coração se contrai, e a diastólica, que é a pressão quando o coração está em repouso")
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                Text("[(OMRON, 2025).](https://omronbrasil.com/o-que-e-pressao-arterial-sistolica-2/?srsltid=AfmBOopI9ifoLXgY3bw7amnoXYSBRGwH15MhxYPqf_ZsfTXqFbbnQECp)")
+                    .underline()
+                
+                Image("medidorDePressao")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                
+                HStack {
+                    
+                    Text("• SIS = Sistólica")
+                        .foregroundColor(.vinhoBotoes)
+                        .padding(.leading, 5)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .bold()
+                        .font(.title3)
+                    
+                    Spacer()
+                    
+                    Text("• DIA = Diastólica")
+                        .foregroundColor(.batommorto)
+                        .padding(.leading, 5)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .bold()
+                        .font(.title3)
+                }
+                
+                Spacer()
+         
+            }.padding()
+        }
+        
     }
 }
 
