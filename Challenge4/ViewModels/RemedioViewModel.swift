@@ -27,7 +27,7 @@ class RemedioViewModel: ObservableObject {
         }
     }
     
-    func addRemedio(remedioNome: String, dosagem: String, horario: String, imagem: Data) {
+    func addRemedio(remedioNome: String, dosagem: String, horario: String, imagem: Data, notifyOn: Bool) {
         let newRemedio = RemedioEntity(context: conteudo)
         
         newRemedio.nomeRemedio = remedioNome
@@ -37,7 +37,9 @@ class RemedioViewModel: ObservableObject {
         
         saveRemedios()
         
-        scheduleNotification(for: newRemedio)
+        if(notifyOn) {
+            scheduleNotification(for: newRemedio)
+        }
     }
     
     
