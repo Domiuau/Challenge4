@@ -70,6 +70,7 @@ struct RemediosListView: View {
                                 HStack{
                                     Image(systemName: entidade.notifyOn ? "bell.fill" : "bell.slash.fill")
                                     Text("Notificação: **\(entidade.notifyOn ? "Ativado" : "Desativado")**")
+                                        .lineLimit(1)
                                 }
                             }
                                 

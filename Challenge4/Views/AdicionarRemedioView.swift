@@ -152,7 +152,7 @@ struct AdicionarRemedioView: View {
                     vm.addRemedio(remedioNome: nomeRemedio, dosagem: dosagem, horario: dateFormatter.string(from: horario), imagem: imageData, notifyOn: notifyOn)
                     
                     showAlert.toggle()
-                })
+                }, desabilitado: ((nomeRemedio.isEmpty) || (dosagem.isEmpty) || (imagem == nil)))
                 .alert(isPresented: $showAlert) {
                     Alert(
                         title: Text("Remédio cadastrado!"),
