@@ -59,8 +59,8 @@ class RemedioViewModel: ObservableObject {
         }
     }
     
-    func deleteRemedio(entidade: RemediosModel) {
-        guard let index = indexSet.first else { return }
+    func deleteRemedio(index: IndexSet) {
+        guard let index = index.first else { return }
         let remedioModel = remedios[index]
         
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [remedioModel.objectID.uriRepresentation().absoluteString])

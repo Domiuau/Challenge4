@@ -29,18 +29,12 @@ class PressaoViewModel: ObservableObject {
     }
     
     func deletePressao(index: IndexSet) {
-        
-        
-        
         guard let index = index.first else { return }
         print("aadasa")
         let pressaoModel = pressoes[index]
         modelContext?.delete(pressaoModel)
         saveData()
         print("deletou a pressao")
-//        let entidade = entidadeSalvasPressao[index]
-//        conteudo.delete(entidade)
-
         
     }
     
