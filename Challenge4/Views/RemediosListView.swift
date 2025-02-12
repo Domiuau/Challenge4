@@ -49,9 +49,10 @@ struct RemediosListView: View {
                                 ImagemRemedioView(uiImage: UIImage(data: imagem))
 
                             } else {
-                                Image(systemName: "cross.case.fill")
+                                Image(systemName: "cross.case")
                                     .resizable()
-                                    .padding(8)
+                                    .padding(16)
+                                    .opacity(0.6)
                                     .aspectRatio(contentMode: .fit)
                                     .frame(maxWidth: 100, alignment: .center)
 

@@ -20,7 +20,7 @@ struct AdicionarRemedioView: View {
     @State private var imagem: UIImage?
     @State var photoPicker: PhotosPickerItem?
     @State var nomeRemedio: String = ""
-    @State var dosagem: String = ""
+    //@State var dosagem: String = ""
     @State var valorDosagem: String = ""
     @State var horario = Date()
     @State private var tipoDosagemSelected = "Comprimido(s)"
@@ -152,7 +152,7 @@ struct AdicionarRemedioView: View {
                 BotaoAcaoComponent(texto: "Cadastrar", action: {
                     
                     guard !nomeRemedio.isEmpty else { return }
-                    guard !dosagem.isEmpty else { return }
+                    guard !valorDosagem.isEmpty else { return }
                     
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "HH:mm"
@@ -172,10 +172,10 @@ struct AdicionarRemedioView: View {
                     
                     
                     
-                    vm.addRemedio(remedioNome: nomeRemedio, dosagem: dosagem, horario: dateFormatter.string(from: horario), imagem: imageDataConfirmada, notifyOn: notifyOn)
+                    vm.addRemedio(remedioNome: nomeRemedio, dosagem: valorDosagem + " " + tipoDosagemSelected, horario: dateFormatter.string(from: horario), imagem: imageDataConfirmada, notifyOn: notifyOn)
                     
                     showAlert.toggle()
-                }, desabilitado: ((nomeRemedio.isEmpty) || (dosagem.isEmpty)))
+                }, desabilitado: ((nomeRemedio.isEmpty) || (valorDosagem.isEmpty)))
                 .alert(isPresented: $showAlert) {
                     Alert(
                         title: Text("Remédio cadastrado!"),
@@ -183,7 +183,7 @@ struct AdicionarRemedioView: View {
                         dismissButton: .default(Text("OK"),
                                                 action: {
                                                     nomeRemedio = ""
-                                                    dosagem = ""
+                                                    valorDosagem = ""
                                                     dismiss()
                                                 })
                     )
