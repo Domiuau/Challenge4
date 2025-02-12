@@ -45,10 +45,10 @@ struct HistoricoPressaoView: View {
                     }
                 }
                 .onDelete(perform: { indexSet in
-//                    PressaoViewModel.deletePressao(index: indexSet)
-//                    if(vm.entidadeSalvasPressao.isEmpty) {
-//                        dismiss()
-//                    }
+                    vm.deletePressao(index: indexSet)
+                    if(vm.pressoes.isEmpty) {
+                        dismiss()
+                    }
                 })
             }
             .listStyle(InsetListStyle())
