@@ -24,83 +24,79 @@ struct PressaoView: View {
     @ObservedObject var vm: PressaoViewModel
     
     var body: some View {
-            NavigationStack {
+        NavigationStack {
+            
+            ScrollView {
                 
-                ScrollView {
-                    
-                    VStack {
-                        
-                        HStack(alignment: .top) {
-                            
-                            Text("Como está a sua pressão hoje?")
-                                .font(.title)
-                                .fontWeight(.semibold)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            
-                            Button(action: {
-                                
-                                showSheet.toggle()
-                            }, label: {
-                                Image(systemName: "info.circle")
-                                    .font(.title)
-                                    .foregroundColor(.preto)
-                            })
-                            
-                        }
-                        .padding(.horizontal)
-                        .padding(.top, 2)
-                        
-                        HStack {
-                            VStack {
-                                
-                                TextFieldInputPressaoComponent(inputText: $inputTextS, numeroInserido: $sistolica, textoPadrao: "120")
-                                
-                                Spacer().frame(height: 16)
-                                
-                                TextFieldInputPressaoComponent(inputText: $inputTextD, numeroInserido: $diastolica, textoPadrao: "80")
+                VStack {
 
-                            }
-                            .padding([.bottom, .horizontal])
-                        }
-                        .padding(.trailing, 180)
-                        
-                        BotaoAcaoComponent(texto: "Salvar", action: {
-                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                            salvarPressao()
-                        }, desabilitado: inputTextS == "" || inputTextD == ""
-                        )
-                        .padding(.top, 4)
-                        
-                    }
-                    
-                    Text("Histórico")
+                    Text("Como está a sua pressão?")
                         .font(.title)
+                        .padding(.horizontal)
                         .fontWeight(.semibold)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding()
                     
-                    Picker("Opções", selection: $opcaoSelecionada) {
-                        Text("Sistólica").tag(0)
-                        Text("Diastólica").tag(1)
-                    }
-                    .pickerStyle(SegmentedPickerStyle())
-                    .padding(.horizontal)
-                    
-                    GraficoPressaoComponent(registrosPressoes: vm.pressoes, tipoDePressao: $opcaoSelecionada)
-                        .padding([.horizontal, .bottom])
-                    
-                    if (vm.pressoes.isEmpty) {
-                        BotaoAcaoComponent(texto: "Mais Detalhes", action: nil, desabilitado: true)
-                    } else {
-                        NavigationLink(destination: HistoricoPressaoView(vm: vm)) {
-                            BotaoAcaoComponent(texto: "Mais Detalhes", action: nil)
+                    HStack {
+                        VStack {
+                            
+                            TextFieldInputPressaoComponent(inputText: $inputTextS, numeroInserido: $sistolica, textoPadrao: "Ex: 120")
+                            
+                            Spacer().frame(height: 16)
+                            
+                            TextFieldInputPressaoComponent(inputText: $inputTextD, numeroInserido: $diastolica, textoPadrao: "Ex: 80")
+                            
                         }
+                        .padding([.bottom, .horizontal])
+                    }
+                    .padding(.trailing, 180)
+                    
+                    BotaoAcaoComponent(texto: "Salvar", action: {
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                        salvarPressao()
+                    }, desabilitado: inputTextS == "" || inputTextD == ""
+                    )
+                    .padding(.top, 4)
+                    
+                }
+                
+                Text("Histórico")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Picker("Opções", selection: $opcaoSelecionada) {
+                    Text("Sistólica").tag(0)
+                    Text("Diastólica").tag(1)
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding(.horizontal)
+                
+                GraficoPressaoComponent(registrosPressoes: vm.pressoes, tipoDePressao: $opcaoSelecionada)
+                    .padding([.horizontal, .bottom])
+                
+                if (vm.pressoes.isEmpty) {
+                    BotaoAcaoComponent(texto: "Mais Detalhes", action: nil, desabilitado: true)
+                } else {
+                    NavigationLink(destination: HistoricoPressaoView(vm: vm)) {
+                        BotaoAcaoComponent(texto: "Mais Detalhes", action: nil)
                     }
                 }
-                .scrollDismissesKeyboard(.immediately)
-                .scrollIndicators(.hidden)
-                .navigationTitle("Pressão")
             }
+            .scrollDismissesKeyboard(.immediately)
+            .scrollIndicators(.hidden)
+            .navigationTitle("Pressão")
+        }
+        .toolbar(content: {
+            Button(action: {
+                
+                showSheet.toggle()
+            }, label: {
+                Image(systemName: "questionmark.circle")
+                    .padding()
+                    .font(.title)
+                    .foregroundColor(.preto)
+            })
+        })
         
         .onAppear {
             vm.modelContext = modelContext
@@ -115,8 +111,8 @@ struct PressaoView: View {
             )
         }
         .sheet(isPresented: $showSheet, content: {
-                    sheetInformacoesDasPressoes(showSheet: $showSheet)
-                })
+            sheetInformacoesDasPressoes(showSheet: $showSheet)
+        })
         .onChange(of: showAlert) { newValue in
             if !newValue {
                 inputTextS = ""
@@ -161,7 +157,7 @@ struct PressaoView: View {
         
         var body: some View {
             VStack {
-
+                
                 Button(action: {
                     showSheet = false
                 }, label: {
@@ -210,7 +206,7 @@ struct PressaoView: View {
                 }
                 
                 Spacer()
-         
+                
             }.padding()
         }
         
