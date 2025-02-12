@@ -33,7 +33,7 @@ struct EditarRemedioView: View {
     private let antigoNotifyOn: Bool
     @State private var notifyOn: Bool
     private let dateFormatterHora = DateFormatter()
-
+    
     @State private var showAlert = false
     
     init(entidade: RemediosModel, vm: RemedioViewModel) {
@@ -116,7 +116,7 @@ struct EditarRemedioView: View {
                                 .font(.title2)
                                 .bold()
                             
-                            TextField(entidade.nomeRemedio ?? "Nome do Remédio", text: $novoNome)
+                            TextField(entidade.nomeRemedio, text: $novoNome)
                                 .font( .title3)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 30)
@@ -135,7 +135,7 @@ struct EditarRemedioView: View {
                         .bold()
                         .padding(.leading)
                     
-                    TextField(entidade.dosagem ?? "Remédio sem dosagem", text: $novaDosagem)
+                    TextField(entidade.dosagem, text: $novaDosagem)
                         .font(.title3)
                         .overlay(
                             RoundedRectangle(cornerRadius: 30)
@@ -208,7 +208,7 @@ struct EditarRemedioView: View {
                     message: Text("Tem certeza de que deseja excluir este remédio? Esta ação não pode ser desfeita."),
                     buttons: [
                         .destructive(Text("Excluir")) {
-                            vm.deleteRemedio(entidade: entidade)
+                            vm.deleteRemedios(entidade: entidade)
                             dismiss()
                         },
                         .cancel()

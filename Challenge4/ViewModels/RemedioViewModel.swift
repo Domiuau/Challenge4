@@ -14,7 +14,6 @@ import UserNotifications
 import PhotosUI
 
 class RemedioViewModel: ObservableObject {
-    private let conteudo = PersistenceController.persistencia.container.viewContext
     @Published var remedios: [RemediosModel] = []
     var modelContext: ModelContext? = nil
 
@@ -45,7 +44,7 @@ class RemedioViewModel: ObservableObject {
         if (notifyOn) {
             scheduleNotification(for: remedio)
         } else {
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [remedio.id.uriRepresentation().absoluteString])
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [remedio.id.uuidString])
             print("bye bye not not")
         }
     }
@@ -54,16 +53,25 @@ class RemedioViewModel: ObservableObject {
         do {
             try modelContext?.save()
             fetchRemedios()
+            
         } catch let error {
             print("Error saving. \(error)")
         }
+    }
+    
+    func deleteRemedios(entidade: RemediosModel) {
+        
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [entidade.id.uuidString])
+        
+        modelContext?.delete(entidade)
+        saveRemedios()
     }
     
     func deleteRemedio(index: IndexSet) {
         guard let index = index.first else { return }
         let remedioModel = remedios[index]
         
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [remedioModel.objectID.uriRepresentation().absoluteString])
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [remedioModel.id.uuidString])
         
         modelContext?.delete(remedioModel)
         saveRemedios()
@@ -83,13 +91,13 @@ class RemedioViewModel: ObservableObject {
             
             let trigger = UNCalendarNotificationTrigger(dateMatching: calendarComponents, repeats: true)
             
-            let request = UNNotificationRequest(identifier: remedio.id.uriRepresentation().absoluteString, content: content, trigger: trigger)
+            let request = UNNotificationRequest(identifier: remedio.id.uuidString, content: content, trigger: trigger)
             
             UNUserNotificationCenter.current().add(request) { error in
                 if let error = error {
                     print("Erro ao agendar notificação: \(error.localizedDescription)")
                 } else {
-                    print("Notificação agendada para \(remedio.horario ?? "horário desconhecido")")
+                    print("Notificação agendada para \(remedio.horario)")
                 }
             }
         }

@@ -12,12 +12,13 @@ import SwiftUI
 
 struct RemediosListView: View {
     
+    @Environment(\.modelContext) var modelContext
     @StateObject var vm = RemedioViewModel()
     
     var body: some View {
         
         NavigationStack {
-            if vm.entidadeSalvasRemedio.isEmpty {
+            if vm.remedios.isEmpty {
                 
                 VStack {
                     Image(systemName: "exclamationmark.triangle")
@@ -37,14 +38,14 @@ struct RemediosListView: View {
             }
             else {
                 List {
-                    ForEach(vm.entidadeSalvasRemedio) { entidade in
+                    ForEach(vm.remedios) { entidade in
                         NavigationLink {
                             
                             EditarRemedioView(entidade: entidade, vm: vm)
                             
                         } label: {
                             
-                            ImagemRemedioView(uiImage: entidade.imagem != nil ? UIImage(data: entidade.imagem!) : UIImage(named: "remedios"))
+                            ImagemRemedioView(uiImage: entidade.imagem != nil ? UIImage(data: entidade.imagem) : UIImage(named: "remedios"))
                              
                             
                             VStack (alignment: .leading) {
@@ -78,13 +79,17 @@ struct RemediosListView: View {
                         }
                         
                     }
-                    .onDelete(perform: vm.deleteRemedios)
+                    .onDelete(perform: { indexSet in
+                        vm.deleteRemedio(index: indexSet)
+                        
+                    } )
                 }
                 .listStyle(InsetListStyle())
                 .scrollContentBackground(.hidden)
             }
         }
         .onAppear {
+            vm.modelContext = modelContext
             vm.fetchRemedios()
         }
         .navigationTitle("Remédios")
