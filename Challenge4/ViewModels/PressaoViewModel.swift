@@ -20,7 +20,7 @@ class PressaoViewModel: ObservableObject {
     static let MAX_DIASTOLICO = 110
     static let MIN_DIASTOLICO = 10
     @Published var pressoes: [PressaoModel] = []
-    var modelContext: ModelContext? = nil
+    var modelContextPressao: ModelContext? = nil
 
     @Published var ordenacaoAscendente: Bool = false {
         didSet {
@@ -32,22 +32,26 @@ class PressaoViewModel: ObservableObject {
 
         guard let index = index.first else { return }
         let pressaoModel = pressoes[index]
-        modelContext?.delete(pressaoModel)
+        modelContextPressao?.delete(pressaoModel)
         saveData()
         print("deletou a pressao")
         
     }
     
     func fetchPressoes() {
-        let fetchDescriptor = FetchDescriptor<PressaoModel> ()
-        pressoes = (try! (modelContext?.fetch(fetchDescriptor))) ?? []
+        let fetchDescriptor = FetchDescriptor<PressaoModel>()
+        do {
+            pressoes = (try (modelContextPressao?.fetch(fetchDescriptor))) ?? []
+        } catch {
+            fatalError(error.localizedDescription)
+        }
     }
     
     func addPressao(diastolica: Int, sistolica: Int, data: Date) {
         
         let newPressao = PressaoModel(data: data, diastolica: diastolica, sistolica: sistolica)
 
-        modelContext?.insert(newPressao)
+        modelContextPressao?.insert(newPressao)
         saveData()
         
         print("dados salvos")
@@ -57,7 +61,7 @@ class PressaoViewModel: ObservableObject {
         
         do {
             
-            try modelContext?.save()
+            try modelContextPressao?.save()
             fetchPressoes()
             
         } catch let error {

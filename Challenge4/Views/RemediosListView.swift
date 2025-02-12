@@ -12,7 +12,7 @@ import SwiftUI
 
 struct RemediosListView: View {
     
-    @Environment(\.modelContext) var modelContext
+    @Environment(\.modelContext) var modelContextRemedio
     @StateObject var vm = RemedioViewModel()
     
     var body: some View {
@@ -89,7 +89,7 @@ struct RemediosListView: View {
             }
         }
         .onAppear {
-            vm.modelContext = modelContext
+            vm.modelContextRemedios = modelContextRemedio
             vm.fetchRemedios()
         }
         .navigationTitle("Remédios")

@@ -11,7 +11,7 @@
 import SwiftUI
 //so para dar commit dps deleta
 struct PressaoView: View {
-    @Environment(\.modelContext) var modelContext
+    @Environment(\.modelContext) var modelContextPressao
     @State private var sistolica: Int? = nil
     @State private var diastolica: Int? = nil
     @State private var inputTextS: String = ""
@@ -99,7 +99,7 @@ struct PressaoView: View {
         })
         
         .onAppear {
-            vm.modelContext = modelContext
+            vm.modelContextPressao = modelContextPressao
             vm.fetchPressoes()
         }
         
