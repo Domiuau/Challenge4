@@ -9,7 +9,7 @@
  */
 
 import SwiftUI
-
+//so para dar commit dps deleta
 struct PressaoView: View {
     @State private var sistolica: Int? = nil
     @State private var diastolica: Int? = nil
