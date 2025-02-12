@@ -11,6 +11,7 @@
 import Foundation
 import CoreData
 import SwiftUI
+import SwiftData
 
 class PressaoViewModel: ObservableObject {
     private let conteudo = PersistenceController.persistencia.container.viewContext
@@ -18,7 +19,9 @@ class PressaoViewModel: ObservableObject {
     static let MIN_SISTOLICO = 30
     static let MAX_DIASTOLICO = 110
     static let MIN_DIASTOLICO = 10
-    @Published var entidadeSalvasPressao: [PressaoEntity] = []
+    @Published var pressoes: [PressaoModel] = []
+    var modelContext: ModelContext? = nil
+   // @Published var entidadeSalvasPressao: [PressaoEntity] = []
     @Published var ordenacaoAscendente: Bool = false {
         didSet {
             fetchPressoes()
@@ -26,33 +29,25 @@ class PressaoViewModel: ObservableObject {
     }
     
     func deletePressao(index: IndexSet) {
-        guard let index = index.first else { return }
-        let entidade = entidadeSalvasPressao[index]
-        conteudo.delete(entidade)
-        saveData()
+        
+//        guard let index = index.first else { return }
+//        let entidade = entidadeSalvasPressao[index]
+//        conteudo.delete(entidade)
+//        saveData()
         
     }
     
     func fetchPressoes() {
-        let request = NSFetchRequest<PressaoEntity>(entityName: "PressaoEntity")
         
-        let sortDescriptor = NSSortDescriptor(key: "data", ascending: ordenacaoAscendente)
-        request.sortDescriptors = [sortDescriptor]
-        
-        do {
-            entidadeSalvasPressao = try conteudo.fetch(request)
-        } catch let error {
-            print(error)
-        }
+        let fetchDescriptor = FetchDescriptor<PressaoModel> ()
+        pressoes = (try! (modelContext?.fetch(fetchDescriptor))) ?? []
     }
     
     func addPressao(diastolica: Int, sistolica: Int, data: Date) {
-        print("dados salvos")
         
-        let newPressao = PressaoEntity(context: conteudo)
-        newPressao.diastolica = Int16(diastolica)
-        newPressao.sistolica = Int16(sistolica)
-        newPressao.data = data
+        let newPressao = PressaoModel(data: data, diastolica: diastolica, sistolica: sistolica)
+
+        modelContext?.insert(newPressao)
         saveData()
         
         print("dados salvos")
@@ -62,7 +57,7 @@ class PressaoViewModel: ObservableObject {
         
         do {
             
-            try conteudo.save()
+            try modelContext?.save()
             fetchPressoes()
             
         } catch let error {
@@ -94,20 +89,20 @@ class PressaoViewModel: ObservableObject {
         }
     }
     
-    func formatarData(_ date: Date) -> String {
+    static func formatarData(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy 'às' HH:mm"
         return formatter.string(from: date)
     }
     
-    func dataFormatada(data: Date?) -> String {
+    static func dataFormatada(data: Date?) -> String {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yy "
         return dateFormatter.string(from: data!)
     }
     
-    func dataFormatadaHorario(data: Date?) -> String {
+    static func dataFormatadaHorario(data: Date?) -> String {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss "

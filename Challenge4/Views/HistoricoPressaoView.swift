@@ -24,7 +24,7 @@ struct HistoricoPressaoView: View {
             .padding()
 
             List {
-                ForEach(vm.entidadeSalvasPressao, id: \.self) { pressao in
+                ForEach(vm.pressoes, id: \.self) { pressao in
                     VStack(alignment: .leading) {
                         Text("\(pressao.sistolica)/\(pressao.diastolica)")
                             .font(.title)
@@ -38,17 +38,17 @@ struct HistoricoPressaoView: View {
                                 .font(.headline)
                                 .foregroundColor(vm.corSituacaoPressao(situacao: vm.situacaoPressao(sistolica: Int(pressao.sistolica))))
                             Spacer()
-                            Text(pressao.data != nil ? vm.formatarData(pressao.data!) : "Sem data")
+                            Text(pressao.data != nil ? PressaoViewModel.formatarData(pressao.data) : "Sem data")
                                 .font(.headline)
                                 .foregroundColor(.gray)
                         }
                     }
                 }
                 .onDelete(perform: { indexSet in
-                    vm.deletePressao(index: indexSet)
-                    if(vm.entidadeSalvasPressao.isEmpty) {
-                        dismiss()
-                    }
+//                    PressaoViewModel.deletePressao(index: indexSet)
+//                    if(vm.entidadeSalvasPressao.isEmpty) {
+//                        dismiss()
+//                    }
                 })
             }
             .listStyle(InsetListStyle())

@@ -11,6 +11,7 @@
 import SwiftUI
 //so para dar commit dps deleta
 struct PressaoView: View {
+    @Environment(\.modelContext) var modelContext
     @State private var sistolica: Int? = nil
     @State private var diastolica: Int? = nil
     @State private var inputTextS: String = ""
@@ -20,7 +21,7 @@ struct PressaoView: View {
     @State private var showSheet: Bool = false
     @State private var mensagemAlert: String = ""
     @State var opcaoSelecionada = 0
-    @StateObject var vm: PressaoViewModel
+    @ObservedObject var vm: PressaoViewModel
     
     var body: some View {
             NavigationStack {
@@ -85,10 +86,10 @@ struct PressaoView: View {
                     .pickerStyle(SegmentedPickerStyle())
                     .padding(.horizontal)
                     
-                    GraficoPressaoComponent(registrosPressoes: vm.entidadeSalvasPressao, tipoDePressao: $opcaoSelecionada)
+                    GraficoPressaoComponent(registrosPressoes: vm.pressoes, tipoDePressao: $opcaoSelecionada)
                         .padding([.horizontal, .bottom])
                     
-                    if (vm.entidadeSalvasPressao.isEmpty) {
+                    if (vm.pressoes.isEmpty) {
                         BotaoAcaoComponent(texto: "Mais Detalhes", action: nil, desabilitado: true)
                     } else {
                         NavigationLink(destination: HistoricoPressaoView(vm: vm)) {
@@ -102,6 +103,7 @@ struct PressaoView: View {
             }
         
         .onAppear {
+            vm.modelContext = modelContext
             vm.fetchPressoes()
         }
         

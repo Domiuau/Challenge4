@@ -12,8 +12,7 @@ import SwiftUI
 import Charts
 
 struct GraficoPressaoComponent: View {
-    @ObservedObject var vm = PressaoViewModel()
-    var registrosPressoes: [PressaoEntity]
+    var registrosPressoes: [PressaoModel]
     @Binding var tipoDePressao: Int
     
     var body: some View {
@@ -23,7 +22,7 @@ struct GraficoPressaoComponent: View {
             Chart {
                 ForEach(registrosPressoes) { registro in
                     LineMark(
-                        x: .value("", vm.dataFormatada(data: registro.data!) + vm.dataFormatadaHorario(data: registro.data!)),
+                        x: .value("", PressaoViewModel.dataFormatada(data: registro.data) + PressaoViewModel.dataFormatadaHorario(data: registro.data)),
                         y: .value("", tipoDePressao == 0 ? registro.sistolica : registro.diastolica)
                     )
                     .foregroundStyle(Color.cinzaEscuro)
@@ -31,7 +30,7 @@ struct GraficoPressaoComponent: View {
                     .opacity(0.4)
                     
                     PointMark(
-                        x: .value("", vm.dataFormatada(data: registro.data!) + vm.dataFormatadaHorario(data: registro.data!)),
+                        x: .value("", PressaoViewModel.dataFormatada(data: registro.data) + PressaoViewModel.dataFormatadaHorario(data: registro.data)),
                         y: .value("", tipoDePressao == 0 ? registro.sistolica : registro.diastolica)
                     )
                     .foregroundStyle(Color.vinhoBotoes)
@@ -59,8 +58,8 @@ struct GraficoPressaoComponent: View {
                     
                     AxisValueLabel(content: {
                         VStack(spacing: -2) {
-                            Text(vm.dataFormatada(data: registrosPressoes[value.index].data)).font(.footnote)
-                            Text(vm.dataFormatadaHorario(data: registrosPressoes[value.index].data))
+                            Text(PressaoViewModel.dataFormatada(data: registrosPressoes[value.index].data)).font(.footnote)
+                            Text(PressaoViewModel.dataFormatadaHorario(data: registrosPressoes[value.index].data))
                             
                         }.padding(0)
                     })
