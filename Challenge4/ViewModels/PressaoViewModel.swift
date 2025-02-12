@@ -9,7 +9,7 @@
  */
 
 import Foundation
-import CoreData
+import SwiftData
 import SwiftUI
 
 class PressaoViewModel: ObservableObject {
@@ -18,42 +18,27 @@ class PressaoViewModel: ObservableObject {
     static let MIN_SISTOLICO = 30
     static let MAX_DIASTOLICO = 110
     static let MIN_DIASTOLICO = 10
-    @Published var entidadeSalvasPressao: [PressaoEntity] = []
-    @Published var ordenacaoAscendente: Bool = false {
-        didSet {
-            fetchPressoes()
-        }
-    }
+    @Query var entidadeSalvasPressao: [PressaoModel]
+    @Published var ordenacaoAscendente: Bool = false
     
     func deletePressao(index: IndexSet) {
         guard let index = index.first else { return }
         let entidade = entidadeSalvasPressao[index]
-        conteudo.delete(entidade)
+       // modelContext.delete(entidade)
         saveData()
         
     }
     
-    func fetchPressoes() {
-        let request = NSFetchRequest<PressaoEntity>(entityName: "PressaoEntity")
-        
-        let sortDescriptor = NSSortDescriptor(key: "data", ascending: ordenacaoAscendente)
-        request.sortDescriptors = [sortDescriptor]
-        
-        do {
-            entidadeSalvasPressao = try conteudo.fetch(request)
-        } catch let error {
-            print(error)
-        }
-    }
-    
-    func addPressao(diastolica: Int, sistolica: Int, data: Date) {
+    func addPressao(diastolica: Int, sistolica: Int, data: Date, context: ModelContext) {
         print("dados salvos")
         
-        let newPressao = PressaoEntity(context: conteudo)
-        newPressao.diastolica = Int16(diastolica)
-        newPressao.sistolica = Int16(sistolica)
-        newPressao.data = data
+
+        
+        let newPressao = PressaoModel(data: data, diastolica: diastolica, sistolica: sistolica)
+        context.insert(newPressao)
         saveData()
+        
+
         
         print("dados salvos")
     }
@@ -61,14 +46,10 @@ class PressaoViewModel: ObservableObject {
     func saveData() {
         
         do {
-            
-            try conteudo.save()
-            fetchPressoes()
-            
-        } catch let error {
-            
-            print(error)
-        }
+                //try modelContext.save() // Salvando no contexto
+            } catch {
+                print("Erro ao salvar: \(error.localizedDescription)")
+            }
         
     }
     

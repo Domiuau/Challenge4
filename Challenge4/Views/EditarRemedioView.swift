@@ -178,7 +178,9 @@ struct EditarRemedioView: View {
                         return
                     }
                     
-                    vm.updateRemedio(remedioNome: novoNome, dosagem: novaDosagem, horario: dateFormatterHora.string(from: novoHorario), imagem: imageData, entidade: entidade, notifyOn: notifyOn)
+                   
+//                    
+//                    vm.updateRemedio(remedioNome: novoNome, dosagem: novaDosagem, horario: dateFormatterHora.string(from: novoHorario), imagem: imageData, entidade: entidade, notifyOn: notifyOn)
                     
                     showAlert.toggle()
                     
@@ -208,7 +210,7 @@ struct EditarRemedioView: View {
                     message: Text("Tem certeza de que deseja excluir este remédio? Esta ação não pode ser desfeita."),
                     buttons: [
                         .destructive(Text("Excluir")) {
-                            vm.deleteRemedio(entidade: entidade)
+                           // vm.deleteRemedio(entidade: entidade)
                             dismiss()
                         },
                         .cancel()

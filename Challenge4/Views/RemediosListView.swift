@@ -40,11 +40,11 @@ struct RemediosListView: View {
                     ForEach(vm.entidadeSalvasRemedio) { entidade in
                         NavigationLink {
                             
-                            EditarRemedioView(entidade: entidade, vm: vm)
+                           // EditarRemedioView(entidade: entidade, vm: vm)
                             
                         } label: {
                             
-                            ImagemRemedioView(uiImage: entidade.imagem != nil ? UIImage(data: entidade.imagem!) : UIImage(named: "remedios"))
+                            ImagemRemedioView(uiImage: entidade.imagem != nil ? UIImage(data: entidade.imagem) : UIImage(named: "remedios"))
                              
                             
                             VStack (alignment: .leading) {
@@ -85,7 +85,7 @@ struct RemediosListView: View {
             }
         }
         .onAppear {
-            vm.fetchRemedios()
+         //   vm.fetchRemedios()
         }
         .navigationTitle("Remédios")
         .toolbar {

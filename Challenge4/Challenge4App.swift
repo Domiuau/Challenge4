@@ -10,9 +10,11 @@
 
 import SwiftUI
 import UserNotifications
+import SwiftData
 
 @main
 struct Challenge4App: App {
+    
     let persistenceController = PersistenceController.persistencia
     let pressaoViewModel = PressaoViewModel()
 
@@ -24,6 +26,8 @@ struct Challenge4App: App {
         WindowGroup {
             SplashScreenView()
         }
+        .modelContainer(for: RemediosModel.self)
+        .modelContainer(for: PressaoModel.self)
     }
 }
 

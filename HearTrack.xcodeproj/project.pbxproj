@@ -10,6 +10,8 @@
 		79318CA12D4C0C4700667196 /* CoreDataContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79318C9F2D4C0C4700667196 /* CoreDataContainer.xcdatamodeld */; };
 		79318CA32D4C0E6E00667196 /* PressaoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79318CA22D4C0E6E00667196 /* PressaoViewModel.swift */; };
 		79318CAB2D4C1E5600667196 /* GraficoPressaoComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79318CAA2D4C1E5600667196 /* GraficoPressaoComponent.swift */; };
+		7962C77D2D5BEA330051C3F6 /* RemediosModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7962C77C2D5BEA330051C3F6 /* RemediosModel.swift */; };
+		7962C77F2D5BEA420051C3F6 /* PressaoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7962C77E2D5BEA420051C3F6 /* PressaoModel.swift */; };
 		7972032A2D552DE50067C393 /* TextFieldInputPressaoComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797203292D552DE50067C393 /* TextFieldInputPressaoComponent.swift */; };
 		79C451A62D4A9D070025CA15 /* Challenge4App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C451A52D4A9D070025CA15 /* Challenge4App.swift */; };
 		79C451A82D4A9D070025CA15 /* PressaoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C451A72D4A9D070025CA15 /* PressaoView.swift */; };
@@ -32,6 +34,8 @@
 		79318CA02D4C0C4700667196 /* CoreDataContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataContainer.xcdatamodel; sourceTree = "<group>"; };
 		79318CA22D4C0E6E00667196 /* PressaoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressaoViewModel.swift; sourceTree = "<group>"; };
 		79318CAA2D4C1E5600667196 /* GraficoPressaoComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraficoPressaoComponent.swift; sourceTree = "<group>"; };
+		7962C77C2D5BEA330051C3F6 /* RemediosModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemediosModel.swift; sourceTree = "<group>"; };
+		7962C77E2D5BEA420051C3F6 /* PressaoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressaoModel.swift; sourceTree = "<group>"; };
 		797203292D552DE50067C393 /* TextFieldInputPressaoComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldInputPressaoComponent.swift; sourceTree = "<group>"; };
 		79C451A22D4A9D070025CA15 /* HearTrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HearTrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79C451A52D4A9D070025CA15 /* Challenge4App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge4App.swift; sourceTree = "<group>"; };
@@ -115,6 +119,8 @@
 			isa = PBXGroup;
 			children = (
 				79318C9F2D4C0C4700667196 /* CoreDataContainer.xcdatamodeld */,
+				7962C77C2D5BEA330051C3F6 /* RemediosModel.swift */,
+				7962C77E2D5BEA420051C3F6 /* PressaoModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -234,9 +240,11 @@
 				D402FDA22D4D498000A1D88C /* BotaoAcaoComponent.swift in Sources */,
 				D48593E62D51457B007BEBA0 /* NotificationManager.swift in Sources */,
 				79C451A82D4A9D070025CA15 /* PressaoView.swift in Sources */,
+				7962C77F2D5BEA420051C3F6 /* PressaoModel.swift in Sources */,
 				D4D14C4C2D4D4D5800EBEFC6 /* HistoricoPressaoView.swift in Sources */,
 				7B28BFCE2D4D64EE0049798A /* EditarRemedioView.swift in Sources */,
 				79C451A62D4A9D070025CA15 /* Challenge4App.swift in Sources */,
+				7962C77D2D5BEA330051C3F6 /* RemediosModel.swift in Sources */,
 				79318CA32D4C0E6E00667196 /* PressaoViewModel.swift in Sources */,
 				79318CA12D4C0C4700667196 /* CoreDataContainer.xcdatamodeld in Sources */,
 				D4CC80682D4C0E4D001862F8 /* TabBarComponent.swift in Sources */,

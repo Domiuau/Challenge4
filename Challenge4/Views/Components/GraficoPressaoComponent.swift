@@ -13,7 +13,7 @@ import Charts
 
 struct GraficoPressaoComponent: View {
     @ObservedObject var vm = PressaoViewModel()
-    var registrosPressoes: [PressaoEntity]
+    var registrosPressoes: [PressaoModel]
     @Binding var tipoDePressao: Int
     
     var body: some View {
@@ -23,7 +23,7 @@ struct GraficoPressaoComponent: View {
             Chart {
                 ForEach(registrosPressoes) { registro in
                     LineMark(
-                        x: .value("", vm.dataFormatada(data: registro.data!) + vm.dataFormatadaHorario(data: registro.data!)),
+                        x: .value("", vm.dataFormatada(data: registro.data) + vm.dataFormatadaHorario(data: registro.data)),
                         y: .value("", tipoDePressao == 0 ? registro.sistolica : registro.diastolica)
                     )
                     .foregroundStyle(Color.cinzaEscuro)
@@ -31,7 +31,7 @@ struct GraficoPressaoComponent: View {
                     .opacity(0.4)
                     
                     PointMark(
-                        x: .value("", vm.dataFormatada(data: registro.data!) + vm.dataFormatadaHorario(data: registro.data!)),
+                        x: .value("", vm.dataFormatada(data: registro.data) + vm.dataFormatadaHorario(data: registro.data)),
                         y: .value("", tipoDePressao == 0 ? registro.sistolica : registro.diastolica)
                     )
                     .foregroundStyle(Color.vinhoBotoes)

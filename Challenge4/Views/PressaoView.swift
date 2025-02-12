@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct PressaoView: View {
+    
+    @Environment(\.modelContext) private var modelContext
     @State private var sistolica: Int? = nil
     @State private var diastolica: Int? = nil
     @State private var inputTextS: String = ""
@@ -100,11 +102,9 @@ struct PressaoView: View {
                 .scrollIndicators(.hidden)
                 .navigationTitle("Pressão")
             }
-        
-        .onAppear {
-            vm.fetchPressoes()
-        }
-        
+            .onAppear(perform: {
+                print(vm.entidadeSalvasPressao)
+            })
         .alert(isPresented: $showAlert) {
             Alert(
                 title: Text(tituloAlert),
@@ -142,7 +142,7 @@ struct PressaoView: View {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd/MM/yyyy hh:mm:ss"
             
-            vm.addPressao(diastolica: diastolica, sistolica: sistolica, data: dataAtual)
+            vm.addPressao(diastolica: diastolica, sistolica: sistolica, data: dataAtual, context: modelContext)
             exibirAlert(titulo: "A sua pressão arterial foi registrada com sucesso!", mensagem: "Data: \(dateFormatter.string(from: dataAtual)) - Pressão Arterial: \(sistolica)/\(diastolica)")
         }
     }

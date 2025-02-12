@@ -38,7 +38,7 @@ struct HistoricoPressaoView: View {
                                 .font(.headline)
                                 .foregroundColor(vm.corSituacaoPressao(situacao: vm.situacaoPressao(sistolica: Int(pressao.sistolica))))
                             Spacer()
-                            Text(pressao.data != nil ? vm.formatarData(pressao.data!) : "Sem data")
+                            Text(pressao.data != nil ? vm.formatarData(pressao.data) : "Sem data")
                                 .font(.headline)
                                 .foregroundColor(.gray)
                         }
@@ -56,7 +56,7 @@ struct HistoricoPressaoView: View {
         }
         .navigationTitle("Histórico")
         .onAppear {
-            vm.fetchPressoes()
+            //vm.fetchPressoes()
         }
     }
 }
