@@ -90,7 +90,7 @@ struct AdicionarRemedioView: View {
                     }
                     .padding()
                     
-                    Text("Dosagem (miligramas)")
+                    Text("Dosagem")
                         .font(.title2)
                         .bold()
                         .padding(.leading)

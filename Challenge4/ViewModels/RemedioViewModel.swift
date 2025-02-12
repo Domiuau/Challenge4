@@ -15,17 +15,21 @@ import PhotosUI
 
 class RemedioViewModel: ObservableObject {
     @Published var remedios: [RemediosModel] = []
-    var modelContext: ModelContext? = nil
+    var modelContextRemedios: ModelContext? = nil
 
 
     func fetchRemedios() {
-            let fetchDescriptor = FetchDescriptor<RemediosModel> ()
-            remedios = (try! (modelContext?.fetch(fetchDescriptor))) ?? []
+            let fetchDescriptor = FetchDescriptor<RemediosModel>()
+        do {
+            remedios = (try (modelContextRemedios?.fetch(fetchDescriptor))) ?? []
+        } catch {
+            fatalError("erro em abrir container")
+        }
     }
     
     func addRemedio(remedioNome: String, dosagem: String, horario: String, imagem: Data, notifyOn: Bool) {
         let newRemedio = RemediosModel(nomeRemedio: remedioNome, dosagem: dosagem, horario: horario, notifyOn: notifyOn, imagem: imagem)
-        modelContext?.insert(newRemedio)
+        modelContextRemedios?.insert(newRemedio)
         saveRemedios()
         
         if(notifyOn) {
@@ -45,13 +49,12 @@ class RemedioViewModel: ObservableObject {
             scheduleNotification(for: remedio)
         } else {
             UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [remedio.id.uuidString])
-            print("bye bye not not")
         }
     }
     
     func saveRemedios() {
         do {
-            try modelContext?.save()
+            try modelContextRemedios?.save()
             fetchRemedios()
             
         } catch let error {
@@ -63,7 +66,7 @@ class RemedioViewModel: ObservableObject {
         
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [entidade.id.uuidString])
         
-        modelContext?.delete(entidade)
+        modelContextRemedios?.delete(entidade)
         saveRemedios()
     }
     
@@ -73,7 +76,7 @@ class RemedioViewModel: ObservableObject {
         
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [remedioModel.id.uuidString])
         
-        modelContext?.delete(remedioModel)
+        modelContextRemedios?.delete(remedioModel)
         saveRemedios()
     }
     

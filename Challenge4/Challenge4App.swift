@@ -13,9 +13,6 @@ import UserNotifications
 
 @main
 struct Challenge4App: App {
-    let persistenceController = PersistenceController.persistencia
-    let pressaoViewModel = PressaoViewModel()
-
     init() {
         NotificationManager.shared.requestNotificationPermission()
     }
@@ -25,6 +22,7 @@ struct Challenge4App: App {
             SplashScreenView()
         }
         .modelContainer(for: PressaoModel.self)
+        .modelContainer(for: RemediosModel.self)
     }
 }
 
