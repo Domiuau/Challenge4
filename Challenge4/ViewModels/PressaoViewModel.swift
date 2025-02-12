@@ -21,7 +21,7 @@ class PressaoViewModel: ObservableObject {
     static let MIN_DIASTOLICO = 10
     @Published var pressoes: [PressaoModel] = []
     var modelContext: ModelContext? = nil
-   // @Published var entidadeSalvasPressao: [PressaoEntity] = []
+
     @Published var ordenacaoAscendente: Bool = false {
         didSet {
             fetchPressoes()
@@ -38,7 +38,6 @@ class PressaoViewModel: ObservableObject {
     }
     
     func fetchPressoes() {
-        
         let fetchDescriptor = FetchDescriptor<PressaoModel> ()
         pressoes = (try! (modelContext?.fetch(fetchDescriptor))) ?? []
     }

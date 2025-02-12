@@ -9,33 +9,24 @@
  */
 
 import Foundation
-import CoreData
+import SwiftData
 import UserNotifications
 import PhotosUI
 
 class RemedioViewModel: ObservableObject {
     private let conteudo = PersistenceController.persistencia.container.viewContext
-    @Published var entidadeSalvasRemedio: [RemedioEntity] = []
-    
+    @Published var remedios: [RemediosModel] = []
+    var modelContext: ModelContext? = nil
+
+
     func fetchRemedios() {
-        let request = NSFetchRequest<RemedioEntity>(entityName: "RemedioEntity")
-        
-        do {
-            entidadeSalvasRemedio = try conteudo.fetch(request)
-        } catch let error {
-            print("Error fetching. \(error)")
-        }
+            let fetchDescriptor = FetchDescriptor<RemediosModel> ()
+            remedios = (try! (modelContext?.fetch(fetchDescriptor))) ?? []
     }
     
     func addRemedio(remedioNome: String, dosagem: String, horario: String, imagem: Data, notifyOn: Bool) {
-        let newRemedio = RemedioEntity(context: conteudo)
-        
-        newRemedio.nomeRemedio = remedioNome
-        newRemedio.dosagem = dosagem
-        newRemedio.horario = horario
-        newRemedio.imagem = imagem
-        newRemedio.notifyOn = notifyOn
-        
+        let newRemedio = RemediosModel(nomeRemedio: remedioNome, dosagem: dosagem, horario: horario, notifyOn: notifyOn, imagem: imagem)
+        modelContext?.insert(newRemedio)
         saveRemedios()
         
         if(notifyOn) {
@@ -43,64 +34,56 @@ class RemedioViewModel: ObservableObject {
         }
     }
     
-    func updateRemedio(remedioNome: String, dosagem: String, horario: String, imagem: Data, entidade: RemedioEntity, notifyOn: Bool) {
-        entidade.nomeRemedio = remedioNome
-        entidade.dosagem = dosagem
-        entidade.horario = horario
-        entidade.imagem = imagem
-        entidade.notifyOn = notifyOn
+    func updateRemedio(remedioNome: String, dosagem: String, horario: String, imagem: Data, remedio: RemediosModel, notifyOn: Bool) {
+        remedio.nomeRemedio = remedioNome
+        remedio.dosagem = dosagem
+        remedio.horario = horario
+        remedio.imagem = imagem
+        remedio.notifyOn = notifyOn
         saveRemedios()
         
         if (notifyOn) {
-            scheduleNotification(for: entidade)
+            scheduleNotification(for: remedio)
         } else {
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [entidade.objectID.uriRepresentation().absoluteString])
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [remedio.id.uriRepresentation().absoluteString])
             print("bye bye not not")
         }
     }
     
     func saveRemedios() {
         do {
-            try conteudo.save()
-            print("salvo")
+            try modelContext?.save()
             fetchRemedios()
         } catch let error {
             print("Error saving. \(error)")
         }
     }
     
-    func deleteRemedios(indexSet: IndexSet) {
+    func deleteRemedio(entidade: RemediosModel) {
         guard let index = indexSet.first else { return }
-        let entity = entidadeSalvasRemedio[index]
+        let remedioModel = remedios[index]
         
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [entity.objectID.uriRepresentation().absoluteString])
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [remedioModel.objectID.uriRepresentation().absoluteString])
         
-        conteudo.delete(entity)
+        modelContext?.delete(remedioModel)
         saveRemedios()
     }
     
-    func deleteRemedio(entidade: RemedioEntity) {
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [entidade.objectID.uriRepresentation().absoluteString])
-        
-        conteudo.delete(entidade)
-        saveRemedios()
-    }
-    
-    func scheduleNotification(for remedio: RemedioEntity) {
+    func scheduleNotification(for remedio: RemediosModel) {
         let content = UNMutableNotificationContent()
         content.title = "Hora do Remédio 💊"
-        content.body = "Está na hora de tomar \(remedio.nomeRemedio ?? "seu remédio")!"
+        content.body = "Está na hora de tomar \(remedio.nomeRemedio)!"
         content.sound = .default
         
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm"
         
-        if let remedioHorario = timeFormatter.date(from: remedio.horario ?? ""),
+        if let remedioHorario = timeFormatter.date(from: remedio.horario),
            let calendarComponents = Calendar.current.dateComponents([.hour, .minute], from: remedioHorario) as DateComponents? {
             
             let trigger = UNCalendarNotificationTrigger(dateMatching: calendarComponents, repeats: true)
             
-            let request = UNNotificationRequest(identifier: remedio.objectID.uriRepresentation().absoluteString, content: content, trigger: trigger)
+            let request = UNNotificationRequest(identifier: remedio.id.uriRepresentation().absoluteString, content: content, trigger: trigger)
             
             UNUserNotificationCenter.current().add(request) { error in
                 if let error = error {
