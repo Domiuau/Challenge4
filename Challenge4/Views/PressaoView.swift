@@ -60,6 +60,7 @@ struct PressaoView: View {
                 }
                 
                 Text("Histórico")
+                    .padding(.horizontal)
                     .font(.title2)
                     .fontWeight(.semibold)
                     .frame(maxWidth: .infinity, alignment: .leading)

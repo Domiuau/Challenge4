@@ -22,9 +22,9 @@ struct SobreView: View {
                     .frame(height: 25)
                 
                 Text("""
-            Bem-vindo ao **HearTrack** - o seu aplicativo gratuito para o registro da sua pressão arterial!\n
+            Bem-vindo ao **Heartrack** - o seu aplicativo gratuito para o registro da sua pressão arterial!\n
             Você poderá informar os valores da sua pressão arterial para manter um histórico pessoal, e também adicionar seus medicamentos anti-hipertensivos para receber um lembrete de quando tomá-los.\n
-            Este aplicativo é um registro pessoal, por isso, ressaltamos que o HearTrack não deve ser utilizado como laudo médico ou diagnóstico de doenças cardíacas. É de responsabilidade do usuário a correta utilização da plataforma.\n
+            Este aplicativo é um registro pessoal, por isso, ressaltamos que o Heartrack não deve ser utilizado como laudo médico ou diagnóstico de doenças cardíacas. É de responsabilidade do usuário a correta utilização da plataforma.\n
             Todos os dados informados não serão compartilhados e são de inteira responsabilidade dos próprios usuários. \n
             Todos os direitos deste aplicativo são de propriedade intelectual da equipe que o produziu. É permitido utilizar os elementos visuais do aplicativo contanto que seus autores sejam devidamente creditados.
             """)
@@ -36,7 +36,7 @@ struct SobreView: View {
                     .font(.headline)
                     .bold()
                 
-                Text("HearTrack foi desenvolvido por uma equipe dedicada, que teve como objetivo ajudar os nossos usuários a cuidar da saúde do seu coração.")
+                Text("Heartrack foi desenvolvido por uma equipe dedicada, que teve como objetivo ajudar os nossos usuários a cuidar da saúde do seu coração.")
                 
                 Spacer()
                     .frame(height: 25)
@@ -59,7 +59,7 @@ struct SobreView: View {
                     .frame(height: 50)
                 
                Text("""
-                    HearTrack © 2025 by Equipe HearTrack is licensed under CC BY-NC-SA 4.0
+                    Heartrack © 2025 by Equipe Heartrack is licensed under CC BY-NC-SA 4.0
                     \(Image("cc")) \(Image("homenzinho")) \(Image("dinheiro nao")) \(Image("c ao contrario"))
                     """)
             }
