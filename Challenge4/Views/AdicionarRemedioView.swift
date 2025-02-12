@@ -21,7 +21,10 @@ struct AdicionarRemedioView: View {
     @State var photoPicker: PhotosPickerItem?
     @State var nomeRemedio: String = ""
     @State var dosagem: String = ""
+    @State var valorDosagem: String = ""
     @State var horario = Date()
+    @State private var tipoDosagemSelected = "Comprimido(s)"
+    let tiposDosagem = ["Comprimido(s)", "Capsula(s)", "Gotas"]
     
     @State private var feedback1 = true
     @State private var feedback2 = true
@@ -95,22 +98,33 @@ struct AdicionarRemedioView: View {
                         .bold()
                         .padding(.leading)
                     VStack(alignment: .leading) {
-                        TextField("Dosagem", text: $dosagem)
-                            .font(.title3)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 30)
-                                    .frame(height: 2)
-                                    .opacity(0.44)
-                                    .foregroundColor(.gray), alignment: .bottom
-                            )
-                            .font(.title)
-                            .onChange(of: dosagem) { oldValue, newValue in
-                                if !newValue.isEmpty {
-                                    feedback2 = false
-                                } else {
-                                    feedback2 = true
+                        HStack {
+                            TextField("Dosagem", text: $valorDosagem)
+                                .keyboardType(.numberPad)
+                                .font(.title3)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .frame(height: 2)
+                                        .opacity(0.44)
+                                        .foregroundColor(.gray), alignment: .bottom
+                                )
+                                .font(.title)
+                                .onChange(of: valorDosagem) { oldValue, newValue in
+                                    if !newValue.isEmpty {
+                                        feedback2 = false
+                                    } else {
+                                        feedback2 = true
+                                    }
+                                }
+                                .frame(width: 100)
+                            
+                            Picker ("Tipo", selection: $tipoDosagemSelected){
+                                ForEach(tiposDosagem, id: \.self) { tipo in
+                                    Text(tipo).tag(tipo)
                                 }
                             }
+                            .pickerStyle(DefaultPickerStyle())
+                        }
                         
                         if feedback2 {
                             Text("Este campo é obrigatório")
@@ -138,7 +152,7 @@ struct AdicionarRemedioView: View {
                 BotaoAcaoComponent(texto: "Cadastrar", action: {
                     
                     guard !nomeRemedio.isEmpty else { return }
-                    guard !dosagem.isEmpty else { return }
+                    guard !valorDosagem.isEmpty else { return }
                     guard let imagem = imagem else { return }
                     
                     let dateFormatter = DateFormatter()
@@ -149,20 +163,20 @@ struct AdicionarRemedioView: View {
                         return
                     }
                     
-                    vm.addRemedio(remedioNome: nomeRemedio, dosagem: dosagem, horario: dateFormatter.string(from: horario), imagem: imageData, notifyOn: notifyOn)
+                    vm.addRemedio(remedioNome: nomeRemedio, dosagem: valorDosagem + " " + tipoDosagemSelected, horario: dateFormatter.string(from: horario), imagem: imageData, notifyOn: notifyOn)
                     
                     showAlert.toggle()
-                }, desabilitado: ((nomeRemedio.isEmpty) || (dosagem.isEmpty) || (imagem == nil)))
+                }, desabilitado: ((nomeRemedio.isEmpty) || (valorDosagem.isEmpty) || (imagem == nil)))
                 .alert(isPresented: $showAlert) {
                     Alert(
                         title: Text("Remédio cadastrado!"),
                         message: Text("O remédio \(nomeRemedio) foi cadastrado com sucesso"),
                         dismissButton: .default(Text("OK"),
-                        action: {
-                            nomeRemedio = ""
-                            dosagem = ""
-                            dismiss()
-                        })
+                                                action: {
+                                                    nomeRemedio = ""
+                                                    dosagem = ""
+                                                    dismiss()
+                                                })
                     )
                 }
                 .frame(maxWidth: .infinity)
