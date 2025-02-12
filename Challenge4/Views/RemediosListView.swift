@@ -45,12 +45,22 @@ struct RemediosListView: View {
                             
                         } label: {
                             
-                            ImagemRemedioView(uiImage: entidade.imagem != nil ? UIImage(data: entidade.imagem) : UIImage(named: "remedios"))
+                            if let imagem = entidade.imagem {
+                                ImagemRemedioView(uiImage: UIImage(data: imagem))
+
+                            } else {
+                                Image(systemName: "cross.case.fill")
+                                    .resizable()
+                                    .padding(8)
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(maxWidth: 100, alignment: .center)
+
+                            }
                              
                             
                             VStack (alignment: .leading) {
                                 HStack {
-                                    Text("**\(entidade.nomeRemedio ?? "SEM NOME")**")
+                                    Text("**\(entidade.nomeRemedio)**")
                                         .font(.system(size: 22))
                                         .padding(.bottom, 10)
                                     
@@ -59,13 +69,13 @@ struct RemediosListView: View {
                                 }
                                 HStack {
                                     Image(systemName: "pills.fill")
-                                    Text("Dosagem: **\(entidade.dosagem ?? "SEM DOSAGEM")**")
+                                    Text("Dosagem: **\(entidade.dosagem)**")
                                         .font(.callout)
                                 }
                                 
                                 HStack {
                                     Image(systemName: "timer")
-                                    Text("Horário: **\(entidade.horario ?? "SEM HORARIO")**")
+                                    Text("Horário: **\(entidade.horario)**")
                                         .font(.callout)
                                 }
                                 HStack{

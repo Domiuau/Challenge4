@@ -29,7 +29,7 @@ struct EditarRemedioView: View {
     private let antigoNome: String
     private let antigaDosagem: String
     private let antigoHorario: String
-    private let antigaImagem: Data
+    private let antigaImagem: Data?
     private let antigoNotifyOn: Bool
     @State private var notifyOn: Bool
     private let dateFormatterHora = DateFormatter()
@@ -40,16 +40,24 @@ struct EditarRemedioView: View {
         self.entidade = entidade
         self.vm = vm
         
-        if let imagemData = UIImage(data: entidade.imagem) {
-            _entidadeImagem = State(initialValue: imagemData)
+        if let data = entidade.imagem {
+            
+            antigaImagem = data
+            
+            if let imagemData = UIImage(data: data) {
+                _entidadeImagem = State(initialValue: imagemData)
+            } else {
+                _entidadeImagem = State(initialValue: UIImage(named: "remedios"))
+            }
         } else {
-            _entidadeImagem = State(initialValue: UIImage(named: "remedios"))
+            antigaImagem = nil
         }
+        
+        
         
         antigoNome = entidade.nomeRemedio
         antigaDosagem = entidade.dosagem
         antigoHorario = entidade.horario
-        antigaImagem = entidade.imagem
         _notifyOn = State(initialValue: entidade.notifyOn)
         
         _novoNome = State(initialValue: entidade.nomeRemedio)
@@ -76,9 +84,9 @@ struct EditarRemedioView: View {
                                     .frame(width: 100, height: 100)
                                     .clipShape(.rect(cornerRadius: 10))
                                 
-                            } else if let entidadeImagem = UIImage(data: entidade.imagem) {
+                            } else if let entidadeImagem = antigaImagem {
                                 ZStack {
-                                    Image(uiImage: entidadeImagem.resized(to: 300)!)
+                                    Image(uiImage: UIImage(data: entidadeImagem)!)
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
                                         .frame(width: 100, height: 100)
@@ -97,11 +105,20 @@ struct EditarRemedioView: View {
                                 }
                             } else {
                                 
-                                Image(systemName: "photo.on.rectangle.angled")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 100, height: 100)
-                                    .clipShape(.rect(cornerRadius: 10))
+                                ZStack {
+                                    Rectangle()
+                                        .frame(width: 100, height: 100)
+                                        .clipShape(.rect(cornerRadius: 10))
+                                        .foregroundColor(.cinzaClaro)
+                                    
+                                    Image(systemName: "photo.on.rectangle.angled")
+                                        .font(.system(size: 35))
+                                        .foregroundColor(Color.preto)
+                                        .opacity(0.5)
+                                    
+                                    
+                                }
+                                .frame(width: 100, height: 100)
                                 
                             }
                         }

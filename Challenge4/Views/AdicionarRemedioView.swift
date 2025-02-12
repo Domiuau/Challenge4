@@ -49,7 +49,7 @@ struct AdicionarRemedioView: View {
                                         .clipShape(.rect(cornerRadius: 10))
                                         .foregroundColor(.cinzaClaro)
                                     
-                                    Image(systemName: "photo.badge.plus")
+                                    Image(systemName: "photo.on.rectangle.angled")
                                         .font(.system(size: 35))
                                         .foregroundColor(Color.preto)
                                         .opacity(0.5)
@@ -139,30 +139,39 @@ struct AdicionarRemedioView: View {
                     
                     guard !nomeRemedio.isEmpty else { return }
                     guard !dosagem.isEmpty else { return }
-                    guard let imagem = imagem else { return }
                     
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "HH:mm"
+                    let imageDataConfirmada: Data?
                     
-                    guard let imageData = imagem.pngData() else {
-                        print("Erro ao converter imagem para Data")
-                        return
+                    if let imagem = imagem {
+                        guard let imageData = imagem.pngData() else {
+                            print("Erro ao converter imagem para Data")
+                            return
+                        }
+                        
+                        imageDataConfirmada = imageData
+                        
+                    } else {
+                        imageDataConfirmada = nil
                     }
                     
-                    vm.addRemedio(remedioNome: nomeRemedio, dosagem: dosagem, horario: dateFormatter.string(from: horario), imagem: imageData, notifyOn: notifyOn)
+                    
+                    
+                    vm.addRemedio(remedioNome: nomeRemedio, dosagem: dosagem, horario: dateFormatter.string(from: horario), imagem: imageDataConfirmada, notifyOn: notifyOn)
                     
                     showAlert.toggle()
-                }, desabilitado: ((nomeRemedio.isEmpty) || (dosagem.isEmpty) || (imagem == nil)))
+                }, desabilitado: ((nomeRemedio.isEmpty) || (dosagem.isEmpty)))
                 .alert(isPresented: $showAlert) {
                     Alert(
                         title: Text("Remédio cadastrado!"),
                         message: Text("O remédio \(nomeRemedio) foi cadastrado com sucesso"),
                         dismissButton: .default(Text("OK"),
-                        action: {
-                            nomeRemedio = ""
-                            dosagem = ""
-                            dismiss()
-                        })
+                                                action: {
+                                                    nomeRemedio = ""
+                                                    dosagem = ""
+                                                    dismiss()
+                                                })
                     )
                 }
                 .frame(maxWidth: .infinity)
