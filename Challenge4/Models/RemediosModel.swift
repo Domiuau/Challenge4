@@ -15,9 +15,9 @@ class RemediosModel {
     var dosagem: String
     var horario: String
     var notifyOn: Bool
-    var imagem: Data
+    var imagem: Data?
     
-    init(nomeRemedio: String, dosagem: String, horario: String, notifyOn: Bool, imagem: Data) {
+    init(nomeRemedio: String, dosagem: String, horario: String, notifyOn: Bool, imagem: Data?) {
         self.nomeRemedio = nomeRemedio
         self.dosagem = dosagem
         self.horario = horario

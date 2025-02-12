@@ -27,7 +27,7 @@ class RemedioViewModel: ObservableObject {
         }
     }
     
-    func addRemedio(remedioNome: String, dosagem: String, horario: String, imagem: Data, notifyOn: Bool) {
+    func addRemedio(remedioNome: String, dosagem: String, horario: String, imagem: Data?, notifyOn: Bool) {
         let newRemedio = RemediosModel(nomeRemedio: remedioNome, dosagem: dosagem, horario: horario, notifyOn: notifyOn, imagem: imagem)
         modelContextRemedios?.insert(newRemedio)
         saveRemedios()
