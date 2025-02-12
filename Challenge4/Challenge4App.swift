@@ -21,8 +21,7 @@ struct Challenge4App: App {
         WindowGroup {
             SplashScreenView()
         }
-        .modelContainer(for: PressaoModel.self)
-        .modelContainer(for: RemediosModel.self)
+        .modelContainer(for: [PressaoModel.self, RemediosModel.self])
     }
 }
 
