@@ -15,7 +15,7 @@ struct EditarRemedioView: View {
     
     @Environment(\.dismiss) var dismiss
     
-    let entidade: RemedioEntity
+    let entidade: RemediosModel
     @ObservedObject var vm: RemedioViewModel
     
     @State var novoNome: String
@@ -36,29 +36,29 @@ struct EditarRemedioView: View {
 
     @State private var showAlert = false
     
-    init(entidade: RemedioEntity, vm: RemedioViewModel) {
+    init(entidade: RemediosModel, vm: RemedioViewModel) {
         self.entidade = entidade
         self.vm = vm
         
-        if let imagemData = entidade.imagem, let imagem = UIImage(data: imagemData) {
-            _entidadeImagem = State(initialValue: imagem)
+        if let imagemData = UIImage(data: entidade.imagem) {
+            _entidadeImagem = State(initialValue: imagemData)
         } else {
             _entidadeImagem = State(initialValue: UIImage(named: "remedios"))
         }
         
-        antigoNome = entidade.nomeRemedio ?? "remédio"
-        antigaDosagem = entidade.dosagem ?? "-"
-        antigoHorario = entidade.horario ?? "0"
-        antigaImagem = entidade.imagem!
+        antigoNome = entidade.nomeRemedio
+        antigaDosagem = entidade.dosagem
+        antigoHorario = entidade.horario
+        antigaImagem = entidade.imagem
         _notifyOn = State(initialValue: entidade.notifyOn)
         
-        _novoNome = State(initialValue: entidade.nomeRemedio ?? "asd")
-        _novaDosagem = State(initialValue: entidade.dosagem ?? "")
+        _novoNome = State(initialValue: entidade.nomeRemedio)
+        _novaDosagem = State(initialValue: entidade.dosagem)
         
         
         dateFormatterHora.dateFormat = "HH:mm"
         
-        _novoHorario = State(initialValue: dateFormatterHora.date(from: entidade.horario!) ?? Date())
+        _novoHorario = State(initialValue: dateFormatterHora.date(from: entidade.horario) ?? Date())
         antigoNotifyOn = entidade.notifyOn
     }
     
@@ -76,9 +76,9 @@ struct EditarRemedioView: View {
                                     .frame(width: 100, height: 100)
                                     .clipShape(.rect(cornerRadius: 10))
                                 
-                            } else if let entidadeImagem = entidade.imagem, let imagemAntiga = UIImage(data: entidadeImagem) {
+                            } else if let entidadeImagem = UIImage(data: entidade.imagem) {
                                 ZStack {
-                                    Image(uiImage: imagemAntiga.resized(to: 300)!)
+                                    Image(uiImage: entidadeImagem.resized(to: 300)!)
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
                                         .frame(width: 100, height: 100)
@@ -178,7 +178,7 @@ struct EditarRemedioView: View {
                         return
                     }
                     
-                    vm.updateRemedio(remedioNome: novoNome, dosagem: novaDosagem, horario: dateFormatterHora.string(from: novoHorario), imagem: imageData, entidade: entidade, notifyOn: notifyOn)
+                    vm.updateRemedio(remedioNome: novoNome, dosagem: novaDosagem, horario: dateFormatterHora.string(from: novoHorario), imagem: imageData, remedio: entidade, notifyOn: notifyOn)
                     
                     showAlert.toggle()
                     

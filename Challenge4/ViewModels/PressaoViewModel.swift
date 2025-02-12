@@ -21,7 +21,7 @@ class PressaoViewModel: ObservableObject {
     static let MIN_DIASTOLICO = 10
     @Published var pressoes: [PressaoModel] = []
     var modelContext: ModelContext? = nil
-   // @Published var entidadeSalvasPressao: [PressaoEntity] = []
+
     @Published var ordenacaoAscendente: Bool = false {
         didSet {
             fetchPressoes()
@@ -34,10 +34,11 @@ class PressaoViewModel: ObservableObject {
         let pressaoModel = pressoes[index]
         modelContext?.delete(pressaoModel)
         saveData()
+        print("deletou a pressao")
+        
     }
     
     func fetchPressoes() {
-        
         let fetchDescriptor = FetchDescriptor<PressaoModel> ()
         pressoes = (try! (modelContext?.fetch(fetchDescriptor))) ?? []
     }
