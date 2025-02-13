@@ -23,7 +23,7 @@ struct AdicionarRemedioView: View {
     @State var valorDosagem: String = ""
     @State var horario = Date()
     @State private var tipoDosagemSelected = "Comprimido(s)"
-    let tiposDosagem = ["Comprimido(s)", "Capsula(s)", "Gotas"]
+    let tiposDosagem = ["Comprimido(s)", "Capsula(s)", "Gotas", "Miligramas", "Mililitros"]
     
     @State private var feedback1 = true
     @State private var feedback2 = true
@@ -201,6 +201,7 @@ struct AdicionarRemedioView: View {
             .padding()
             
         }
+        .scrollDismissesKeyboard(.immediately)
         .navigationTitle("Cadastrar Remédio")
         .onChange(of: photoPicker, { _, _ in
             Task {

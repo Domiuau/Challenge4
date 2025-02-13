@@ -35,8 +35,8 @@ struct EditarRemedioView: View {
     private let dateFormatterHora = DateFormatter()
     
     @State private var novoValorDosagem: String = ""
-    @State private var novoTipoDosagem: String = "Comprimido(s)" // Default
-    let tiposDosagem = ["Comprimido(s)", "Capsula(s)", "Gotas"]
+    @State private var novoTipoDosagem: String = "Comprimido(s)" 
+    let tiposDosagem = ["Comprimido(s)", "Capsula(s)", "Gotas", "Miligramas", "Mililitros"]
     
     @State private var showAlert = false
     
@@ -256,5 +256,6 @@ struct EditarRemedioView: View {
                 }
             })
         }
+        .scrollDismissesKeyboard(.immediately)
     }
 }

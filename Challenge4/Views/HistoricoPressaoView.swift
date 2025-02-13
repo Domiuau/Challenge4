@@ -46,7 +46,7 @@ struct HistoricoPressaoView: View {
                     }
                 }
                 .onDelete(perform: { indexSet in
-                    vm.deletePressao(index: indexSet)
+                    vm.deletePressao(index: filtroSelecionado ? indexSet : vm.pressoes.count - 1 - indexSet)
                     if(vm.pressoes.isEmpty) {
                         dismiss()
                     }
