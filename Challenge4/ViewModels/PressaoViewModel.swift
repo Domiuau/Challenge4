@@ -14,7 +14,6 @@ import SwiftUI
 import SwiftData
 
 class PressaoViewModel: ObservableObject {
-    private let conteudo = PersistenceController.persistencia.container.viewContext
     static let MAX_SISTOLICO = 190
     static let MIN_SISTOLICO = 30
     static let MAX_DIASTOLICO = 110
