@@ -50,7 +50,7 @@ struct AdicionarRemedioView: View {
                                     Rectangle()
                                         .frame(width: 100, height: 100)
                                         .clipShape(.rect(cornerRadius: 10))
-                                        .foregroundColor(.cinzaClaro)
+                                        .foregroundColor(.cinzaMaisClaro)
                                     
                                     Image(systemName: "photo.on.rectangle.angled")
                                         .font(.system(size: 35))
@@ -97,9 +97,10 @@ struct AdicionarRemedioView: View {
                         .font(.title2)
                         .bold()
                         .padding(.leading)
+                    
                     VStack(alignment: .leading) {
                         HStack {
-                            TextField("Dosagem", text: $valorDosagem)
+                            TextField("Ex: 2", text: $valorDosagem)
                                 .keyboardType(.numberPad)
                                 .font(.title3)
                                 .overlay(
@@ -116,13 +117,19 @@ struct AdicionarRemedioView: View {
                                         feedback2 = true
                                     }
                                 }
-                                .frame(width: 100)
+                                .frame(width: 70)
                             
                             Picker ("Tipo", selection: $tipoDosagemSelected){
                                 ForEach(tiposDosagem, id: \.self) { tipo in
                                     Text(tipo).tag(tipo)
+                                        .fontWeight(.heavy)
                                 }
                             }
+                            .accentColor(.primary)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .foregroundColor(.cinzaMaisClaro)
+                            )
                             .pickerStyle(DefaultPickerStyle())
                         }
                         

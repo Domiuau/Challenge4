@@ -34,6 +34,10 @@ struct EditarRemedioView: View {
     @State private var notifyOn: Bool
     private let dateFormatterHora = DateFormatter()
     
+    @State private var novoValorDosagem: String = ""
+    @State private var novoTipoDosagem: String = "Comprimido(s)" // Default
+    let tiposDosagem = ["Comprimido(s)", "Capsula(s)", "Gotas"]
+    
     @State private var showAlert = false
     
     init(entidade: RemediosModel, vm: RemedioViewModel) {
@@ -59,6 +63,12 @@ struct EditarRemedioView: View {
         antigaDosagem = entidade.dosagem
         antigoHorario = entidade.horario
         _notifyOn = State(initialValue: entidade.notifyOn)
+        
+        let dosagemPartes = entidade.dosagem.components(separatedBy: " ")
+        if dosagemPartes.count >= 2 {
+            _novoValorDosagem = State(initialValue: dosagemPartes[0])
+            _novoTipoDosagem = State(initialValue: dosagemPartes.dropFirst().joined(separator: " "))
+        }
         
         _novoNome = State(initialValue: entidade.nomeRemedio)
         _novaDosagem = State(initialValue: entidade.dosagem)
@@ -109,7 +119,7 @@ struct EditarRemedioView: View {
                                     Rectangle()
                                         .frame(width: 100, height: 100)
                                         .clipShape(.rect(cornerRadius: 10))
-                                        .foregroundColor(.cinzaClaro)
+                                        .foregroundColor(.cinzaMaisClaro)
                                     
                                     Image(systemName: "photo.on.rectangle.angled")
                                         .font(.system(size: 35))
@@ -152,16 +162,32 @@ struct EditarRemedioView: View {
                         .bold()
                         .padding(.leading)
                     
-                    TextField(entidade.dosagem, text: $novaDosagem)
-                        .font(.title3)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 30)
-                                .frame(height: 2)
-                                .opacity(0.44)
-                                .foregroundColor(.gray), alignment: .bottom
+                    HStack {
+                        TextField("Dosagem", text: $novoValorDosagem)
+                            .keyboardType(.numberPad)
+                            .font(.title3)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 30)
+                                    .frame(height: 2)
+                                    .opacity(0.44)
+                                    .foregroundColor(.gray), alignment: .bottom
+                            )
+                            .frame(width: 100)
+                        
+                        Picker("Tipo", selection: $novoTipoDosagem) {
+                            ForEach(tiposDosagem, id: \.self) { tipo in
+                                Text(tipo).tag(tipo)
+                            }
+                        }
+                        .pickerStyle(DefaultPickerStyle())
+                        .accentColor(.primary)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .foregroundColor(.cinzaMaisClaro)
                         )
-                        .padding()
-                        .font(.title)
+                        .pickerStyle(DefaultPickerStyle())
+                    }
+                    .padding()
                     
                     Text("Horários")
                         .font(.title2)
@@ -195,11 +221,11 @@ struct EditarRemedioView: View {
                         return
                     }
                     
-                    vm.updateRemedio(remedioNome: novoNome, dosagem: novaDosagem, horario: dateFormatterHora.string(from: novoHorario), imagem: imageData, remedio: entidade, notifyOn: notifyOn)
+                    vm.updateRemedio(remedioNome: novoNome, dosagem: novoValorDosagem + " " + novoTipoDosagem, horario: dateFormatterHora.string(from: novoHorario), imagem: imageData, remedio: entidade, notifyOn: notifyOn)
                     
                     showAlert.toggle()
                     
-                }, desabilitado: ((antigoNome == novoNome) && (dateFormatterHora.string(from: novoHorario) == antigoHorario) && (antigaDosagem == novaDosagem) && (!imagemTrocada)) && (antigoNotifyOn == notifyOn))
+                }, desabilitado: ((antigoNome == novoNome) && (dateFormatterHora.string(from: novoHorario) == antigoHorario) && (antigaDosagem == novoValorDosagem + " " + novoTipoDosagem) && (!imagemTrocada)) && (antigoNotifyOn == notifyOn))
                 .alert(isPresented: $showAlert) {
                     Alert(title: Text("Remédio editado!"), message: Text("O remédio foi editado com sucesso"), dismissButton: .default(Text("OK"), action: {
                         novoNome = ""
