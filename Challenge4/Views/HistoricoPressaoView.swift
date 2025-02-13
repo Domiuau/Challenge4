@@ -13,18 +13,19 @@ import SwiftUI
 struct HistoricoPressaoView: View {
     @ObservedObject var vm: PressaoViewModel
     @Environment(\.dismiss) var dismiss
+    @State var filtroSelecionado: Bool = true
     
     var body: some View {
         VStack {
-            Picker("Ordenar por", selection: $vm.ordenacaoAscendente) {
-                Text("Mais recente").tag(false)
-                Text("Mais antigo").tag(true)
+            Picker("Ordenar por", selection: $filtroSelecionado) {
+                Text("Mais recente").tag(true)
+                Text("Mais antigo").tag(false)
             }
             .pickerStyle(SegmentedPickerStyle())
             .padding()
 
             List {
-                ForEach(vm.pressoes, id: \.self) { pressao in
+                ForEach(filtroSelecionado ? vm.pressoes.reversed() : vm.pressoes, id: \.self) { pressao in
                     VStack(alignment: .leading) {
                         Text("\(pressao.sistolica)/\(pressao.diastolica)")
                             .font(.title)

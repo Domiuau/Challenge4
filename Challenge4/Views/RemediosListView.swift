@@ -18,6 +18,7 @@ struct RemediosListView: View {
     var body: some View {
         
         NavigationStack {
+            
             if vm.remedios.isEmpty {
                 
                 VStack {
@@ -35,8 +36,7 @@ struct RemediosListView: View {
                     .font(.title2)
                     .foregroundColor(.cinzaClaro)
                 }
-            }
-            else {
+            } else {
                 List {
                     ForEach(vm.remedios) { entidade in
                         NavigationLink {
@@ -49,16 +49,19 @@ struct RemediosListView: View {
                                 ImagemRemedioView(uiImage: UIImage(data: imagem))
 
                             } else {
-                                Image(systemName: "cross.case")
-                                    .resizable()
-                                    .padding(16)
-                                    .opacity(0.6)
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(maxWidth: 100, alignment: .center)
+                                Image(systemName: "photo.on.rectangle.angled")
+                                    .font(.system(size: 35))
+                                    .frame(width: 100, height: 100)
+                                    .foregroundColor(Color.preto)
+                                    .opacity(0.5)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .frame(width: 100, height: 100)
+                                            .foregroundColor(.cinzaMaisClaro)
+                                    )
 
                             }
                              
-                            
                             VStack (alignment: .leading) {
                                 HStack {
                                     Text("**\(entidade.nomeRemedio)**")
@@ -98,6 +101,7 @@ struct RemediosListView: View {
                 .listStyle(InsetListStyle())
                 .scrollContentBackground(.hidden)
             }
+            
         }
         .onAppear {
             vm.modelContextRemedios = modelContextRemedio

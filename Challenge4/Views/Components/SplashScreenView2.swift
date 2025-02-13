@@ -60,12 +60,6 @@ struct SplashScreenView: View {
                         .rotationEffect(Angle(degrees: 77))
                         .opacity(retanguloVisivel ? 1 : 0)
                       
-                    
-                    
-                    
-                    
-                    
-                    
                     Image("logo")
                         .resizable()
                         .scaledToFit()
@@ -106,7 +100,6 @@ struct SplashScreenView: View {
         }
     }
 }
-
 
 #Preview {
     SplashScreenView()

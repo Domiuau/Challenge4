@@ -156,7 +156,6 @@ struct EditarRemedioView: View {
                     }
                     .padding()
                     
-                    
                     Text("Dosagem")
                         .font(.title2)
                         .bold()

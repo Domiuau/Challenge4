@@ -1,9 +1,12 @@
-//
-//  RemediosModel.swift
-//  HearTrack
-//
-//  Created by GUILHERME MATEUS SOUSA SANTOS on 12/02/25.
-//
+/*
+ By:
+ 
+ Alissa Yoshioka
+ Amanda Rodrigues
+ Guilherme Sousa
+ João V. Teixeira
+ Maria M. Rodrigues
+ */
 
 import Foundation
 import SwiftData

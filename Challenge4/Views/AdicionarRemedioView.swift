@@ -20,7 +20,6 @@ struct AdicionarRemedioView: View {
     @State private var imagem: UIImage?
     @State var photoPicker: PhotosPickerItem?
     @State var nomeRemedio: String = ""
-    //@State var dosagem: String = ""
     @State var valorDosagem: String = ""
     @State var horario = Date()
     @State private var tipoDosagemSelected = "Comprimido(s)"
@@ -32,7 +31,9 @@ struct AdicionarRemedioView: View {
     @State private var notifyOn = false
     
     var body: some View {
+        
         ScrollView {
+            
             VStack(spacing: 20) {
                 VStack (alignment: .leading) {
                     HStack{
@@ -198,6 +199,7 @@ struct AdicionarRemedioView: View {
                 .frame(maxWidth: .infinity)
             }
             .padding()
+            
         }
         .navigationTitle("Cadastrar Remédio")
         .onChange(of: photoPicker, { _, _ in

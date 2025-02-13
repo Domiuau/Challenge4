@@ -14,6 +14,7 @@ struct TextFieldInputPressaoComponent: View {
     let textoPadrao: String
     
     var body: some View {
+        
         TextField(textoPadrao, text: $inputText)
             .keyboardType(.numberPad)
             .font(.system(size: 40))
@@ -26,6 +27,7 @@ struct TextFieldInputPressaoComponent: View {
                     .opacity(0.44)
                     .foregroundColor(.gray), alignment: .bottom
             )
+        
     }
 }
 

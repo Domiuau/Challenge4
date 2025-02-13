@@ -147,9 +147,11 @@ struct PressaoView: View {
     }
     
     func exibirAlert(titulo: String, mensagem: String) {
+        
         tituloAlert = titulo
         mensagemAlert = mensagem
         showAlert.toggle()
+        
     }
     
     struct sheetInformacoesDasPressoes: View {
@@ -157,6 +159,7 @@ struct PressaoView: View {
         @Binding var showSheet: Bool
         
         var body: some View {
+            
             VStack {
                 
                 Button(action: {
@@ -209,8 +212,8 @@ struct PressaoView: View {
                 Spacer()
                 
             }.padding()
+            
         }
-        
     }
 }
 

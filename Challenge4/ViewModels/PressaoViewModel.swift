@@ -23,9 +23,11 @@ class PressaoViewModel: ObservableObject {
     var modelContextPressao: ModelContext? = nil
 
     @Published var ordenacaoAscendente: Bool = false {
+        
         didSet {
             fetchPressoes()
         }
+        
     }
     
     func deletePressao(index: IndexSet) {
@@ -39,12 +41,14 @@ class PressaoViewModel: ObservableObject {
     }
     
     func fetchPressoes() {
+        
         let fetchDescriptor = FetchDescriptor<PressaoModel>()
         do {
             pressoes = (try (modelContextPressao?.fetch(fetchDescriptor))) ?? []
         } catch {
             fatalError(error.localizedDescription)
         }
+        
     }
     
     func addPressao(diastolica: Int, sistolica: Int, data: Date) {
@@ -55,23 +59,22 @@ class PressaoViewModel: ObservableObject {
         saveData()
         
         print("dados salvos")
+        
     }
     
     func saveData() {
         
         do {
-            
             try modelContextPressao?.save()
             fetchPressoes()
-            
         } catch let error {
-            
             print(error)
         }
         
     }
     
     func situacaoPressao(sistolica: Int) -> String {
+        
         switch (sistolica) {
         case (..<99):
             return "Pressão baixa"
@@ -82,21 +85,26 @@ class PressaoViewModel: ObservableObject {
         default:
             return "Valores fora do intervalo esperado"
         }
+        
     }
     
     func corSituacaoPressao(situacao: String) -> Color {
+        
         switch (situacao) {
         case "Pressão baixa": return Color.blue
         case "Pressão normal": return Color.preto
         case "Pressão elevada": return Color.maisUmVinho
         default: return Color.gray
         }
+        
     }
     
     static func formatarData(_ date: Date) -> String {
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy 'às' HH:mm"
         return formatter.string(from: date)
+        
     }
     
     static func dataFormatada(data: Date?) -> String {
@@ -104,6 +112,7 @@ class PressaoViewModel: ObservableObject {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yy "
         return dateFormatter.string(from: data!)
+        
     }
     
     static func dataFormatadaHorario(data: Date?) -> String {
