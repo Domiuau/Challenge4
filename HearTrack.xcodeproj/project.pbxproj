@@ -22,7 +22,6 @@
 		7BE0CA122D4C0760007865A4 /* RemedioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE0CA112D4C0760007865A4 /* RemedioViewModel.swift */; };
 		7BE0CA1A2D4C0AC1007865A4 /* RemediosListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE0CA192D4C0AC1007865A4 /* RemediosListView.swift */; };
 		7BE0CA202D4C15FB007865A4 /* AdicionarRemedioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE0CA1F2D4C15FB007865A4 /* AdicionarRemedioView.swift */; };
-		D402FDA02D4D3EB600A1D88C /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D402FD9F2D4D3EB600A1D88C /* Persistence.swift */; };
 		D402FDA22D4D498000A1D88C /* BotaoAcaoComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D402FDA12D4D498000A1D88C /* BotaoAcaoComponent.swift */; };
 		D48593E62D51457B007BEBA0 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48593E52D51457B007BEBA0 /* NotificationManager.swift */; };
 		D4CC80682D4C0E4D001862F8 /* TabBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CC80672D4C0E4D001862F8 /* TabBarComponent.swift */; };
@@ -48,7 +47,6 @@
 		7BE0CA112D4C0760007865A4 /* RemedioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemedioViewModel.swift; sourceTree = "<group>"; };
 		7BE0CA192D4C0AC1007865A4 /* RemediosListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemediosListView.swift; sourceTree = "<group>"; };
 		7BE0CA1F2D4C15FB007865A4 /* AdicionarRemedioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdicionarRemedioView.swift; sourceTree = "<group>"; };
-		D402FD9F2D4D3EB600A1D88C /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		D402FDA12D4D498000A1D88C /* BotaoAcaoComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotaoAcaoComponent.swift; sourceTree = "<group>"; };
 		D48593E52D51457B007BEBA0 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		D4CC80672D4C0E4D001862F8 /* TabBarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarComponent.swift; sourceTree = "<group>"; };
@@ -91,7 +89,6 @@
 				D4BBEA852D4BFD6B0087C1E4 /* ViewModels */,
 				D4BBEA862D4BFD720087C1E4 /* Views */,
 				79C451A52D4A9D070025CA15 /* Challenge4App.swift */,
-				D402FD9F2D4D3EB600A1D88C /* Persistence.swift */,
 				D48593E52D51457B007BEBA0 /* NotificationManager.swift */,
 				79C451A92D4A9D080025CA15 /* Assets.xcassets */,
 				79C451AB2D4A9D080025CA15 /* Challenge4.entitlements */,
@@ -236,7 +233,6 @@
 				7972032A2D552DE50067C393 /* TextFieldInputPressaoComponent.swift in Sources */,
 				7BE0CA202D4C15FB007865A4 /* AdicionarRemedioView.swift in Sources */,
 				7BE0CA1A2D4C0AC1007865A4 /* RemediosListView.swift in Sources */,
-				D402FDA02D4D3EB600A1D88C /* Persistence.swift in Sources */,
 				D4CC806A2D4C1024001862F8 /* SobreView.swift in Sources */,
 				D402FDA22D4D498000A1D88C /* BotaoAcaoComponent.swift in Sources */,
 				D48593E62D51457B007BEBA0 /* NotificationManager.swift in Sources */,
