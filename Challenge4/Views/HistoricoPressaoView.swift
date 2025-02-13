@@ -14,6 +14,9 @@ struct HistoricoPressaoView: View {
     @ObservedObject var vm: PressaoViewModel
     @Environment(\.dismiss) var dismiss
     @State var filtroSelecionado: Bool = true
+    var pressoesOrdenadas: [PressaoModel] {
+        filtroSelecionado ? vm.pressoes.reversed() : vm.pressoes
+    }
     
     var body: some View {
         VStack {
@@ -25,7 +28,7 @@ struct HistoricoPressaoView: View {
             .padding()
 
             List {
-                ForEach(filtroSelecionado ? vm.pressoes.reversed() : vm.pressoes, id: \.self) { pressao in
+                ForEach(Array(pressoesOrdenadas.enumerated()), id: \.element) { index, pressao in
                     VStack(alignment: .leading) {
                         Text("\(pressao.sistolica)/\(pressao.diastolica)")
                             .font(.title)
@@ -45,13 +48,15 @@ struct HistoricoPressaoView: View {
                         }
                     }
                 }
-                .onDelete(perform: { indexSet in
-                    vm.deletePressao(index: filtroSelecionado ? indexSet : vm.pressoes.count - 1 - indexSet)
-                    if(vm.pressoes.isEmpty) {
+                .onDelete { indexSet in
+                    let originalIndexSet = IndexSet(indexSet.map { filtroSelecionado ? vm.pressoes.count - 1 - $0 : $0 })
+                    vm.deletePressao(index: originalIndexSet)
+                    if vm.pressoes.isEmpty {
                         dismiss()
                     }
-                })
+                }
             }
+
             .listStyle(InsetListStyle())
             .scrollContentBackground(.hidden)
         }
