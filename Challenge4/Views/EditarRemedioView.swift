@@ -57,8 +57,6 @@ struct EditarRemedioView: View {
             antigaImagem = nil
         }
         
-        
-        
         antigoNome = entidade.nomeRemedio
         antigaDosagem = entidade.dosagem
         antigoHorario = entidade.horario

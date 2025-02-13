@@ -9,7 +9,7 @@
  */
 
 import SwiftUI
-//so para dar commit dps deleta
+
 struct PressaoView: View {
     @Environment(\.modelContext) var modelContextPressao
     @State private var sistolica: Int? = nil
