@@ -20,7 +20,7 @@ struct GraficoPressaoComponent: View {
         if !registrosPressoes.isEmpty {
             
             Chart {
-                ForEach(registrosPressoes) { registro in
+                ForEach(registrosPressoes.reversed()) { registro in
                     LineMark(
                         x: .value("", PressaoViewModel.dataFormatada(data: registro.data) + PressaoViewModel.dataFormatadaHorario(data: registro.data)),
                         y: .value("", tipoDePressao == 0 ? registro.sistolica : registro.diastolica)
@@ -58,8 +58,8 @@ struct GraficoPressaoComponent: View {
                     
                     AxisValueLabel(content: {
                         VStack(spacing: -2) {
-                            Text(PressaoViewModel.dataFormatada(data: registrosPressoes[value.index].data)).font(.footnote)
-                            Text(PressaoViewModel.dataFormatadaHorario(data: registrosPressoes[value.index].data))
+                            Text(PressaoViewModel.dataFormatada(data: registrosPressoes[registrosPressoes.count - 1 - value.index].data)).font(.footnote)
+                            Text(PressaoViewModel.dataFormatadaHorario(data: registrosPressoes[registrosPressoes.count - 1 - value.index].data))
                             
                         }.padding(0)
                     })
