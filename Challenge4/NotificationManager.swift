@@ -9,7 +9,6 @@
  */
 
 import Foundation
-
 import UserNotifications
 
 class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
