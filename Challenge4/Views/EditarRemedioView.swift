@@ -179,23 +179,11 @@ struct EditarRemedioView: View {
                 
                 BotaoAcaoComponent(texto: "Salvar", action: {
                     
-                    
-                    guard !novoNome.isEmpty else { return }
-                    guard !novaDosagem.isEmpty else { return }
-                    
-                    let imagemSalvar = novaImagem ?? entidadeImagem
-                    
-                    guard let imagem = imagemSalvar else { return }
-                    
+                    let imagemSalvar: UIImage? = novaImagem ?? entidadeImagem
                     
                     dateFormatterHora.dateFormat = "HH:mm"
                     
-                    guard let imageData = imagem.pngData() else {
-                        print("Erro ao converter imagem para Data")
-                        return
-                    }
-                    
-                    vm.updateRemedio(remedioNome: novoNome, dosagem: novaDosagem, horario: dateFormatterHora.string(from: novoHorario), imagem: imageData, remedio: entidade, notifyOn: notifyOn)
+                    vm.updateRemedio(remedioNome: novoNome, dosagem: novaDosagem, horario: dateFormatterHora.string(from: novoHorario), imagem: imagemSalvar?.pngData() ?? nil, remedio: entidade, notifyOn: notifyOn)
                     
                     showAlert.toggle()
                     

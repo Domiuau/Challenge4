@@ -37,7 +37,7 @@ class RemedioViewModel: ObservableObject {
         }
     }
     
-    func updateRemedio(remedioNome: String, dosagem: String, horario: String, imagem: Data, remedio: RemediosModel, notifyOn: Bool) {
+    func updateRemedio(remedioNome: String, dosagem: String, horario: String, imagem: Data?, remedio: RemediosModel, notifyOn: Bool) {
         remedio.nomeRemedio = remedioNome
         remedio.dosagem = dosagem
         remedio.horario = horario
