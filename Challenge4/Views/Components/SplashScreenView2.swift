@@ -39,7 +39,7 @@ struct SplashScreenView: View {
                         }
                     
                     Rectangle()
-                        .fill(Color.white)
+                        .fill(Color.branco)
                         .frame(width: 20, height: 20)
                         .offset(x: -52.6, y: 53)
                         .rotationEffect(Angle(degrees: 44))
@@ -54,7 +54,7 @@ struct SplashScreenView: View {
                         }
                     
                     Rectangle()
-                        .fill(Color.white)
+                        .fill(Color.branco)
                         .frame(width: 5, height: 5)
                         .offset(x: -20, y: 80)
                         .rotationEffect(Angle(degrees: 77))
