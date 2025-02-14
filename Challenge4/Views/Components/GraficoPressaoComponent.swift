@@ -12,7 +12,9 @@ import SwiftUI
 import Charts
 
 struct GraficoPressaoComponent: View {
+    
     var registrosPressoes: [PressaoModel]
+    
     @Binding var tipoDePressao: Int
     
     var body: some View {
