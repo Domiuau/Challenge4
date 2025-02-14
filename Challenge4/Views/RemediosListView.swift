@@ -14,6 +14,7 @@ struct RemediosListView: View {
     
     @Environment(\.modelContext) var modelContextRemedio
     @StateObject var vm = RemedioViewModel()
+    var remediosOrdenados: [RemediosModel] {vm.remedios.reversed()}
     
     var body: some View {
         
@@ -38,7 +39,7 @@ struct RemediosListView: View {
                 }
             } else {
                 List {
-                    ForEach(vm.remedios) { entidade in
+                    ForEach(Array(remediosOrdenados.enumerated()), id: \.element) { index, entidade in
                         NavigationLink {
                             
                             EditarRemedioView(entidade: entidade, vm: vm)
@@ -94,7 +95,8 @@ struct RemediosListView: View {
                         
                     }
                     .onDelete(perform: { indexSet in
-                        vm.deleteRemedio(index: indexSet)
+                        let originalIndexSet = IndexSet(indexSet.map {vm.remedios.count - 1 - $0})
+                        vm.deleteRemedio(index: originalIndexSet)
                         
                     } )
                 }
