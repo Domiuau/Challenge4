@@ -7,7 +7,7 @@
 - #### Na tela inicial do aplicativo, uma linha do tempo com as pressões registradas é exibida, podendo ordenar por pressão sistólica ou diastólica
 
      <img width="30%" src="https://github.com/Domiuau/Challenge4/blob/main/Assets/home.png"/>
-  
+   
 - #### Também é possivel visualizar todos os registros, em formato de lista
 
      <img width="30%" src="https://github.com/Domiuau/Challenge4/blob/main/Assets/lista.png"/>
