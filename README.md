@@ -39,4 +39,7 @@ git clone https://github.com/Domiuau/Challenge4
 
 # Autor
 
-Guilherme Mateus Sousa Santos
+- [Amanda Rodrigues](https://github.com/amanjonson22)
+- [Guilherme Mateus Sousa Santos](https://github.com/Domiuau)
+- [João Victor](https://github.com/joaovtex)
+- [Maria Mercedes Rodrigues](https://github.com/Maria-Mercedes)
